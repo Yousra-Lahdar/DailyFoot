@@ -1,0 +1,44 @@
+import {Route, Routes} from "react-router";
+import DashboardAgent from "../pages/B-body/DashboardAgent"
+import LayoutWithBarAgent from "../layout/LayoutWithBarAgent"
+import {Navigate} from "react-router";
+import Players from "../pages/B-body/Players";
+import Agenda from "../pages/B-body/Agenda";
+import Statistic from "../pages/B-body/Statistic";
+import Setting from "../pages/B-body/Setting";
+import Pay from "../pages/B-body/Pay";
+import LayoutWithBarPlayer from "../layout/LayoutWithBarPlayer";
+import DashboardPlayer from "../pages/B-body/DashboardPlayer";
+import LayoutWithoutBar from "../layout/LayoutWithoutBar";
+import LoginAgent from "../pages/B-body/LoginAgent";
+import LoginPlayer from "../pages/B-body/LoginPlayer";
+
+
+const Router = () => {
+
+    return (
+        <Routes>
+            <Route path="/" element={<LayoutWithBarAgent/>}>
+                <Route path="/" element={<DashboardAgent />} />
+                <Route path="/players" element={<Players/>}/>
+                <Route path="/agenda" element={<Agenda/>}/>
+                <Route path="/statistic" element={<Statistic/>}/>
+                <Route path="/setting" element={<Setting/>}/>
+                <Route path="/pay" element={<Pay/>}/>
+            </Route>
+            <Route path="/2" element={<LayoutWithBarPlayer/>}>
+                <Route path="/" element={<DashboardPlayer/>}/>
+                <Route path="/agenda" element={<Agenda/>}/>
+                <Route path="/statistic" element={<Statistic/>}/>
+            </Route>
+            <Route path="/3" element={<LayoutWithoutBar/>}>
+                <Route path="/" element={<Navigate to={"/loginAgent"}/>}/>
+                <Route path="/loginAgent" element={<LoginAgent/>}/>
+                <Route path="/loginPlayer" element={<LoginPlayer/>}/>
+            </Route>
+        </Routes>
+
+    );
+};
+
+export default Router;
