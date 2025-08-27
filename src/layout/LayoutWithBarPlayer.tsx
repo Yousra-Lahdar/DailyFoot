@@ -1,9 +1,11 @@
+import {Outlet} from "react-router";
+
 const LayoutWithBarPlayer = () => {
 
     return (
-        <div>
-
-        </div>
+        <>
+            <Outlet/>
+        </>
     );
 };
 
