@@ -11,6 +11,8 @@ import DashboardPlayer from "../pages/B-body/DashboardPlayer";
 import LayoutWithoutBar from "../layout/LayoutWithoutBar";
 import LoginAgent from "../pages/B-body/LoginAgent";
 import LoginPlayer from "../pages/B-body/LoginPlayer";
+import ForgetPass from "../pages/B-body/ForgetPass.tsx";
+import Register from "../pages/B-body/Register.tsx";
 
 
 const Router = () => {
@@ -34,6 +36,8 @@ const Router = () => {
                 <Route path="/3" element={<Navigate to={"/3/loginAgent"}/>}/>
                 <Route path="/3/loginAgent" element={<LoginAgent/>}/>
                 <Route path="/3/loginPlayer" element={<LoginPlayer/>}/>
+                <Route path="/3/forgetPass" element={<ForgetPass/>}/>
+                <Route path="/3/register" element={<Register/>}/>
             </Route>
         </Routes>
 
