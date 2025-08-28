@@ -7,7 +7,7 @@ const players = [
     { id: 3, name: "Alex Saran", img: "/avatar3.png" }
 ];
 
-const PlayersCarousel = () => {
+const PlayersCarouselAgenda = () => {
     return (
         <Card sx={{ mb: 4, p: 2 }}>
             <CardContent>
@@ -51,4 +51,4 @@ const PlayersCarousel = () => {
     );
 };
 
-export default PlayersCarousel;
+export default PlayersCarouselAgenda;

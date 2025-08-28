@@ -1,6 +1,6 @@
 import { Container, Typography, Box } from "@mui/material";
 import AgendaCard from "../../components/AgendaCard.tsx";
-import PlayersCarousel from "../../components/PlayersCarousel.tsx";
+import PlayersCarouselAgenda from "../../components/PlayersCarouselAgenda.tsx";
 import TodoList from "../../components/TodoList.tsx";
 
 
@@ -24,7 +24,7 @@ const DashboardAgent = () => {
                     </Typography>
 
                     <AgendaCard />
-                    <PlayersCarousel />
+                    <PlayersCarouselAgenda />
                 </Box>
 
                 {/* Partie droite */}

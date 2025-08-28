@@ -31,7 +31,7 @@ const Router = () => {
                 <Route path="/2/statistic" element={<Statistic/>}/>
             </Route>
             <Route path="/3" element={<LayoutWithoutBar/>}>
-                <Route path="/3" element={<Navigate to={"/loginAgent"}/>}/>
+                <Route path="/3" element={<Navigate to={"/3/loginAgent"}/>}/>
                 <Route path="/3/loginAgent" element={<LoginAgent/>}/>
                 <Route path="/3/loginPlayer" element={<LoginPlayer/>}/>
             </Route>
