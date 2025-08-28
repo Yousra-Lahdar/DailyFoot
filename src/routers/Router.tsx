@@ -1,6 +1,5 @@
 import {Route, Routes} from "react-router";
 import DashboardAgent from "../pages/B-body/DashboardAgent"
-import LayoutWithBarAgent from "../layout/LayoutWithBarAgent"
 import {Navigate} from "react-router";
 import Players from "../pages/B-body/Players";
 import Agenda from "../pages/B-body/Agenda";
@@ -18,7 +17,7 @@ const Router = () => {
 
     return (
         <Routes>
-            <Route path="/" element={<LayoutWithBarAgent/>}>
+            <Route path="/" element={<DashboardAgent/>}>
                 <Route path="/" element={<DashboardAgent />} />
                 <Route path="/players" element={<Players/>}/>
                 <Route path="/agenda" element={<Agenda/>}/>
@@ -27,14 +26,14 @@ const Router = () => {
                 <Route path="/pay" element={<Pay/>}/>
             </Route>
             <Route path="/2" element={<LayoutWithBarPlayer/>}>
-                <Route path="/" element={<DashboardPlayer/>}/>
-                <Route path="/agenda" element={<Agenda/>}/>
-                <Route path="/statistic" element={<Statistic/>}/>
+                <Route path="/2" element={<DashboardPlayer/>}/>
+                <Route path="/2/agenda" element={<Agenda/>}/>
+                <Route path="/2/statistic" element={<Statistic/>}/>
             </Route>
             <Route path="/3" element={<LayoutWithoutBar/>}>
-                <Route path="/" element={<Navigate to={"/loginAgent"}/>}/>
-                <Route path="/loginAgent" element={<LoginAgent/>}/>
-                <Route path="/loginPlayer" element={<LoginPlayer/>}/>
+                <Route path="/3" element={<Navigate to={"/loginAgent"}/>}/>
+                <Route path="/3/loginAgent" element={<LoginAgent/>}/>
+                <Route path="/3/loginPlayer" element={<LoginPlayer/>}/>
             </Route>
         </Routes>
 
