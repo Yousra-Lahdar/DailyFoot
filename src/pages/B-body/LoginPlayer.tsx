@@ -1,8 +1,11 @@
 import {Box, Button, Container, Typography} from "@mui/material";
 import BtnLogin from "../../components/BtnLogin.tsx";
 import Imput from "../../components/Imput.tsx";
+import {useNavigate} from "react-router";
 
 const LoginPlayer = () => {
+
+    const navigate = useNavigate();
 
     return (
         <Container maxWidth="xl" sx={{ mt: 4 }}>
@@ -76,8 +79,8 @@ const LoginPlayer = () => {
                             style={{ width: 120, borderRadius: 70 }}
                         />
                         <Box sx={{mt:6, display: "flex", alignItems: "center",gap: 4}}>
-                            <BtnLogin label="Agent" type="button" />
-                            <BtnLogin label="Joueur" type="button" />
+                            <BtnLogin label="Agent" type="button" onClick={() => navigate("/3/loginAgent")} />
+                            <BtnLogin label="Joueur" type="button" onClick={() => navigate("/3/loginPlayer")} />
                         </Box>
 
                         <Box sx={{mt:6,display: "flex", alignItems: "center",gap: 4}}>

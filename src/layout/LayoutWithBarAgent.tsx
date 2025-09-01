@@ -1,11 +1,14 @@
 import { Outlet } from "react-router";
+import HeaderAgent from "../pages/A-header/HeaderAgent.tsx";
+import FooterSecond from "../pages/C-footer/FooterSecond.tsx";
 
 const LayoutWithBarAgent = () => {
 
     return (
         <div>
-            <h1>Hello</h1>
+            <HeaderAgent/>
             <Outlet/>
+            <FooterSecond/>
 
         </div>
     );

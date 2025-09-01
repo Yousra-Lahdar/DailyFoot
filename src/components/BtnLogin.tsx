@@ -1,5 +1,6 @@
 import './btnImput.css'
 
+
 type BtnLoginProps = {
     label: string;
     type?: "button" | "submit" | "reset";
