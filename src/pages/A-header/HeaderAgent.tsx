@@ -4,7 +4,8 @@ import { AppBar, Toolbar, Button, Box, IconButton } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import { useTheme } from '@mui/material/styles';
-import logo from '../../assets/logo-daily.webp'; // ton logo PNG
+import logo from '../../assets/logo-daily.webp';
+import { Link } from 'react-router';
 
 const HeaderAgent: React.FC = () => {
   const theme = useTheme();
@@ -14,8 +15,10 @@ const HeaderAgent: React.FC = () => {
       <Toolbar sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         
         <Button
-          variant="contained"
-          sx={{
+        component={Link}
+        to={"/"}
+        variant="contained"
+        sx={{
             backgroundColor: '#FFF8E1',
             color: theme.palette.primary.main,
             borderRadius: '16px',
@@ -32,6 +35,8 @@ const HeaderAgent: React.FC = () => {
 
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <Button
+          component={Link}
+          to="/Agenda"
           variant="outlined"
           sx={{
             borderColor: theme.palette.primary.main,
@@ -40,13 +45,20 @@ const HeaderAgent: React.FC = () => {
             px: 5,
             height: 60,
             paddingRight: 30,
-            fontSize: 17
+            fontSize: 17,
+            "&:hover": {
+                    backgroundColor: 'orange',
+                    color: 'white',
+                    transition: "all 0.5s ease"
+                  } 
           }}
           >
               Mon Agenda
               </Button>
               
               <Box
+              component={Link}
+              to={"/"}
               sx={{
                 width: 140,
                 height: 140,
@@ -60,7 +72,13 @@ const HeaderAgent: React.FC = () => {
                 marginRight: '-3px',
                 backgroundColor: theme.palette.background.paper,
                 borderRight: 0,
-                borderLeft: 0
+                borderLeft: 0,
+                "&:hover": {
+                  backgroundColor: 'orange',
+                  color: 'white',
+                  transition: "all 0.5s ease"
+                  }
+                
               }}
               >
                 
@@ -68,11 +86,18 @@ const HeaderAgent: React.FC = () => {
                 component="img"
                 src={logo}
                 alt="Logo"
-                sx={{ height: 100, width: 100 }}
+                sx={{ 
+                  
+                  height: 100, 
+                  width: 100,
+                  
+                }}
                 />
                 </Box>
                 
                 <Button
+                component={Link}
+                to="/players"
                 variant="outlined"
                 sx={{
                   borderColor: theme.palette.primary.main,
@@ -81,14 +106,22 @@ const HeaderAgent: React.FC = () => {
                   px: 5,
                   height: 60,
                   paddingLeft: 30,
-                  fontSize: 17
+                  fontSize: 17,
+                  "&:hover": {
+                    backgroundColor: 'orange',
+                    color: 'white',
+                    transition: "all 0.5s ease"
+                  } 
                 }}
                 >
                   Joueurs
                   </Button>
                   </Box>
                   
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 5, marginRight: 5 }}>
+                  <Box 
+                  component={Link}
+                  to={"/setting"}
+                  sx={{ display: 'flex', alignItems: 'center', gap: 5, marginRight: 5 }}>
                     <IconButton
                     sx={{
                       backgroundColor: '#',
