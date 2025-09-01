@@ -11,13 +11,14 @@ import DashboardPlayer from "../pages/B-body/DashboardPlayer";
 import LayoutWithoutBar from "../layout/LayoutWithoutBar";
 import LoginAgent from "../pages/B-body/LoginAgent";
 import LoginPlayer from "../pages/B-body/LoginPlayer";
+import LayoutWithBarAgent from "../layout/LayoutWithBarAgent";
 
 
 const Router = () => {
 
     return (
         <Routes>
-            <Route path="/" element={<DashboardAgent/>}>
+            <Route path="/" element={<LayoutWithBarAgent/>}>
                 <Route path="/" element={<DashboardAgent />} />
                 <Route path="/players" element={<Players/>}/>
                 <Route path="/agenda" element={<Agenda/>}/>

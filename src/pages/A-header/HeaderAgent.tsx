@@ -1,4 +1,3 @@
-// src/components/HeaderAgent.tsx
 import React from 'react';
 import { AppBar, Toolbar, Button, Box, IconButton } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -36,7 +35,7 @@ const HeaderAgent: React.FC = () => {
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <Button
           component={Link}
-          to="/Agenda"
+          to="/agenda"
           variant="outlined"
           sx={{
             borderColor: theme.palette.primary.main,
