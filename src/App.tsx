@@ -6,12 +6,10 @@ import theme from './Theme.tsx';
 
   const App: React.FC = () => {
     return (
-    <>
+      <>
     <ThemeProvider theme={theme}>
-      
       <CssBaseline /> 
       <Router/>
-
     </ThemeProvider>
     </>
   )

@@ -12,12 +12,12 @@ const palette: PaletteOptions = {
   },*/
   background: {
     default: '#FFFFFF', 
-    paper: '#D9D9D9',   
+    paper: '#D9D9D9',  
   },
   text: {
     primary: '#000000', 
     secondary: '#666666', 
-  },
+  }
 };
 
 const theme = createTheme({
