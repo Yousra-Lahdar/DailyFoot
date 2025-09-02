@@ -12,6 +12,9 @@ import LayoutWithoutBar from "../layout/LayoutWithoutBar";
 import LoginAgent from "../pages/B-body/LoginAgent";
 import LoginPlayer from "../pages/B-body/LoginPlayer";
 import LayoutWithBarAgent from "../layout/LayoutWithBarAgent";
+import ForgetPass from "../pages/B-body/ForgetPass";
+import Register from "../pages/B-body/Register";
+import ContactUs from "../pages/B-body/ContactUs";
 
 
 const Router = () => {
@@ -35,6 +38,9 @@ const Router = () => {
                 <Route path="/3" element={<Navigate to={"/loginAgent"}/>}/>
                 <Route path="/3/loginAgent" element={<LoginAgent/>}/>
                 <Route path="/3/loginPlayer" element={<LoginPlayer/>}/>
+                <Route path="/3/forgetPass" element={<ForgetPass/>}/>
+                <Route path="/3/register" element={<Register/>}/>
+                <Route path="/3/contactUs" element={<ContactUs/>}/>
             </Route>
         </Routes>
 

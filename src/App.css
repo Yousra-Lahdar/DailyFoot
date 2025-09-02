@@ -3,6 +3,8 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  display: flex;
+  flex-direction: column;
 }
 
 .logo {
@@ -41,3 +43,7 @@
   color: #888;
 }
 
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}

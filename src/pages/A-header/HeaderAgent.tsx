@@ -11,7 +11,7 @@ const HeaderAgent: React.FC = () => {
 
   return (
     <AppBar position="static" sx={{ backgroundColor: theme.palette.background.paper, boxShadow: 'none' }}>
-      <Toolbar sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <Toolbar sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: "150px"}}>
         
         <Button
         component={Link}
@@ -131,6 +131,8 @@ const HeaderAgent: React.FC = () => {
                       </IconButton>
                       
                       <IconButton
+                      component={Link}
+                      to={"/logout"}
                       sx={{
                         backgroundColor: '#FFFFFF',
                         borderRadius: '50%',
