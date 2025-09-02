@@ -3,7 +3,7 @@ import SplitText from "../../components/compoTheDashboard/SplitText.tsx";
 import {Button} from "@mui/material";
 import {useNavigate} from "react-router";
 
-const TheDarshboard = () => {
+const TheDashboard = () => {
     const handleAnimationComplete = () => {
         console.log('All letters have animated!');
     };
@@ -27,7 +27,7 @@ const TheDarshboard = () => {
             />
 
             <SplitText
-                text=" Vos talent , Votre reusite, Notre outil"
+                text=" Vos talents, Votre réussite, Notre outil"
                 className="text-2xl font-semibold text-center"
                 delay={100}
                 duration={0.6}
@@ -41,11 +41,11 @@ const TheDarshboard = () => {
                 textAlign="center"
                 onLetterAnimationComplete={handleAnimationComplete}
             />
-            <Button type="submit" onClick={() => navigate("/3/LoginAgent")} style={{color:"#f69a03"}} >Page de connection</Button>
+            <Button type="submit" onClick={() => navigate("/3/Login")} style={{color:"#f69a03"}} >Page de connexion</Button>
 
         </div>
 
     );
 };
 
-export default TheDarshboard;
+export default TheDashboard;

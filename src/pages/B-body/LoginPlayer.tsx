@@ -2,11 +2,27 @@ import {Box, Button, Container, Typography} from "@mui/material";
 import BtnLogin from "../../components/compoLogin/BtnLogin.tsx";
 import Imput from "../../components/compoLogin/Imput.tsx";
 import {useNavigate} from "react-router";
+import axios from "axios";
+import {useState} from "react";
+import {BASE_API_URL} from "../../../constants.ts";
 
 const LoginPlayer = () => {
 
     const navigate = useNavigate();
-
+    const [codeAccess, setCodeAccess] = useState("");
+    const handleCodeAccess = async () => {
+    try {
+        const response =await axios.post(BASE_API_URL + "/auth/loginPlayer",
+            {codeAccess: codeAccess});
+        const token = response.data.token;
+        localStorage.setItem("token", token);
+        navigate("/2");
+    }
+    catch (error:any) {
+        console.log(error.response?.data || error.message);
+        alert("Le code d'accès est incorrect");
+    }
+    }
     return (
         <Container maxWidth="xl" sx={{ mt: 4 }}>
             <Box
@@ -84,10 +100,10 @@ const LoginPlayer = () => {
                         </Box>
 
                         <Box sx={{mt:6,display: "flex", alignItems: "center",gap: 4}}>
-                            <Imput label="Code d'acces" name="username"  type="password" />
+                            <Imput label="Code d'accès" name="password"  type="password" value={codeAccess} onChange={(e) => setCodeAccess(e.target.value)} />
                         </Box>
                         <Box sx={{mt:10, display: "flex", alignItems: "center",gap: 4}}>
-                            <BtnLogin label="Valider" type="button"  onClick={() => navigate("/2")} />
+                            <BtnLogin label="Valider" type="button"  onClick={handleCodeAccess} />
                         </Box>
                         <Box sx={{mt:6, display: "flex", alignItems: "center",gap: 4}}>
                             <Button type="submit" onClick={() => navigate("/3/forgetPass")} style={{color:"#f69a03"}} >Mot de passe oubliée</Button>

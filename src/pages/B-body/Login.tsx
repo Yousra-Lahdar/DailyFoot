@@ -2,11 +2,31 @@ import {Box, Button, Container, Typography} from "@mui/material";
 import Imput from "../../components/compoLogin/Imput.tsx";
 import BtnLogin from "../../components/compoLogin/BtnLogin.tsx";
 import {useNavigate} from "react-router";
+import axios from "axios";
+import {useState} from "react";
+import {BASE_API_URL} from "../../../constants.ts";
 
 
 const Login = () => {
 
     const navigate = useNavigate();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const handleLogin = async () => {
+        try {
+            const response = await axios.post(BASE_API_URL + "/auth/login", {
+                email,
+                password
+            });
+            const token = response.data.token;
+            localStorage.setItem("token", token);
+            navigate("/1");
+        }
+        catch (error: any) {
+            console.log(error.response?.data || error.message);
+            alert("Email ou mot de passe incorrect");
+        }
+    };
 
     return (
         <Container maxWidth="xl" sx={{ mt: 4 }}>
@@ -85,11 +105,11 @@ const Login = () => {
                         </Box>
 
                         <Box sx={{mt:6,display: "flex", alignItems: "center",gap: 4}}>
-                            <Imput label="Email" name="username"  type="text" />
-                            <Imput label="Mot de passe" name="username"  type="password" />
+                            <Imput label="Email" name="username"  type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
+                            <Imput label="Mot de passe" name="password"  type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                         </Box>
                         <Box sx={{mt:10, display: "flex", alignItems: "center",gap: 4}}>
-                            <BtnLogin label="Valider" type="button"  onClick={() => navigate("/1")} />
+                            <BtnLogin label="Valider" type="button"  onClick={handleLogin} />
                         </Box>
                         <Box sx={{mt:6, display: "flex", alignItems: "center",gap: 4}}>
                             <Button type="submit" onClick={() => navigate("/3/forgetPass")} style={{color:"#f69a03"}} >Mot de passe oubliée</Button>
