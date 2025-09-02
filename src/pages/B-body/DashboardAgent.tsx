@@ -1,7 +1,7 @@
 import { Container, Typography, Box } from "@mui/material";
-import AgendaCard from "../../components/AgendaCard.tsx";
-import PlayersCarouselAgenda from "../../components/PlayersCarouselAgenda.tsx";
-import TodoList from "../../components/TodoList.tsx";
+import AgendaCard from "../../components/compoDashboard/AgendaCard.tsx";
+import PlayersCarouselAgenda from "../../components/compoDashboard/PlayersCarouselAgenda.tsx";
+import TodoList from "../../components/compoDashboard/TodoList.tsx";
 
 
 const DashboardAgent = () => {

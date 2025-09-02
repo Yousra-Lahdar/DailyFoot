@@ -1,8 +1,11 @@
 import {Box, Button, Typography} from "@mui/material";
-import Imput from "../../components/Imput.tsx";
-import BtnLogin from "../../components/BtnLogin.tsx";
+import Imput from "../../components/compoLogin/Imput.tsx";
+import BtnLogin from "../../components/compoLogin/BtnLogin.tsx";
+import {useNavigate} from "react-router";
 
 const Register = () => {
+
+    const navigate = useNavigate();
 
     return (
         <Box sx={{ display: "flex", flexDirection: "column",
@@ -35,17 +38,17 @@ const Register = () => {
                     style={{ width: 120, borderRadius: 70 }}
                 />
 
-                <Box sx={{mt:6,display: "flex", flexWrap:"wrap",justifyContent:"center",gap: 4}}>
+                <Box sx={{mt:6,display: "flex", flexDirection:"column",justifyContent:"center",gap: 4}}>
                     <Imput label="Nom" name="username"  type="text" />
                     <Imput label="Email" name="username"  type="text" />
                     <Imput label="Mot-de-passe" name="username"  type="password" />
                     <Imput label="Mot-de-passe" name="username"  type="password" />
                 </Box>
-                <Box sx={{mt:10, display: "flex", alignItems: "center",gap: 4}}>
-                    <BtnLogin label="Valider" type="button" />
+                <Box sx={{mt:5, display: "flex", alignItems: "center",gap: 0}}>
+                    <BtnLogin label="Valider" type="button" onClick={() => navigate("/3")} />
                 </Box>
-                <Box sx={{mt:6, display: "flex", alignItems: "center",gap: 4}}>
-                    <Button type="submit" style={{color:"#f69a03"}} >Page de connection</Button>
+                <Box sx={{mt:0, display: "flex", alignItems: "center",gap: 4}}>
+                    <Button type="submit" onClick={() => navigate("/3")} style={{color:"#f69a03"}} >Page de connection</Button>
 
                 </Box>
             </Box>

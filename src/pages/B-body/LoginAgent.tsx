@@ -1,6 +1,6 @@
 import {Box, Button, Container, Typography} from "@mui/material";
-import Imput from "../../components/Imput.tsx";
-import BtnLogin from "../../components/BtnLogin.tsx";
+import Imput from "../../components/compoLogin/Imput.tsx";
+import BtnLogin from "../../components/compoLogin/BtnLogin.tsx";
 import {useNavigate} from "react-router";
 
 
@@ -92,8 +92,8 @@ const LoginAgent = () => {
                             <BtnLogin label="Valider" type="button" />
                         </Box>
                         <Box sx={{mt:6, display: "flex", alignItems: "center",gap: 4}}>
-                            <Button type="submit" style={{color:"#f69a03"}} >Mot de passe oubliée</Button>
-                            <Button type="submit" style={{color:"#f69a03"}} >Inscription</Button>
+                            <Button type="submit" onClick={() => navigate("/3/forgetPass")} style={{color:"#f69a03"}} >Mot de passe oubliée</Button>
+                            <Button type="submit" onClick={() => navigate("/3/register")} style={{color:"#f69a03"}} >Inscription</Button>
                         </Box>
 
                     </Box>

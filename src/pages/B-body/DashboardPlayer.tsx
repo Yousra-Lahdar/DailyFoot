@@ -1,6 +1,6 @@
 import {Box, Container, Typography} from "@mui/material";
-import AgendaCard from "../../components/AgendaCard.tsx";
-import TodoList from "../../components/TodoList.tsx";
+import AgendaCard from "../../components/compoDashboard/AgendaCard.tsx";
+import TodoList from "../../components/compoDashboard/TodoList.tsx";
 
 const DashboardPlayer = () => {
 

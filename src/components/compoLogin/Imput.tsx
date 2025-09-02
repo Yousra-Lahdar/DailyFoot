@@ -1,4 +1,4 @@
-import './imput.css'
+import '../compoDashboard/imput.css'
 
 type ImputProps = {
     label: string;

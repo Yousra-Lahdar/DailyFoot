@@ -1,9 +1,12 @@
 import {Box, Typography} from "@mui/material";
-import BtnLogin from "../../components/BtnLogin.tsx";
-import Imput from "../../components/Imput.tsx";
+import BtnLogin from "../../components/compoLogin/BtnLogin.tsx";
+import Imput from "../../components/compoLogin/Imput.tsx";
 import {Button} from "@mui/material";
+import {useNavigate} from "react-router";
 
 const ForgetPass = () => {
+
+    const navigate = useNavigate();
 
     return (
     <Box sx={{ display: "flex", flexDirection: "column",
@@ -40,10 +43,10 @@ const ForgetPass = () => {
                 <Imput label="Email" name="username"  type="text" />
             </Box>
             <Box sx={{mt:10, display: "flex", alignItems: "center",gap: 4}}>
-                <BtnLogin label="Valider" type="button" />
+                <BtnLogin label="Valider" type="button" onClick={() => navigate("/3")} />
             </Box>
             <Box sx={{mt:6, display: "flex", alignItems: "center",gap: 4}}>
-                <Button type="submit" style={{color:"#f69a03"}} >Page de connection</Button>
+                <Button type="submit" onClick={() => navigate("/3")} style={{color:"#f69a03"}} >Page de connection</Button>
 
             </Box>
         </Box>
