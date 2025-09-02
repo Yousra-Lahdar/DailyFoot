@@ -42,13 +42,13 @@ const Register = () => {
                     <Imput label="Nom" name="username"  type="text" />
                     <Imput label="Email" name="username"  type="text" />
                     <Imput label="Mot-de-passe" name="username"  type="password" />
-                    <Imput label="Mot-de-passe" name="username"  type="password" />
+                    <Imput label="Confirmer Mot-de-passe" name="username"  type="password" />
                 </Box>
                 <Box sx={{mt:5, display: "flex", alignItems: "center",gap: 0}}>
-                    <BtnLogin label="Valider" type="button" onClick={() => navigate("/3")} />
+                    <BtnLogin label="Valider" type="button" onClick={() => navigate("/3/LoginAgent")} />
                 </Box>
                 <Box sx={{mt:0, display: "flex", alignItems: "center",gap: 4}}>
-                    <Button type="submit" onClick={() => navigate("/3")} style={{color:"#f69a03"}} >Page de connection</Button>
+                    <Button type="submit" onClick={() => navigate("/3/LoginAgent")} style={{color:"#f69a03"}} >Page de connection</Button>
 
                 </Box>
             </Box>

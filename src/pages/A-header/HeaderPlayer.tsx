@@ -1,6 +1,5 @@
 import React from 'react';
 import { AppBar, Toolbar, Button, Box, IconButton } from '@mui/material';
-import SettingsIcon from '@mui/icons-material/Settings';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import { useTheme } from '@mui/material/styles';
 import logo from '../../assets/logo-daily.webp';
@@ -117,19 +116,10 @@ const HeaderPlayer: React.FC = () => {
                     </Button>
                 </Box>
 
-                <Box
-                    component={Link}
-                    to={"/setting"}
-                    sx={{ display: 'flex', alignItems: 'center', gap: 5, marginRight: 5 }}>
-                    <IconButton
-                        sx={{
-                            backgroundColor: '#',
-                            borderRadius: '50%',
-                        }}
-                    >
-                        <SettingsIcon sx={{ color: theme.palette.text.primary }} />
-                    </IconButton>
 
+                <Box component={Link}
+                     to={"/3/LoginAgent"}
+                     sx={{ display: 'flex', alignItems: 'center', gap: 5, marginRight: 5 }} >
                     <IconButton
                         sx={{
                             backgroundColor: '#FFFFFF',

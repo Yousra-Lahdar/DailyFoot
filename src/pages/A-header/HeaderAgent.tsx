@@ -121,15 +121,16 @@ const HeaderAgent: React.FC = () => {
                     component={Link}
                     to={"/setting"}
                     sx={{ display: 'flex', alignItems: 'center', gap: 5, marginRight: 5 }}>
-                    <IconButton
-                        sx={{
-                            backgroundColor: '#',
-                            borderRadius: '50%',
-                        }}
-                    >
-                        <SettingsIcon sx={{ color: theme.palette.text.primary }} />
-                    </IconButton>
 
+                    <IconButton sx={{ backgroundColor: '#', borderRadius: '50%',}}>
+
+                        <SettingsIcon sx={{ color: theme.palette.text.primary }} />
+
+                    </IconButton>
+                </Box>
+                <Box component={Link}
+                     to={"/3/loginAgent"}
+                     sx={{ display: 'flex', alignItems: 'center', gap: 5, marginRight: 5 }}>
                     <IconButton
                         sx={{
                             backgroundColor: '#FFFFFF',

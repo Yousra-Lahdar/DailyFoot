@@ -87,7 +87,7 @@ const LoginPlayer = () => {
                             <Imput label="Code d'acces" name="username"  type="password" />
                         </Box>
                         <Box sx={{mt:10, display: "flex", alignItems: "center",gap: 4}}>
-                            <BtnLogin label="Valider" type="button" />
+                            <BtnLogin label="Valider" type="button"  onClick={() => navigate("/2")} />
                         </Box>
                         <Box sx={{mt:6, display: "flex", alignItems: "center",gap: 4}}>
                             <Button type="submit" onClick={() => navigate("/3/forgetPass")} style={{color:"#f69a03"}} >Mot de passe oubliée</Button>

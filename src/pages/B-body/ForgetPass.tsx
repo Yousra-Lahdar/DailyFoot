@@ -43,10 +43,10 @@ const ForgetPass = () => {
                 <Imput label="Email" name="username"  type="text" />
             </Box>
             <Box sx={{mt:10, display: "flex", alignItems: "center",gap: 4}}>
-                <BtnLogin label="Valider" type="button" onClick={() => navigate("/3")} />
+                <BtnLogin label="Valider" type="button" onClick={() => navigate("/3/LoginAgent")} />
             </Box>
             <Box sx={{mt:6, display: "flex", alignItems: "center",gap: 4}}>
-                <Button type="submit" onClick={() => navigate("/3")} style={{color:"#f69a03"}} >Page de connection</Button>
+                <Button type="submit" onClick={() => navigate("/3/LoginAgent")} style={{color:"#f69a03"}} >Page de connection</Button>
 
             </Box>
         </Box>
