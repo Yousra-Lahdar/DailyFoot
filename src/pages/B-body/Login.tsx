@@ -4,7 +4,7 @@ import BtnLogin from "../../components/compoLogin/BtnLogin.tsx";
 import {useNavigate} from "react-router";
 
 
-const LoginAgent = () => {
+const Login = () => {
 
     const navigate = useNavigate();
 
@@ -80,7 +80,7 @@ const LoginAgent = () => {
                             style={{ width: 120, borderRadius: 70 }}
                         />
                         <Box sx={{mt:6, display: "flex", alignItems: "center",gap: 4}}>
-                            <BtnLogin label="Agent" type="button" onClick={() => navigate("/3/loginAgent")} />
+                            <BtnLogin label="Agent" type="button" onClick={() => navigate("/3/login")} />
                             <BtnLogin label="Joueur" type="button" onClick={() => navigate("/3/loginPlayer")} />
                         </Box>
 
@@ -103,5 +103,5 @@ const LoginAgent = () => {
     );
 };
 
-export default LoginAgent;
+export default Login;
 

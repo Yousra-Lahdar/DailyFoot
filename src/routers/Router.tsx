@@ -9,7 +9,7 @@ import Pay from "../pages/B-body/Pay";
 import LayoutWithBarPlayer from "../layout/LayoutWithBarPlayer";
 import DashboardPlayer from "../pages/B-body/DashboardPlayer";
 import LayoutWithoutBar from "../layout/LayoutWithoutBar";
-import LoginAgent from "../pages/B-body/LoginAgent";
+import Login from "../pages/B-body/Login.tsx";
 import LoginPlayer from "../pages/B-body/LoginPlayer";
 import ForgetPass from "../pages/B-body/ForgetPass.tsx";
 import Register from "../pages/B-body/Register.tsx";
@@ -37,7 +37,7 @@ const Router = () => {
             <Route path="/3" element={<LayoutWithoutBar/>}>
                 <Route path="/3" element={<Navigate to={"/3/theDashboard"}/>}/>
                 <Route path="/3/theDashboard" element={<TheDashboard/>}/>
-                <Route path="/3/loginAgent" element={<LoginAgent/>}/>
+                <Route path="/3/login" element={<Login/>}/>
                 <Route path="/3/loginPlayer" element={<LoginPlayer/>}/>
                 <Route path="/3/forgetPass" element={<ForgetPass/>}/>
                 <Route path="/3/register" element={<Register/>}/>

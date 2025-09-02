@@ -43,7 +43,7 @@ const HeaderAgent: React.FC = () => {
                             borderRight: '0',
                             px: 5,
                             height: 60,
-                            paddingRight: 30,
+                            paddingRight: 23,
                             fontSize: 17,
                             "&:hover": {
                                 backgroundColor: 'orange',

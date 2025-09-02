@@ -79,7 +79,7 @@ const LoginPlayer = () => {
                             style={{ width: 120, borderRadius: 70 }}
                         />
                         <Box sx={{mt:6, display: "flex", alignItems: "center",gap: 4}}>
-                            <BtnLogin label="Agent" type="button" onClick={() => navigate("/3/loginAgent")} />
+                            <BtnLogin label="Agent" type="button" onClick={() => navigate("/3/login")} />
                             <BtnLogin label="Joueur" type="button" onClick={() => navigate("/3/loginPlayer")} />
                         </Box>
 
