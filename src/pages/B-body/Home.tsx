@@ -27,7 +27,7 @@ const TheDarshboard = () => {
             />
 
             <SplitText
-                text=" Vos talent , Votre reusite, Notre outil"
+                text=" Vos talents , Votre réussite , Notre outil"
                 className="text-2xl font-semibold text-center"
                 delay={100}
                 duration={0.6}
@@ -41,7 +41,7 @@ const TheDarshboard = () => {
                 textAlign="center"
                 onLetterAnimationComplete={handleAnimationComplete}
             />
-            <Button type="submit" onClick={() => navigate("/3/LoginAgent")} style={{color:"#f69a03"}} >Page de connection</Button>
+            <Button type="submit" onClick={() => navigate("/Login")} style={{color:"#f69a03",backgroundColor:"#ffffff",fontSize:"20px"}} >Page de connexion</Button>
 
         </div>
 

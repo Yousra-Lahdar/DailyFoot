@@ -15,7 +15,7 @@ const HeaderAgent: React.FC = () => {
 
                 <Button
                     component={Link}
-                    to={"/"}
+                    to={"/1"}
                     variant="contained"
                     sx={{
                         backgroundColor: '#FFF8E1',
@@ -35,7 +35,7 @@ const HeaderAgent: React.FC = () => {
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                     <Button
                         component={Link}
-                        to="/agenda"
+                        to="/1/agenda"
                         variant="outlined"
                         sx={{
                             borderColor: theme.palette.primary.main,
@@ -57,7 +57,7 @@ const HeaderAgent: React.FC = () => {
 
                     <Box
                         component={Link}
-                        to={"/"}
+                        to={"/1"}
                         sx={{
                             width: 140,
                             height: 140,
@@ -96,7 +96,7 @@ const HeaderAgent: React.FC = () => {
 
                     <Button
                         component={Link}
-                        to="/players"
+                        to="/1/players"
                         variant="outlined"
                         sx={{
                             borderColor: theme.palette.primary.main,
@@ -119,8 +119,8 @@ const HeaderAgent: React.FC = () => {
 
                 <Box
                     component={Link}
-                    to={"/setting"}
-                    sx={{ display: 'flex', alignItems: 'center', gap: 5, marginRight: 5 }}>
+                    to={"/1/setting"}
+                    sx={{ display: 'flex', alignItems: 'center', gap: 5, marginRight:-25 }}>
 
                     <IconButton sx={{ backgroundColor: '#', borderRadius: '50%',}}>
 
@@ -128,9 +128,10 @@ const HeaderAgent: React.FC = () => {
 
                     </IconButton>
                 </Box>
-                <Box component={Link}
-                     to={"/3/loginAgent"}
-                     sx={{ display: 'flex', alignItems: 'center', gap: 5, marginRight: 5 }}>
+                <Box
+                    component={Link}
+                     to={"/Login"}
+                     sx={{ display: 'flex', alignItems: 'center', gap:0, marginRight: 5 }}>
                     <IconButton
                         sx={{
                             backgroundColor: '#FFFFFF',
