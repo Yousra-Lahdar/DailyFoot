@@ -13,7 +13,18 @@ const Register = () => {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [name, setName] = useState("");
+    const [errors, setErrors] = useState<{[key: string]: string}>({});
     const handleRegister = async () => {
+        const newErrors: { [key: string]: string } = {};
+        if (!name) newErrors.name = "Le nom est requis";
+        if (!email) newErrors.email = "L’email est requis";
+        if (!password) newErrors.password = "Le mot de passe est requis";
+        if (password !== confirmPassword) newErrors.confirmPassword = "Les mots de passe ne correspondent pas";
+
+        if (Object.keys(newErrors).length > 0) {
+            setErrors(newErrors);
+            return;
+        }
         try {
             await axios.post(BASE_API_URL + "/auth/register", {
                 name,
@@ -21,9 +32,10 @@ const Register = () => {
                 password
             });
             navigate("/login");
-        } catch (error:any) {
-            console.log(error.response?.data || error.message);
-            alert("Email ou mot de passe incorrect");
+        } catch (error: any) {
+            setErrors({
+                email: error.response?.data?.message || "Une erreur est survenue"
+            });
         }
     };
 
@@ -59,10 +71,10 @@ const Register = () => {
                 />
 
                 <Box sx={{mt:6,display: "flex", flexDirection:"column",justifyContent:"center",gap: 4}}>
-                    <Imput label="Nom" name="Nom"  type="text" value={name} onChange={(e) => setName(e.target.value)} />
-                    <Imput label="Email" name="Email"  type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
-                    <Imput label="Mot de passe" name="password"  type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-                    <Imput label="Confirmer Mot de passe" name="password"  type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+                    <Imput label="Nom" name="Nom"  type="text" value={name} onChange={(e) => setName(e.target.value)} error={errors.name} />
+                    <Imput label="Email" name="Email"  type="text" value={email} onChange={(e) => setEmail(e.target.value)} error={errors.email} />
+                    <Imput label="Mot de passe" name="password"  type="password" value={password} onChange={(e) => setPassword(e.target.value)} error={errors.password} />
+                    <Imput label="Confirmer Mot de passe" name="password"  type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} error={errors.confirmPassword} />
                 </Box>
                 <Box sx={{mt:5, display: "flex", alignItems: "center",gap: 0}}>
                     <BtnLogin label="Valider" type="button" onClick={handleRegister} />
