@@ -1,17 +1,19 @@
 import Router from "./routers/Router.tsx";
-import React from 'react';
+import {Suspense} from "react";
 import { ThemeProvider, CssBaseline } from '@mui/material';
 import theme from './Theme.tsx';
 
 
-  const App: React.FC = () => {
-    return (
-      <>
-    <ThemeProvider theme={theme}>
-      <CssBaseline /> 
-      <Router/>
-    </ThemeProvider>
-    </>
+function App() {
+
+
+  return (
+      <Suspense fallback={<h2>Chargement de la page</h2>}>
+          <ThemeProvider theme={theme}>
+              <CssBaseline />
+              <Router/>
+          </ThemeProvider>
+    </Suspense>
   )
 }
 

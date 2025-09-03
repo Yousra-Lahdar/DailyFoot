@@ -131,6 +131,8 @@ const HeaderPlayer: React.FC = () => {
                       </IconButton>
                       
                       <IconButton
+                      component={Link}
+                      to={"/"}
                       sx={{
                         backgroundColor: '#FFFFFF',
                         borderRadius: '50%',

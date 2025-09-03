@@ -7,145 +7,145 @@ import logo from '../../assets/logo-daily.webp';
 import { Link } from 'react-router';
 
 const HeaderAgent: React.FC = () => {
-  const theme = useTheme();
+    const theme = useTheme();
 
-  return (
-    <AppBar position="static" sx={{ backgroundColor: theme.palette.background.paper, boxShadow: 'none' }}>
-      <Toolbar sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: "150px"}}>
-        
-        <Button
-        component={Link}
-        to={"/"}
-        variant="contained"
-        sx={{
-            backgroundColor: '#FFF8E1',
-            color: theme.palette.primary.main,
-            borderRadius: '16px',
-            fontWeight: 'bold',
-            px: 3,
-            textTransform: 'none',
-            marginLeft: 5,
-            letterSpacing: 1,
-            fontSize: 17
-          }}
-        >
-          DAILYFOOT
-        </Button>
+    return (
+        <AppBar position="static" sx={{ backgroundColor: theme.palette.background.paper, boxShadow: 'none' }}>
+            <Toolbar sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
 
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Button
-          component={Link}
-          to="/agenda"
-          variant="outlined"
-          sx={{
-            borderColor: theme.palette.primary.main,
-            borderRadius: '16px 0 0 16px',
-            borderRight: '0',
-            px: 5,
-            height: 60,
-            paddingRight: 30,
-            fontSize: 17,
-            "&:hover": {
-                    backgroundColor: 'orange',
-                    color: 'white',
-                    transition: "all 0.5s ease"
-                  } 
-          }}
-          >
-              Mon Agenda
-              </Button>
-              
-              <Box
-              component={Link}
-              to={"/"}
-              sx={{
-                width: 140,
-                height: 140,
-                border: `5px dashed ${theme.palette.primary.main}`,
-                borderRadius: '50%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                zIndex: 1,
-                marginLeft: '-3px',
-                marginRight: '-3px',
-                backgroundColor: theme.palette.background.paper,
-                borderRight: 0,
-                borderLeft: 0,
-                "&:hover": {
-                  backgroundColor: 'orange',
-                  color: 'white',
-                  transition: "all 0.5s ease"
-                  }
-                
-              }}
-              >
-                
-                <Box
-                component="img"
-                src={logo}
-                alt="Logo"
-                sx={{ 
-                  
-                  height: 100, 
-                  width: 100,
-                  
-                }}
-                />
-                </Box>
-                
                 <Button
-                component={Link}
-                to="/players"
-                variant="outlined"
-                sx={{
-                  borderColor: theme.palette.primary.main,
-                  borderRadius: '0 16px 16px 0',
-                  borderLeft: '0',
-                  px: 5,
-                  height: 60,
-                  paddingLeft: 30,
-                  fontSize: 17,
-                  "&:hover": {
-                    backgroundColor: 'orange',
-                    color: 'white',
-                    transition: "all 0.5s ease"
-                  } 
-                }}
-                >
-                  Joueurs
-                  </Button>
-                  </Box>
-                  
-                  <Box 
-                  component={Link}
-                  to={"/setting"}
-                  sx={{ display: 'flex', alignItems: 'center', gap: 5, marginRight: 5 }}>
-                    <IconButton
+                    component={Link}
+                    to={"/1"}
+                    variant="contained"
                     sx={{
-                      backgroundColor: '#',
-                      borderRadius: '50%',
+                        backgroundColor: '#FFF8E1',
+                        color: theme.palette.primary.main,
+                        borderRadius: '16px',
+                        fontWeight: 'bold',
+                        px: 3,
+                        textTransform: 'none',
+                        marginLeft: 5,
+                        letterSpacing: 1,
+                        fontSize: 17
                     }}
+                >
+                    DAILYFOOT
+                </Button>
+
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                    <Button
+                        component={Link}
+                        to="/1/agenda"
+                        variant="outlined"
+                        sx={{
+                            borderColor: theme.palette.primary.main,
+                            borderRadius: '16px 0 0 16px',
+                            borderRight: '0',
+                            px: 5,
+                            height: 60,
+                            paddingRight: 23,
+                            fontSize: 17,
+                            "&:hover": {
+                                backgroundColor: 'orange',
+                                color: 'white',
+                                transition: "all 0.5s ease"
+                            }
+                        }}
                     >
-                      <SettingsIcon sx={{ color: theme.palette.text.primary }} />
-                      </IconButton>
-                      
-                      <IconButton
-                      component={Link}
-                      to={"/logout"}
-                      sx={{
-                        backgroundColor: '#FFFFFF',
-                        borderRadius: '50%',
-                      }}
-                      >
-                        
+                        Mon Agenda
+                    </Button>
+
+                    <Box
+                        component={Link}
+                        to={"/1"}
+                        sx={{
+                            width: 140,
+                            height: 140,
+                            border: `5px dashed ${theme.palette.primary.main}`,
+                            borderRadius: '50%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            zIndex: 1,
+                            marginLeft: '-3px',
+                            marginRight: '-3px',
+                            backgroundColor: theme.palette.background.paper,
+                            borderRight: 0,
+                            borderLeft: 0,
+                            "&:hover": {
+                                backgroundColor: 'orange',
+                                color: 'white',
+                                transition: "all 0.5s ease"
+                            }
+
+                        }}
+                    >
+
+                        <Box
+                            component="img"
+                            src={logo}
+                            alt="Logo"
+                            sx={{
+
+                                height: 100,
+                                width: 100,
+
+                            }}
+                        />
+                    </Box>
+
+                    <Button
+                        component={Link}
+                        to="/1/players"
+                        variant="outlined"
+                        sx={{
+                            borderColor: theme.palette.primary.main,
+                            borderRadius: '0 16px 16px 0',
+                            borderLeft: '0',
+                            px: 5,
+                            height: 60,
+                            paddingLeft: 30,
+                            fontSize: 17,
+                            "&:hover": {
+                                backgroundColor: 'orange',
+                                color: 'white',
+                                transition: "all 0.5s ease"
+                            }
+                        }}
+                    >
+                        Joueurs
+                    </Button>
+                </Box>
+
+                <Box
+                    component={Link}
+                    to={"/1/setting"}
+                    sx={{ display: 'flex', alignItems: 'center', gap: 5, marginRight:-25 }}>
+
+                    <IconButton sx={{ backgroundColor: '#', borderRadius: '50%',}}>
+
+                        <SettingsIcon sx={{ color: theme.palette.text.primary }} />
+
+                    </IconButton>
+                </Box>
+                <Box
+                    component={Link}
+                     to={"/Login"}
+                     sx={{ display: 'flex', alignItems: 'center', gap:0, marginRight: 5 }}>
+                    <IconButton
+                        sx={{
+                            backgroundColor: '#FFFFFF',
+                            borderRadius: '50%',
+                        }}
+                    >
+
                         <PowerSettingsNewIcon sx={{ color: theme.palette.text.primary }} />
-                        </IconButton>
-                        </Box>
-                        </Toolbar>
-                        </AppBar>
-                        );
-                      };
+                    </IconButton>
+                </Box>
+            </Toolbar>
+        </AppBar>
+    );
+};
 
 export default HeaderAgent;
 

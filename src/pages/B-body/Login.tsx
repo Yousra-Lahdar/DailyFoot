@@ -1,9 +1,10 @@
 import {Box, Button, Container, Typography} from "@mui/material";
-import BtnLogin from "../../components/compoLogin/BtnLogin.tsx";
 import Imput from "../../components/compoLogin/Imput.tsx";
+import BtnLogin from "../../components/compoLogin/BtnLogin.tsx";
 import {useNavigate} from "react-router";
 
-const LoginPlayer = () => {
+
+const Login = () => {
 
     const navigate = useNavigate();
 
@@ -29,7 +30,7 @@ const LoginPlayer = () => {
                     <Typography
                         variant="h4"
                         sx={{fontWeight: "bold", color: "#ffffff", textAlign: "center",mt:10,
-                            fontSize: 40,}}
+                        fontSize: 40,}}
                     >
                         BIENVENUE
                     </Typography>
@@ -78,21 +79,23 @@ const LoginPlayer = () => {
                             alt="Logo DailyFoot"
                             style={{ width: 120, borderRadius: 70 }}
                             onClick={() => navigate("/")}
+
                         />
                         <Box sx={{mt:6, display: "flex", alignItems: "center",gap: 4}}>
-                            <BtnLogin label="Agent" type="button" onClick={() => navigate("/login")} />
-                            <BtnLogin label="Joueur" type="button"  />
+                            <BtnLogin label="Agent" type="button" />
+                            <BtnLogin label="Joueur" type="button" onClick={() => navigate("/loginPlayer")} />
                         </Box>
 
                         <Box sx={{mt:6,display: "flex", alignItems: "center",gap: 4}}>
-                            <Imput label="Code d'acces" name="username"  type="password" />
+                            <Imput label="Email" name="username"  type="text" />
+                            <Imput label="Mot de passe" name="username"  type="password" />
                         </Box>
                         <Box sx={{mt:10, display: "flex", alignItems: "center",gap: 4}}>
-                            <BtnLogin label="Valider" type="button"  onClick={() => navigate("/2")} />
+                            <BtnLogin label="Valider" type="button"  onClick={() => navigate("/1")} />
                         </Box>
                         <Box sx={{mt:6, display: "flex", alignItems: "center",gap: 4}}>
-                            <Button type="submit" onClick={() => navigate("/forgetPass")} style={{color:"#f69a03"}} >Mot de passe oubliée</Button>
-                            <Button type="submit" onClick={() => navigate("/egister")} style={{color:"#f69a03"}} >Inscription</Button>
+                            <Button type="submit" onClick={() => navigate("/forgetPass")} style={{color:"#f69a03"}} >Mot de passe oublié</Button>
+                            <Button type="submit" onClick={() => navigate("/register")} style={{color:"#f69a03"}} >Inscription</Button>
                         </Box>
 
                     </Box>
@@ -102,4 +105,5 @@ const LoginPlayer = () => {
     );
 };
 
-export default LoginPlayer;
+export default Login;
+
