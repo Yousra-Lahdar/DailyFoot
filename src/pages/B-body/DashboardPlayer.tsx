@@ -13,7 +13,7 @@ const DashboardPlayer = () => {
                     flexWrap: "wrap",
                 }}
             >
-                {/* Partie gauche */}
+
                 <Box sx={{ flex: 2, minWidth: 300 }}>
                     <Typography
                         variant="h3"
@@ -26,7 +26,7 @@ const DashboardPlayer = () => {
 
                 </Box>
 
-                {/* Partie droite */}
+
                 <Box sx={{ flex: 1, minWidth: 250 }}>
                     <TodoList />
                 </Box>

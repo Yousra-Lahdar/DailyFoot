@@ -3,6 +3,7 @@ import SplitText from "../../components/compoTheDashboard/SplitText.tsx";
 import {Button} from "@mui/material";
 import {useNavigate} from "react-router";
 
+
 const Home = () => {
     const handleAnimationComplete = () => {
         console.log('All letters have animated!');
@@ -41,11 +42,13 @@ const Home = () => {
                 textAlign="center"
                 onLetterAnimationComplete={handleAnimationComplete}
             />
-            <Button type="submit" onClick={() => navigate("/Login")} style={{color:"#f69a03"}} >Page de connexion</Button>
+            <Button type="submit" onClick={() => navigate("/Login")} style={{color:"#f69a03",backgroundColor:"#ffffff",fontSize:"20px"}} >Page de connexion</Button>
 
         </div>
 
     );
 };
 
+
 export default Home;
+

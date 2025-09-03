@@ -93,10 +93,11 @@ const LoginPlayer = () => {
                             src="/logo-dailyfoot.png"
                             alt="Logo DailyFoot"
                             style={{ width: 120, borderRadius: 70 }}
+                            onClick={() => navigate("/")}
                         />
                         <Box sx={{mt:6, display: "flex", alignItems: "center",gap: 4}}>
                             <BtnLogin label="Agent" type="button" onClick={() => navigate("/login")} />
-                            <BtnLogin label="Joueur" type="button" onClick={() => navigate("/loginPlayer")} />
+                            <BtnLogin label="Joueur" type="button"  />
                         </Box>
 
                         <Box sx={{mt:6,display: "flex", alignItems: "center",gap: 4}}>

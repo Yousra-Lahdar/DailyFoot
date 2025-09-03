@@ -12,9 +12,10 @@ const DashboardAgent = () => {
                     display: "flex",
                     gap: 8,
                     flexWrap: "wrap",
+
                 }}
             >
-                {/* Partie gauche */}
+
                 <Box sx={{ flex: 2, minWidth: 300 }}>
                     <Typography
                         variant="h3"
@@ -27,7 +28,7 @@ const DashboardAgent = () => {
                     <PlayersCarouselAgenda />
                 </Box>
 
-                {/* Partie droite */}
+
                 <Box sx={{ flex: 1, minWidth: 250 }}>
                     <TodoList />
                 </Box>

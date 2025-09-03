@@ -98,9 +98,12 @@ const Login = () => {
                             src="/logo-dailyfoot.png"
                             alt="Logo DailyFoot"
                             style={{ width: 120, borderRadius: 70 }}
+                            onClick={() => navigate("/")}
+
                         />
                         <Box sx={{mt:6, display: "flex", alignItems: "center",gap: 4}}>
-                            <BtnLogin label="Agent" type="button" onClick={() => navigate("/login")} />
+
+                            <BtnLogin label="Agent" type="button" />
                             <BtnLogin label="Joueur" type="button" onClick={() => navigate("/loginPlayer")} />
                         </Box>
 
@@ -112,7 +115,7 @@ const Login = () => {
                             <BtnLogin label="Valider" type="button"  onClick={handleLogin} />
                         </Box>
                         <Box sx={{mt:6, display: "flex", alignItems: "center",gap: 4}}>
-                            <Button type="submit" onClick={() => navigate("/forgetPass")} style={{color:"#f69a03"}} >Mot de passe oubliée</Button>
+                            <Button type="submit" onClick={() => navigate("/forgetPass")} style={{color:"#f69a03"}} >Mot de passe oublié</Button>
                             <Button type="submit" onClick={() => navigate("/register")} style={{color:"#f69a03"}} >Inscription</Button>
                         </Box>
 

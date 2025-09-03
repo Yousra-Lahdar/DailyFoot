@@ -16,7 +16,7 @@ const ForgetPass = () => {
             variant="h5"
             sx={{fontWeight: "bold", color: "#c06e04",}}
         >
-            Mot de passe oubliée
+            Mot de passe oublié
         </Typography>
 
         <Box
@@ -46,7 +46,7 @@ const ForgetPass = () => {
                 <BtnLogin label="Valider" type="button" onClick={() => navigate("/Login")} />
             </Box>
             <Box sx={{mt:6, display: "flex", alignItems: "center",gap: 4}}>
-                <Button type="submit" onClick={() => navigate("/Login")} style={{color:"#f69a03"}} >Page de connection</Button>
+                <Button type="submit" onClick={() => navigate("/Login")} style={{color:"#f69a03"}} >Page de connexion</Button>
 
             </Box>
         </Box>

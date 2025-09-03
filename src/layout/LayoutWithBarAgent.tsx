@@ -1,6 +1,6 @@
 import { Outlet } from "react-router";
 import HeaderAgent from "../pages/A-header/HeaderAgent.tsx";
-import FooterSecond from "../pages/C-footer/FooterSecond.tsx";
+import FooterWithoutLogo from "../pages/C-footer/FooterWithoutLogo.tsx";
 
 const LayoutWithBarAgent = () => {
 
@@ -8,7 +8,7 @@ const LayoutWithBarAgent = () => {
         <div>
             <HeaderAgent/>
             <Outlet/>
-            <FooterSecond/>
+            <FooterWithoutLogo/>
 
         </div>
     );
