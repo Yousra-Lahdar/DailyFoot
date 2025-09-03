@@ -117,31 +117,30 @@ const HeaderAgent: React.FC = () => {
                     </Button>
                 </Box>
 
-                <Box
-                    component={Link}
-                    to={"/1/setting"}
-                    sx={{ display: 'flex', alignItems: 'center', gap: 5, marginRight:-25 }}>
-
-                    <IconButton sx={{ backgroundColor: '#', borderRadius: '50%',}}>
-
-                        <SettingsIcon sx={{ color: theme.palette.text.primary }} />
-
-                    </IconButton>
-                </Box>
-                <Box
-                    component={Link}
-                     to={"/Login"}
-                     sx={{ display: 'flex', alignItems: 'center', gap:0, marginRight: 5 }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                     <IconButton
+                        component={Link}
+                        to="/1/setting"
                         sx={{
                             backgroundColor: '#FFFFFF',
                             borderRadius: '50%',
                         }}
                     >
+                        <SettingsIcon sx={{ color: theme.palette.text.primary }} />
+                    </IconButton>
 
+                    <IconButton
+                        component={Link}
+                        to="/Login"
+                        sx={{
+                            backgroundColor: '#FFFFFF',
+                            borderRadius: '50%',
+                        }}
+                    >
                         <PowerSettingsNewIcon sx={{ color: theme.palette.text.primary }} />
                     </IconButton>
                 </Box>
+
             </Toolbar>
         </AppBar>
     );
