@@ -3,7 +3,8 @@ import SplitText from "../../components/compoTheDashboard/SplitText.tsx";
 import {Button} from "@mui/material";
 import {useNavigate} from "react-router";
 
-const TheDarshboard = () => {
+
+const Home = () => {
     const handleAnimationComplete = () => {
         console.log('All letters have animated!');
     };
@@ -27,7 +28,7 @@ const TheDarshboard = () => {
             />
 
             <SplitText
-                text=" Vos talents , Votre réussite , Notre outil"
+                text=" Vos talents, Votre réussite, Notre outil"
                 className="text-2xl font-semibold text-center"
                 delay={100}
                 duration={0.6}
@@ -48,4 +49,6 @@ const TheDarshboard = () => {
     );
 };
 
-export default TheDarshboard;
+
+export default Home;
+
