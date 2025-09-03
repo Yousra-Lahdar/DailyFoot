@@ -95,8 +95,8 @@ const LoginPlayer = () => {
                             style={{ width: 120, borderRadius: 70 }}
                         />
                         <Box sx={{mt:6, display: "flex", alignItems: "center",gap: 4}}>
-                            <BtnLogin label="Agent" type="button" onClick={() => navigate("/3/login")} />
-                            <BtnLogin label="Joueur" type="button" onClick={() => navigate("/3/loginPlayer")} />
+                            <BtnLogin label="Agent" type="button" onClick={() => navigate("/login")} />
+                            <BtnLogin label="Joueur" type="button" onClick={() => navigate("/loginPlayer")} />
                         </Box>
 
                         <Box sx={{mt:6,display: "flex", alignItems: "center",gap: 4}}>
@@ -106,8 +106,8 @@ const LoginPlayer = () => {
                             <BtnLogin label="Valider" type="button"  onClick={handleCodeAccess} />
                         </Box>
                         <Box sx={{mt:6, display: "flex", alignItems: "center",gap: 4}}>
-                            <Button type="submit" onClick={() => navigate("/3/forgetPass")} style={{color:"#f69a03"}} >Mot de passe oubliée</Button>
-                            <Button type="submit" onClick={() => navigate("/3/register")} style={{color:"#f69a03"}} >Inscription</Button>
+                            <Button type="submit" onClick={() => navigate("/forgetPass")} style={{color:"#f69a03"}} >Mot de passe oubliée</Button>
+                            <Button type="submit" onClick={() => navigate("/register")} style={{color:"#f69a03"}} >Inscription</Button>
                         </Box>
 
                     </Box>

@@ -14,7 +14,7 @@ import LoginPlayer from "../pages/B-body/LoginPlayer";
 import ForgetPass from "../pages/B-body/ForgetPass.tsx";
 import Register from "../pages/B-body/Register.tsx";
 import ContactUs from "../pages/B-body/ContactUs.tsx";
-import TheDashboard from "../pages/B-body/TheDashboard.tsx";
+import Home from "../pages/B-body/Home.tsx";
 
 
 const Router = () => {
@@ -34,14 +34,14 @@ const Router = () => {
                 <Route path="/2/agenda" element={<Agenda/>}/>
                 <Route path="/2/statistic" element={<Statistic/>}/>
             </Route>
-            <Route path="/3" element={<LayoutWithoutBar/>}>
-                <Route path="/3" element={<Navigate to={"/3/theDashboard"}/>}/>
-                <Route path="/3/theDashboard" element={<TheDashboard/>}/>
-                <Route path="/3/login" element={<Login/>}/>
-                <Route path="/3/loginPlayer" element={<LoginPlayer/>}/>
-                <Route path="/3/forgetPass" element={<ForgetPass/>}/>
-                <Route path="/3/register" element={<Register/>}/>
-                <Route path="/3/contactUs" element={<ContactUs/>}/>
+            <Route path="/" element={<LayoutWithoutBar/>}>
+                <Route path="/" element={<Navigate to={"/Home"}/>}/>
+                <Route path="/Home" element={<Home/>}/>
+                <Route path="/login" element={<Login/>}/>
+                <Route path="/loginPlayer" element={<LoginPlayer/>}/>
+                <Route path="/forgetPass" element={<ForgetPass/>}/>
+                <Route path="/register" element={<Register/>}/>
+                <Route path="/contactUs" element={<ContactUs/>}/>
             </Route>
         </Routes>
 

@@ -3,7 +3,7 @@ import SplitText from "../../components/compoTheDashboard/SplitText.tsx";
 import {Button} from "@mui/material";
 import {useNavigate} from "react-router";
 
-const TheDashboard = () => {
+const Home = () => {
     const handleAnimationComplete = () => {
         console.log('All letters have animated!');
     };
@@ -48,4 +48,4 @@ const TheDashboard = () => {
     );
 };
 
-export default TheDashboard;
+export default Home;
