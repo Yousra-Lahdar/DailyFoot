@@ -118,7 +118,7 @@ const HeaderPlayer: React.FC = () => {
 
 
                 <Box component={Link}
-                     to={"/3/LoginPlayer"}
+                     to={"/LoginPlayer"}
                      sx={{ display: 'flex', alignItems: 'center', gap: 5, marginRight: 5 }} >
                     <IconButton
                         sx={{

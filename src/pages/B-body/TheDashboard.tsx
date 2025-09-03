@@ -41,7 +41,7 @@ const TheDashboard = () => {
                 textAlign="center"
                 onLetterAnimationComplete={handleAnimationComplete}
             />
-            <Button type="submit" onClick={() => navigate("/3/Login")} style={{color:"#f69a03"}} >Page de connexion</Button>
+            <Button type="submit" onClick={() => navigate("/Login")} style={{color:"#f69a03"}} >Page de connexion</Button>
 
         </div>
 
