@@ -1,11 +1,14 @@
 import { Outlet } from "react-router";
+import HeaderAgent from "../pages/A-header/HeaderAgent.tsx";
+import FooterWithoutLogo from "../pages/C-footer/FooterWithoutLogo.tsx";
 
 const LayoutWithBarAgent = () => {
 
     return (
         <div>
-            <h1>Hello</h1>
+            <HeaderAgent/>
             <Outlet/>
+            <FooterWithoutLogo/>
 
         </div>
     );
