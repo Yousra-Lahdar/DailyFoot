@@ -1,19 +1,59 @@
 import { Card, CardContent, Typography, Box, Button } from "@mui/material";
+import { Radar } from "react-chartjs-2";
+import {Chart as ChartJS, RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend} from "chart.js";
+
+
+ChartJS.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend);
 
 const CardStatistic = () => {
+
+    const data = {
+        labels: ["But(s)","Passe(s)décisive(s)","Carton(s) jaune(s)","Carton(s) rouge(s)","Matchs joués"],
+        datasets: [
+            {
+
+                data: [65, 59, 90, 81, 56,],
+                backgroundColor: "rgba(255, 165, 0, 0.2)",
+                borderColor: "orange",
+                borderWidth: 2,
+                pointBackgroundColor: "orange",
+            },
+        ],
+    };
+
+    const options = {
+        scales: {
+            r: {
+                angleLines: { display: true },
+                suggestedMin: 0,
+                suggestedMax: 100,
+                pointLabels: {
+                    color: "black",
+                }
+            },
+        },
+        plugins: {
+            legend: {
+                display: false,
+            },
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+    };
+
     return (
         <Card sx={{ width: 650, borderRadius: 3, boxShadow: 3 }}>
             <CardContent>
-                {/* Bloc du haut : Titre + Stats + Graph */}
+
                 <Box
                     sx={{
-                        border: "1px solid #ddd",
+                        border: "1px solid orange",
                         borderRadius: 2,
                         mb: 3,
                         overflow: "hidden",
                     }}
                 >
-                    {/* Header orange */}
+
                     <Box
                         sx={{
                             bgcolor: "orange",
@@ -33,7 +73,7 @@ const CardStatistic = () => {
                         </Typography>
                     </Box>
 
-                    {/* Bouton Modifier sous le header */}
+
                     <Box sx={{ textAlign: "right", pr: 2, mt: 1 }}>
                         <Button
                             size="small"
@@ -48,7 +88,7 @@ const CardStatistic = () => {
                         </Button>
                     </Box>
 
-                    {/* Stats + Graph côte à côte */}
+
                     <Box
                         sx={{
                             display: "flex",
@@ -59,38 +99,27 @@ const CardStatistic = () => {
                             pb: 2,
                         }}
                     >
-                        {/* Stats list */}
+
                         <Box>
                             <Typography variant="body2">But(s) : 8</Typography>
                             <Typography variant="body2">Passe(s) décisive(s) : 8</Typography>
                             <Typography variant="body2">Carton(s) jaune(s) : 3</Typography>
                             <Typography variant="body2">Carton(s) rouge(s) : 1</Typography>
                             <Typography variant="body2">Matchs joués : 30</Typography>
-                            <Typography variant="body2">Meilleur ELO : 37 (+1)</Typography>
+
                         </Box>
 
-                        {/* Graph Radar placeholder */}
-                        <Box
-                            sx={{
-                                width: 200,
-                                height: 200,
-                                bgcolor: "#f5f5f5",
-                                borderRadius: "50%",
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                color: "gray",
-                            }}
-                        >
-                            Graph ici
+
+                        <Box sx={{ width: 350, height: 350 }}>
+                            <Radar data={data} options={options} />
                         </Box>
                     </Box>
                 </Box>
 
-                {/* Bloc du bas : Terrain */}
+
                 <Box
                     sx={{
-                        border: "1px solid #ddd",
+                        border: "1px solid orange",
                         borderRadius: 2,
                         p: 2,
                         display: "flex",

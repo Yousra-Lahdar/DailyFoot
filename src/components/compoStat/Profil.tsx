@@ -14,11 +14,12 @@ const Profil = () => {
                 </Typography>
                 <Typography variant="body2">20 ans</Typography>
                 <Typography variant="body2">France</Typography>
+                <Typography variant="body2">Real-Madrid</Typography>
 
                 <Box sx={{ mt: 2, textAlign: "center" }}>
                     <Typography variant="body2">1.70 cm</Typography>
                     <Typography variant="body2">60 kg</Typography>
-                    <Typography variant="body2">SMI 6,9</Typography>
+
                 </Box>
                 <Button type="submit" onClick={() => navigate("/1/agenda")} sx={{color:"#f69a03"}} >Son Agenda</Button>
             </CardContent>
