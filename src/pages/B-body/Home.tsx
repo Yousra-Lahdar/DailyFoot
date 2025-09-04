@@ -1,5 +1,5 @@
 
-import SplitText from "../../components/compoTheDashboard/SplitText.tsx";
+import SplitText from "../../components/compoHome/SplitText.tsx";
 import {Button} from "@mui/material";
 import {useNavigate} from "react-router";
 
