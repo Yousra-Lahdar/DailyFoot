@@ -1,4 +1,5 @@
-import '../compoDashboard/imput.css'
+import React from 'react';
+import '../compoDashboard/imput.css';
 
 type ImputProps = {
     label: string;
@@ -6,16 +7,38 @@ type ImputProps = {
     type?: string;
     value: string;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    error?: string;
-}
+    error?: boolean;
+    helperText?: string;
+    onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
+};
 
-const Imput = ({label,name,type="text", value, onChange, error}:ImputProps) => {
-
+const Imput: React.FC<ImputProps> = ({
+    label,
+    name,
+    type = "text",
+    value,
+    onChange,
+    error,
+    helperText,
+    onBlur
+}) => {
     return (
         <div className="container">
-            <input required type={type} name={name} className={`input ${error ? "input-error" : ""}`} value={value} onChange={onChange} />
+            <input 
+                required 
+                type={type} 
+                name={name} 
+                className={`input ${error ? "input-error" : ""}`} 
+                value={value} 
+                onChange={onChange}
+                onBlur={onBlur}
+            />
             <label className="label">{label}</label>
-            {error && <p className="error-message">{error}</p>}
+            <div className="helper-slot">
+                <p className={`error-message ${error && helperText ? '' : 'error-hidden'}`}>
+                    {helperText || ' '}
+                </p>
+            </div>
         </div>
     );
 };
