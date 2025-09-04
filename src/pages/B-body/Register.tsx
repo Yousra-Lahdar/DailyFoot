@@ -33,6 +33,7 @@ const Register = () => {
             });
             navigate("/login");
         } catch (error: any) {
+            console.log(error)
             setErrors({
                 email: error.response?.data?.message || "Une erreur est survenue"
             });
