@@ -1,13 +1,16 @@
 import { Card, CardContent, CardActions, Typography, Button, Box } from "@mui/material";
 import { useNavigate } from "react-router";
+import type { PlayerDTO } from "../../../types/PlayerDTO";
 
+interface CardPlayerProps {
+    player: PlayerDTO;
+}
 
-const CardPlayer = () => {
+const CardPlayer = ({ player }: CardPlayerProps) => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-
-        navigate(`/1/statistic`);
+        navigate(`/1/statistic`); // plus tard tu pourras passer player.id
     };
 
     return (
@@ -24,14 +27,17 @@ const CardPlayer = () => {
         >
             <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
                 <img
-                    src=""
-                    alt="photo de profil"
-                    style={{ width: 120, height: 120}}
+                    src={player.image || "/default-avatar.png"}
+                    alt={player.name}
+                    style={{ width: 120, height: 120, borderRadius: "50%" }}
                 />
             </Box>
             <CardContent sx={{ textAlign: "center" }}>
-                <Typography variant="h6">nom</Typography>
-                <Typography variant="body2">Pays:france </Typography>
+                <Typography variant="h6">{player.name}</Typography>
+                <Typography variant="body2">Poste: {player.poste}</Typography>
+                <Typography variant="body2">Club: {player.club}</Typography>
+                <Typography variant="body2">Pays: {player.nationality}</Typography>
+                <Typography variant="body2">Âge: {player.age} ans</Typography>
             </CardContent>
             <CardActions sx={{ justifyContent: "center" }}>
                 <Button
@@ -39,6 +45,7 @@ const CardPlayer = () => {
                     color="error"
                     onClick={(e) => {
                         e.stopPropagation();
+                        // ajouter fonction de suppression plus tard
                     }}
                 >
                     Supprimer
