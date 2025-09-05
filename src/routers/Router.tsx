@@ -24,7 +24,7 @@ import Home from "../pages/B-body/Home.tsx";
 
 // Auth
 import PrivateRoute from "./PrivateRoute.tsx";
-import fetchUserDetails from "../../api/user.ts";
+import {fetchUserDetails} from "../../api/user.api.ts";
 
 export const Router = createBrowserRouter([
     // AGENT

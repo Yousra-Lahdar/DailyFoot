@@ -3,43 +3,16 @@ import {Box, Button, Typography} from "@mui/material";
 import Imput from "../../components/compoLogin/Imput.tsx";
 import BtnLogin from "../../components/compoLogin/BtnLogin.tsx";
 import {useState} from "react";
-import axios from "axios";
-import {BASE_API_URL} from "../../../constants.ts";
-
-interface FormErrors {
-    name?: string;
-    email?: string;
-    password?: string;
-    confirmPassword?: string;
-    general?: string;
-}
+import {useUserUpdate} from "../../../hooks/user-update.hook.ts";
+import type {FormErrors} from "../../../types/FormErrors.ts";
 
 const Setting = () => {
-    const data = useLoaderData() as any;
-    const [formData, setFormData] = useState(data || {});
+    const data = useLoaderData();
     const navigate = useNavigate();
+
+    const [formData, setFormData] = useState(data || {});
     const [errors, setErrors] = useState<FormErrors>({});
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        if(formData.password !== formData.confirmPassword){
-            setErrors({
-                confirmPassword: "Les mots de passe ne correspondent pas"
-            });
-            return;
-        }
-        try {
-            await axios.put(`${BASE_API_URL}/users/update`, formData, {
-                headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
-            });
-
-
-            navigate("/login");
-        } catch (error: any) {
-            console.error(error);
-            setErrors({ general: error.response?.data?.message || "Erreur lors de la mise à jour" });
-        }
-    };
-
+    const userUpdate = useUserUpdate(formData, setErrors);
 
     return (
         <Box sx={{
@@ -85,7 +58,7 @@ const Setting = () => {
                         width: '100%',
                         px: 4
                     }}
-                    onSubmit={handleSubmit}
+                    onSubmit={userUpdate}
                 >
                     <Box sx={{width: '100%', maxWidth: 400, display: 'flex', justifyContent: 'center'}}>
                         <Imput
@@ -130,7 +103,7 @@ const Setting = () => {
                             label="Confirmer le mot de passe"
                             name="confirmPassword"
                             type="password"
-                            value={formData.confirmPassword}
+                            value={formData.confirmPassword || ""}
                             error={!!errors.confirmPassword}
                             helperText={errors.confirmPassword}
                             onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})}
