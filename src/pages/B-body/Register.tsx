@@ -13,7 +13,7 @@ const Register = () => {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [name, setName] = useState("");
-    const [errors, setErrors] = useState<{[key: string]: string}>({});
+    const [errors, setErrors] = useState<{ [key: string]: string }>({});
     const handleRegister = async () => {
         const newErrors: { [key: string]: string } = {};
         if (!name) newErrors.name = "Le nom est requis";
@@ -41,8 +41,10 @@ const Register = () => {
     };
 
     return (
-        <Box sx={{ display: "flex", flexDirection: "column",
-            justifyContent:"center",alignItems:"center",minHeight:"90vh" }}>
+        <Box sx={{
+            display: "flex", flexDirection: "column",
+            justifyContent: "center", alignItems: "center", minHeight: "90vh"
+        }}>
 
             <Typography
                 variant="h5"
@@ -61,27 +63,32 @@ const Register = () => {
                     flexDirection: "column",
                     alignItems: "center",
                     pt: 4,
-                    boxShadow:7,
+                    boxShadow: 7,
 
                 }}
             >
                 <img
                     src="/logo-dailyfoot.png"
                     alt="Logo DailyFoot"
-                    style={{ width: 120, borderRadius: 70 }}
+                    style={{width: 120, borderRadius: 70}}
                 />
 
-                <Box sx={{mt:6,display: "flex", flexDirection:"column",justifyContent:"center",gap: 4}}>
-                    <Imput label="Nom" name="Nom"  type="text" value={name} onChange={(e) => setName(e.target.value)} error={errors.name} />
-                    <Imput label="Email" name="Email"  type="text" value={email} onChange={(e) => setEmail(e.target.value)} error={errors.email} />
-                    <Imput label="Mot de passe" name="password"  type="password" value={password} onChange={(e) => setPassword(e.target.value)} error={errors.password} />
-                    <Imput label="Confirmer Mot de passe" name="password"  type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} error={errors.confirmPassword} />
+                <Box sx={{mt: 6, display: "flex", flexDirection: "column", justifyContent: "center", gap: 4}}>
+                    <Imput label="Nom" name="Nom" type="text" value={name} onChange={(e) => setName(e.target.value)}
+                           error={errors.name}/>
+                    <Imput label="Email" name="Email" type="text" value={email}
+                           onChange={(e) => setEmail(e.target.value)} error={errors.email}/>
+                    <Imput label="Mot de passe" name="password" type="password" value={password}
+                           onChange={(e) => setPassword(e.target.value)} error={errors.password}/>
+                    <Imput label="Confirmer Mot de passe" name="password" type="password" value={confirmPassword}
+                           onChange={(e) => setConfirmPassword(e.target.value)} error={errors.confirmPassword}/>
                 </Box>
-                <Box sx={{mt:5, display: "flex", alignItems: "center",gap: 0}}>
-                    <BtnLogin label="Valider" type="button" onClick={handleRegister} />
+                <Box sx={{mt: 5, display: "flex", alignItems: "center", gap: 0}}>
+                    <BtnLogin label="Valider" type="button" onClick={handleRegister}/>
                 </Box>
-                <Box sx={{mt:0, display: "flex", alignItems: "center",gap: 4}}>
-                    <Button type="submit" onClick={() => navigate("/Login")} style={{color:"#f69a03"}} >Page de connexion</Button>
+                <Box sx={{mt: 0, display: "flex", alignItems: "center", gap: 4}}>
+                    <Button type="submit" onClick={() => navigate("/Login")} style={{color: "#f69a03"}}>Page de
+                        connexion</Button>
 
                 </Box>
             </Box>

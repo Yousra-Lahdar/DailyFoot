@@ -7,8 +7,8 @@ interface Player {
     age: number;
     nationality: string;
     club: string;
-    height: string;
-    weight: string;
+    poids: string;
+    taille: string;
     image?: string;
 }
 
@@ -38,8 +38,8 @@ const Profil = ({ player }: ProfilProps) => {
                 <Typography variant="body2">{player.club}</Typography>
 
                 <Box sx={{ mt: 2, textAlign: "center" }}>
-                    <Typography variant="body2">{player.height}</Typography>
-                    <Typography variant="body2">{player.weight}</Typography>
+                    <Typography variant="body2">{player.taille}</Typography>
+                    <Typography variant="body2">{player.poids}</Typography>
                 </Box>
 
                 <Button
