@@ -9,12 +9,12 @@ const LayoutWithBarPlayer = () => {
             sx={{
                 display: "flex",
                 flexDirection: "column",
-                minHeight: "100vh", // occupe tout l’écran
+                minHeight: "100vh", 
             }}
         >
             <HeaderPlayer />
 
-            {/* Contenu principal qui prend toute la place dispo */}
+            
             <Box sx={{ flex: 1 }}>
                 <Outlet />
             </Box>
