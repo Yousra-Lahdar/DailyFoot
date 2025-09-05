@@ -8,7 +8,10 @@ import { Link } from 'react-router';
 
 const HeaderAgent: React.FC = () => {
     const theme = useTheme();
-
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+    };
     return (
         <AppBar position="static" sx={{ backgroundColor: theme.palette.background.paper, boxShadow: 'none' }}>
             <Toolbar sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -132,6 +135,7 @@ const HeaderAgent: React.FC = () => {
                     <IconButton
                         component={Link}
                         to="/Login"
+                        onClick={handleLogout}
                         sx={{
                             backgroundColor: '#FFFFFF',
                             borderRadius: '50%',

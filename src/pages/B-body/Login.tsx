@@ -22,7 +22,7 @@ const Login = () => {
             localStorage.setItem("token", token);
             navigate("/1");
         }
-        catch (error: any) {
+        catch (error:any) {
             console.log(error.response?.data || error.message);
             alert("Email ou mot de passe incorrect");
         }
