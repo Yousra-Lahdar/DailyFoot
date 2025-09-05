@@ -1,56 +1,55 @@
-import { Card, CardContent, CardActions, Typography, Button, Box } from "@mui/material";
+import { Card, CardContent, Typography } from "@mui/material";
 import { useNavigate } from "react-router";
-import type { PlayerDTO } from "../../../types/PlayerDTO";
 
-interface CardPlayerProps {
-    player: PlayerDTO;
+interface Player {
+    id: number;
+    name: string;
+    age: number;
+    poste: string;
+    nationality: string;
+    club: string;
+    image?: string;
 }
 
-const CardPlayer = ({ player }: CardPlayerProps) => {
+interface Props {
+    player: Player;
+}
+
+const CardPlayer = ({ player }: Props) => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate(`/1/statistic`); // plus tard tu pourras passer player.id
+        if (!player.id) {
+            console.error("Player ID is undefined", player);
+            return;
+        }
+        navigate(`/1/statistic/${player.id}`); // ou `/2/statistic/${player.id}` selon le rôle
     };
 
     return (
         <Card
+            onClick={handleClick}
             sx={{
                 width: 200,
-                borderRadius: 3,
-                boxShadow: 3,
                 cursor: "pointer",
-                transition: "0.3s",
-                "&:hover": { transform: "scale(1.05)", boxShadow: 6 },
+                borderRadius: 2,
+                boxShadow: 3,
+                textAlign: "center",
             }}
-            onClick={handleClick}
         >
-            <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
+            <CardContent>
                 <img
                     src={player.image || "/default-avatar.png"}
                     alt={player.name}
-                    style={{ width: 120, height: 120, borderRadius: "50%" }}
+                    style={{ width: "100%", height: 120, objectFit: "cover", borderRadius: "50%" }}
                 />
-            </Box>
-            <CardContent sx={{ textAlign: "center" }}>
-                <Typography variant="h6">{player.name}</Typography>
-                <Typography variant="body2">Poste: {player.poste}</Typography>
-                <Typography variant="body2">Club: {player.club}</Typography>
-                <Typography variant="body2">Pays: {player.nationality}</Typography>
-                <Typography variant="body2">Âge: {player.age} ans</Typography>
+                <Typography variant="subtitle1" sx={{ mt: 1, fontWeight: "bold" }}>
+                    {player.name}
+                </Typography>
+                <Typography variant="body2">{player.club}</Typography>
+                <Typography variant="body2">Age : {player.age}</Typography>
+                <Typography variant="body2">Poste : {player.poste}</Typography>
             </CardContent>
-            <CardActions sx={{ justifyContent: "center" }}>
-                <Button
-                    size="small"
-                    color="error"
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        // ajouter fonction de suppression plus tard
-                    }}
-                >
-                    Supprimer
-                </Button>
-            </CardActions>
         </Card>
     );
 };

@@ -1,4 +1,5 @@
 export interface PlayerDTO {
+    id: number;
     name: string;
     poste: string;
     image: string;
