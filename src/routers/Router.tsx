@@ -5,7 +5,7 @@ import LayoutWithBarAgent from "../layout/LayoutWithBarAgent";
 import LayoutWithBarPlayer from "../layout/LayoutWithBarPlayer";
 import LayoutWithoutBar from "../layout/LayoutWithoutBar";
 
-// Pages
+// Pages AGENT
 import DashboardAgent from "../pages/B-body/DashboardAgent";
 import Players from "../pages/B-body/Players";
 import Agenda from "../pages/B-body/Agenda";
@@ -13,18 +13,20 @@ import Statistic from "../pages/B-body/Statistic";
 import Setting from "../pages/B-body/Setting";
 import Pay from "../pages/B-body/Pay";
 
+// Pages PLAYER
 import DashboardPlayer from "../pages/B-body/DashboardPlayer";
 
+// Pages PUBLIC
 import Login from "../pages/B-body/Login.tsx";
 import LoginPlayer from "../pages/B-body/LoginPlayer";
 import ForgetPass from "../pages/B-body/ForgetPass.tsx";
 import Register from "../pages/B-body/Register.tsx";
-import ContactUs from "../pages/B-body/ContactUs.tsx";
+import ContactUs from "../pages/B-body/ContactUs";
 import Home from "../pages/B-body/Home.tsx";
 
 // Auth
 import PrivateRoute from "./PrivateRoute.tsx";
-import {fetchUserDetails} from "../../api/user.api.ts";
+import { fetchUserDetails } from "../../api/user.api.ts";
 
 export const Router = createBrowserRouter([
     // AGENT
@@ -38,7 +40,7 @@ export const Router = createBrowserRouter([
                     { index: true, element: <DashboardAgent /> },
                     { path: "players", element: <Players /> },
                     { path: "agenda", element: <Agenda /> },
-                    { path: "statistic", element: <Statistic /> },
+                    { path: "statistic/:id", element: <Statistic /> }, // ID du joueur
                     {
                         path: "setting",
                         element: <Setting />,
@@ -60,7 +62,7 @@ export const Router = createBrowserRouter([
                 children: [
                     { index: true, element: <DashboardPlayer /> },
                     { path: "agenda", element: <Agenda /> },
-                    { path: "statistic", element: <Statistic /> },
+                    { path: "statistic/:id", element: <Statistic /> }, // ID du joueur
                 ],
             },
         ],
