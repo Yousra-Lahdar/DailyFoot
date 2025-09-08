@@ -1,5 +1,5 @@
-import { Card, CardContent, Typography } from "@mui/material";
-import { useNavigate } from "react-router";
+import {Card, CardContent, Typography} from "@mui/material";
+import {useNavigate} from "react-router";
 
 interface Player {
     id: number;
@@ -15,7 +15,7 @@ interface Props {
     player: Player;
 }
 
-const CardPlayer = ({ player }: Props) => {
+const CardPlayer = ({player}: Props) => {
     const navigate = useNavigate();
 
     const handleClick = () => {
@@ -41,9 +41,9 @@ const CardPlayer = ({ player }: Props) => {
                 <img
                     src={player.image || "/default-avatar.png"}
                     alt={player.name}
-                    style={{ width: "100%", height: 120, objectFit: "cover", borderRadius: "50%" }}
+                    style={{width: "100%", height: 120, objectFit: "cover", borderRadius: "50%"}}
                 />
-                <Typography variant="subtitle1" sx={{ mt: 1, fontWeight: "bold" }}>
+                <Typography variant="subtitle1" sx={{mt: 1, fontWeight: "bold"}}>
                     {player.name}
                 </Typography>
                 <Typography variant="body2">{player.club}</Typography>

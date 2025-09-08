@@ -1,13 +1,12 @@
-import { Box, Typography, Button } from "@mui/material";
-import { useParams, useNavigate } from "react-router";
-import { useEffect, useState } from "react";
+import {Box, Button, Typography} from "@mui/material";
+import {useNavigate, useParams} from "react-router";
+import {useEffect, useState} from "react";
 import axios from "axios";
 import Profil from "../../components/compoStat/Profil";
 import CardStatistic from "../../components/compoStat/CardStatistic";
-import CardMatch from "../../components/compoStat/CardMatch";
-import { BASE_API_URL } from "../../../constants.ts";
+import {BASE_API_URL} from "../../../constants.ts";
 
-// Types
+
 interface Player {
     id: number;
     name: string;
@@ -43,7 +42,7 @@ interface PlayerStatistics {
 }
 
 const Statistic = () => {
-    const { id } = useParams<{ id: string }>();
+    const {id} = useParams<{ id: string }>();
     const navigate = useNavigate();
     const [stats, setStats] = useState<PlayerStatistics | null>(null);
     const [loading, setLoading] = useState(true);
@@ -62,7 +61,7 @@ const Statistic = () => {
 
             try {
                 const response = await axios.get(`${BASE_API_URL}/statistique/player/${id}`, {
-                    headers: { Authorization: `Bearer ${token}` },
+                    headers: {Authorization: `Bearer ${token}`},
                 });
                 setStats(response.data);
             } catch (err: any) {
@@ -76,9 +75,9 @@ const Statistic = () => {
         fetchData();
     }, [id]);
 
-    if (loading) return <Typography sx={{ mt: 4, textAlign: "center" }}>Chargement...</Typography>;
-    if (error) return <Typography sx={{ mt: 4, textAlign: "center", color: "red" }}>{error}</Typography>;
-    if (!stats) return <Typography sx={{ mt: 4, textAlign: "center" }}>Profil du joueur non disponible</Typography>;
+    if (loading) return <Typography sx={{mt: 4, textAlign: "center"}}>Chargement...</Typography>;
+    if (error) return <Typography sx={{mt: 4, textAlign: "center", color: "red"}}>{error}</Typography>;
+    if (!stats) return <Typography sx={{mt: 4, textAlign: "center"}}>Profil du joueur non disponible</Typography>;
 
     return (
         <Box
@@ -91,18 +90,12 @@ const Statistic = () => {
                 mt: 2,
             }}
         >
-            {/* Profil du joueur */}
-            <Profil player={stats.player} />
+            <Profil player={stats.player}/>
 
-            {/* Statistiques */}
-            <CardStatistic stats={stats.statistics} />
-
-
-
-            {/* Bouton pour revenir à la liste des joueurs */}
+            <CardStatistic stats={stats.statistics}/>
             <Button
                 variant="outlined"
-                sx={{ mt: 2 }}
+                sx={{mt: 2}}
                 onClick={() => navigate("/1/players")} // adapte selon ton routeur
             >
                 Retour à la liste des joueurs

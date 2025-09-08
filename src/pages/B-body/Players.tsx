@@ -1,15 +1,15 @@
 import {Box, Stack, Typography} from "@mui/material";
 import CardPlayer from "../../components/players/CardPlayer.tsx";
-import { usePlayers } from "../../../hooks/use-players.hook.ts";
+import {usePlayers} from "../../../hooks/use-players.hook.ts";
 
 const Players = () => {
-    const { players, loading, error } = usePlayers();
+    const {players, loading, error} = usePlayers();
 
     if (loading) return <Typography>Chargement...</Typography>;
     if (error) return <Typography color="error">{error}</Typography>;
 
     return (
-        <Stack sx={{ p: 4 }}>
+        <Stack sx={{p: 4}}>
             <Box
                 sx={{
                     display: "grid",
@@ -21,7 +21,7 @@ const Players = () => {
                 }}
             >
                 {players.map(player => (
-                    <CardPlayer key={player.name} player={player} />
+                    <CardPlayer key={player.name} player={player}/>
                 ))}
             </Box>
         </Stack>
