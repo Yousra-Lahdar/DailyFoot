@@ -1,13 +1,12 @@
 import React from 'react';
-import { AppBar, Toolbar, Button, Box, IconButton } from '@mui/material';
+import {AppBar, Box, Button, IconButton, Toolbar} from '@mui/material';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
-import { useTheme } from '@mui/material/styles';
+import {useTheme} from '@mui/material/styles';
 import logo from '../../assets/logo-daily.webp';
-import { Link } from 'react-router';
+import {Link} from 'react-router';
 
 const HeaderPlayer: React.FC = () => {
     const theme = useTheme();
-
     return (
         <AppBar position="static" sx={{ backgroundColor: theme.palette.background.paper, boxShadow: 'none' }}>
             <Toolbar sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -95,7 +94,7 @@ const HeaderPlayer: React.FC = () => {
 
                     <Button
                         component={Link}
-                        to="/2/statistic"
+                        to={`/2/statistic`}
                         variant="outlined"
                         sx={{
                             borderColor: theme.palette.primary.main,

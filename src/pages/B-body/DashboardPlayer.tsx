@@ -19,7 +19,7 @@ const DashboardPlayer = () => {
                         variant="h3"
                         sx={{ color: "orange", fontWeight: "bold", mb: 3, ml:30}}
                     >
-                        BIENVENUE  FOREX
+                        BIENVENUE "Nom du joueur"
                     </Typography>
 
                     <AgendaCard />

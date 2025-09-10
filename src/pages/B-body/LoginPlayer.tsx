@@ -24,7 +24,7 @@ const LoginPlayer = () => {
     }
     }
     return (
-        <Container maxWidth="xl" sx={{ mt: 4 }}>
+        <Container maxWidth="xl" sx={{ mt: 4, padding: "30vh" }}>
             <Box
                 sx={{
                     display: "flex",

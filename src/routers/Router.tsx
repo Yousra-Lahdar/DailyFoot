@@ -38,14 +38,18 @@ export const Router = createBrowserRouter([
                 element: <LayoutWithBarAgent />,
                 children: [
                     { index: true, element: <DashboardAgent /> },
+
+                    // Liste des joueurs
                     { path: "players", element: <Players /> },
+
+                    // Pages indépendantes pour chaque joueur
+                    { path: "players/:id/agenda", element: <Agenda /> },
+                    { path: "players/:id/statistic", element: <Statistic /> },
+
+                    // Agenda global de l'agent
                     { path: "agenda", element: <Agenda /> },
-                    { path: "statistic/:id", element: <Statistic /> }, // ID du joueur
-                    {
-                        path: "setting",
-                        element: <Setting />,
-                        loader: fetchUserDetails,
-                    },
+
+                    { path: "setting", element: <Setting />, loader: fetchUserDetails },
                     { path: "pay", element: <Pay /> },
                 ],
             },
@@ -62,7 +66,7 @@ export const Router = createBrowserRouter([
                 children: [
                     { index: true, element: <DashboardPlayer /> },
                     { path: "agenda", element: <Agenda /> },
-                    { path: "statistic/:id", element: <Statistic /> }, // ID du joueur
+                    { path: "statistic", element: <Statistic /> }, // ID du joueur
                 ],
             },
         ],
