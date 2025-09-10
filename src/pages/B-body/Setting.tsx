@@ -1,6 +1,6 @@
 import {useLoaderData, useNavigate} from "react-router";
 import {Box, Button, Typography} from "@mui/material";
-import Imput from "../../components/compoLogin/Imput.tsx";
+import Input from "../../components/compoLogin/Input.tsx";
 import BtnLogin from "../../components/compoLogin/BtnLogin.tsx";
 import {useState} from "react";
 import {useUserUpdate} from "../../../hooks/user-update.hook.ts";
@@ -61,7 +61,7 @@ const Setting = () => {
                     onSubmit={userUpdate}
                 >
                     <Box sx={{width: '100%', maxWidth: 400, display: 'flex', justifyContent: 'center'}}>
-                        <Imput
+                        <Input
                             label="Nom"
                             name="name"
                             type="text"
@@ -73,7 +73,7 @@ const Setting = () => {
                     </Box>
 
                     <Box sx={{width: '100%', maxWidth: 400, display: 'flex', justifyContent: 'center'}}>
-                        <Imput
+                        <Input
                             label="Email"
                             name="email"
                             type="email"
@@ -86,7 +86,7 @@ const Setting = () => {
                     </Box>
 
                     <Box sx={{width: '100%', maxWidth: 400, display: 'flex', justifyContent: 'center'}}>
-                        <Imput
+                        <Input
                             label="Nouveau mot de passe"
                             name="password"
                             type="password"
@@ -99,7 +99,7 @@ const Setting = () => {
                     </Box>
 
                     <Box sx={{width: '100%', maxWidth: 400, display: 'flex', justifyContent: 'center'}}>
-                        <Imput
+                        <Input
                             label="Confirmer le mot de passe"
                             name="confirmPassword"
                             type="password"

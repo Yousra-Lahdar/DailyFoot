@@ -1,6 +1,6 @@
 import {Box, Typography} from "@mui/material";
 import BtnLogin from "../../components/compoLogin/BtnLogin.tsx";
-import Imput from "../../components/compoLogin/Imput.tsx";
+import Input from "../../components/compoLogin/Input.tsx";
 import {Button} from "@mui/material";
 import {useNavigate} from "react-router";
 
@@ -40,7 +40,7 @@ const ForgetPass = () => {
             />
 
             <Box sx={{mt:6,display: "flex", alignItems: "center",gap: 4}}>
-                <Imput label="Email" name="username"  type="text" />
+                <Input label="Email" name="username" type="text" />
             </Box>
             <Box sx={{mt:10, display: "flex", alignItems: "center",gap: 4}}>
                 <BtnLogin label="Valider" type="button" onClick={() => navigate("/Login")} />

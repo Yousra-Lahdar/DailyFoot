@@ -1,5 +1,5 @@
 import {Box, Button, Container, Typography} from "@mui/material";
-import Imput from "../../components/compoLogin/Imput.tsx";
+import Input from "../../components/compoLogin/Input.tsx";
 import BtnLogin from "../../components/compoLogin/BtnLogin.tsx";
 import {useNavigate} from "react-router";
 import axios from "axios";
@@ -20,9 +20,20 @@ const Login = () => {
             });
             const token = response.data.token;
             localStorage.setItem("token", token);
-            navigate("/1");
-        }
-        catch (error:any) {
+
+            // Extraire le rôle depuis le JWT
+            const base64Url = token.split('.')[1];
+            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            const decodedPayload = JSON.parse(atob(base64));
+            const role = decodedPayload.role; // ex: "PLAYER" ou "AGENT"
+
+            // Redirection selon le rôle
+            if (role === "PLAYER") navigate("/2");
+            else if (role === "AGENT") navigate("/1");
+            else if (role === "ADMIN") navigate("/3");
+            else navigate("/"); // fallback
+
+        } catch (error: any) {
             console.log(error.response?.data || error.message);
             alert("Email ou mot de passe incorrect");
         }
@@ -101,20 +112,15 @@ const Login = () => {
                             onClick={() => navigate("/")}
 
                         />
-                        <Box sx={{mt:6, display: "flex", alignItems: "center",gap: 4}}>
-
-                            <BtnLogin label="Agent" type="button" />
-                            <BtnLogin label="Joueur" type="button" onClick={() => navigate("/loginPlayer")} />
-                        </Box>
 
                         <Box sx={{mt:6,display: "flex", alignItems: "center",gap: 4}}>
-                            <Imput label="Email" name="username"  type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
-                            <Imput label="Mot de passe" name="password"  type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                            <Input label="Email" name="username" type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
+                            <Input label="Mot de passe" name="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                         </Box>
-                        <Box sx={{mt:10, display: "flex", alignItems: "center",gap: 4}}>
+                        <Box sx={{mt:3, display: "flex", alignItems: "center",gap: 4}}>
                             <BtnLogin label="Valider" type="button"  onClick={handleLogin} />
                         </Box>
-                        <Box sx={{mt:6, display: "flex", alignItems: "center",gap: 4}}>
+                        <Box sx={{mt:5, display: "flex", alignItems: "center",gap: 4}}>
                             <Button type="submit" onClick={() => navigate("/forgetPass")} style={{color:"#f69a03"}} >Mot de passe oublié</Button>
                             <Button type="submit" onClick={() => navigate("/register")} style={{color:"#f69a03"}} >Inscription</Button>
                         </Box>

@@ -1,5 +1,5 @@
 import {Box, Button, Typography} from "@mui/material";
-import Imput from "../../components/compoLogin/Imput.tsx";
+import Input from "../../components/compoLogin/Input.tsx";
 import BtnLogin from "../../components/compoLogin/BtnLogin.tsx";
 import {useNavigate} from "react-router";
 
@@ -39,10 +39,10 @@ const ContactUs = () => {
                 />
 
                 <Box sx={{mt:6,display: "flex", flexDirection:"column" ,alignItems: "center",gap:4}}>
-                    <Imput label="Nom" name="username"  type="text" />
-                    <Imput label="Prenom" name="username"  type="text" />
-                    <Imput label="Email" name="username"  type="text" />
-                    <Imput label="Message" name="username"  type="text" />
+                    <Input label="Nom" name="username" type="text" />
+                    <Input label="Prenom" name="username" type="text" />
+                    <Input label="Email" name="username" type="text" />
+                    <Input label="Message" name="username" type="text" />
                 </Box>
                 <Box sx={{mt:5, display: "flex", alignItems: "center",gap:1}}>
                     <BtnLogin label="Valider" type="button" onClick={() => navigate("/3")} />

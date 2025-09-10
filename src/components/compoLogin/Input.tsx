@@ -12,7 +12,7 @@ type ImputProps = {
     onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
 };
 
-const Imput: React.FC<ImputProps> = ({
+const Input: React.FC<ImputProps> = ({
     label,
     name,
     type = "text",
@@ -43,4 +43,4 @@ const Imput: React.FC<ImputProps> = ({
     );
 };
 
-export default Imput;
+export default Input;
