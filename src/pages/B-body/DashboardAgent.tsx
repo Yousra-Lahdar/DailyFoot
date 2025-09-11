@@ -13,10 +13,14 @@ const DashboardAgent = () => {
     useEffect(() => {
         const fetchAgent = async () => {
             try {
-                const response = await axios.get("http://localhost:8080/users/me");
+                const response = await axios.get("http://localhost:8080/users/me", {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    }
+                });
                 setAgentName(response.data.name);
             } catch (error) {
-                console.error( error);
+                console.error(error);
             }
         };
 
