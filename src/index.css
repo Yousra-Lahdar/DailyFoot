@@ -3,4 +3,12 @@ body {
 
   background-color: #ece9e8;
 }
+/* Reset pour tout le monde */
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  box-sizing: border-box;
+}
+
 

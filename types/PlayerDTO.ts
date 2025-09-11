@@ -6,5 +6,5 @@ export interface PlayerDTO {
     club: string;
     age: number;
     nationality: string;
-    agentId?: string; // optionnel
+    agentId?: string;
 }

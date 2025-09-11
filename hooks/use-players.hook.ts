@@ -28,7 +28,7 @@ export const usePlayers = () => {
 
         const fetchPlayers = async () => {
             try {
-                const response = await axios.get(`${BASE_API_URL}/players/my`, {
+                const response = await axios.get(`${BASE_API_URL}/players/my-players`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setPlayers(response.data);

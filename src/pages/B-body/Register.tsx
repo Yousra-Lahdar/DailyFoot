@@ -1,9 +1,9 @@
 import {Box, Button, Typography} from "@mui/material";
-import Imput from "../../components/compoLogin/Imput.tsx";
+import Input from "../../components/compoLogin/Input.tsx";
 import BtnLogin from "../../components/compoLogin/BtnLogin.tsx";
 import {useNavigate} from "react-router";
 import {useState} from "react";
-import axios from "axios";
+import axios, {type AxiosError} from "axios";
 import {BASE_API_URL} from "../../../constants.ts";
 
 const Register = () => {
@@ -14,6 +14,7 @@ const Register = () => {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [name, setName] = useState("");
     const [errors, setErrors] = useState<{ [key: string]: string }>({});
+
     const handleRegister = async () => {
         const newErrors: { [key: string]: string } = {};
         if (!name) newErrors.name = "Le nom est requis";
@@ -25,17 +26,19 @@ const Register = () => {
             setErrors(newErrors);
             return;
         }
+
         try {
-            await axios.post(BASE_API_URL + "/auth/register", {
+            await axios.post(BASE_API_URL + "/auth/register/agent", {
                 name,
                 email,
                 password
             });
             navigate("/login");
-        } catch (error: any) {
+        } catch (error) {
+            const err = error as AxiosError<{message:string}>;
             console.log(error)
             setErrors({
-                email: error.response?.data?.message || "Une erreur est survenue"
+                email: err.response?.data?.message || "Une erreur est survenue"
             });
         }
     };
@@ -64,7 +67,6 @@ const Register = () => {
                     alignItems: "center",
                     pt: 4,
                     boxShadow: 7,
-
                 }}
             >
                 <img
@@ -74,22 +76,23 @@ const Register = () => {
                 />
 
                 <Box sx={{mt: 6, display: "flex", flexDirection: "column", justifyContent: "center", gap: 4}}>
-                    <Imput label="Nom" name="Nom" type="text" value={name} onChange={(e) => setName(e.target.value)}
-                           error={errors.name}/>
-                    <Imput label="Email" name="Email" type="text" value={email}
-                           onChange={(e) => setEmail(e.target.value)} error={errors.email}/>
-                    <Imput label="Mot de passe" name="password" type="password" value={password}
-                           onChange={(e) => setPassword(e.target.value)} error={errors.password}/>
-                    <Imput label="Confirmer Mot de passe" name="password" type="password" value={confirmPassword}
-                           onChange={(e) => setConfirmPassword(e.target.value)} error={errors.confirmPassword}/>
+                    <Input label="Nom" name="Nom" type="text" value={name} onChange={(e) => setName(e.target.value)}
+                           errorText={errors.name}/>
+                    <Input label="Email" name="Email" type="text" value={email}
+                           onChange={(e) => setEmail(e.target.value)} errorText={errors.email}/>
+                    <Input label="Mot de passe" name="password" type="password" value={password}
+                           onChange={(e) => setPassword(e.target.value)} errorText={errors.password}/>
+                    <Input label="Confirmer Mot de passe" name="password" type="password" value={confirmPassword}
+                           onChange={(e) => setConfirmPassword(e.target.value)} errorText={errors.confirmPassword}/>
                 </Box>
+
                 <Box sx={{mt: 5, display: "flex", alignItems: "center", gap: 0}}>
                     <BtnLogin label="Valider" type="button" onClick={handleRegister}/>
                 </Box>
-                <Box sx={{mt: 0, display: "flex", alignItems: "center", gap: 4}}>
-                    <Button type="submit" onClick={() => navigate("/Login")} style={{color: "#f69a03"}}>Page de
-                        connexion</Button>
 
+                <Box sx={{mt: 0, display: "flex", alignItems: "center", gap: 4}}>
+                    <Button type="submit" onClick={() => navigate("/login")} style={{color: "#f69a03"}}>Page de
+                        connexion</Button>
                 </Box>
             </Box>
         </Box>
