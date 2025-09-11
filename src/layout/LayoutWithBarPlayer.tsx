@@ -7,18 +7,13 @@ const LayoutWithBarPlayer = () => {
     return (
         <Box
             sx={{
+                minHeight: "100vh",
                 display: "flex",
                 flexDirection: "column",
-                minHeight: "100vh", // occupe tout l’écran
             }}
         >
             <HeaderPlayer />
-
-            {/* Contenu principal qui prend toute la place dispo */}
-            <Box sx={{ flex: 1 }}>
-                <Outlet />
-            </Box>
-
+            <Outlet />
             <FooterWithoutLogo />
         </Box>
     );

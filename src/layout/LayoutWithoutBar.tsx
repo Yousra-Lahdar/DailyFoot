@@ -1,13 +1,20 @@
 import {Outlet} from "react-router";
 import FooterWithLogo from "../pages/C-footer/FooterWithLogo.tsx";
+import {Box} from "@mui/material";
 
 const LayoutWithoutBar = () => {
 
     return (
-        <div>
+        <Box
+            sx={{
+                minHeight: "100vh",
+                display: "flex",
+                flexDirection: "column",
+            }}
+        >
             <Outlet/>
             <FooterWithLogo/>
-        </div>
+        </Box>
     );
 };
 
