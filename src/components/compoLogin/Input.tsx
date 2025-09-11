@@ -10,6 +10,7 @@ type ImputProps = {
     error?: boolean;
     helperText?: string;
     onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
+    errorText?: string;
 };
 
 const Input: React.FC<ImputProps> = ({

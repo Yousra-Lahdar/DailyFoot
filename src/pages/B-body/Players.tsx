@@ -1,7 +1,6 @@
 import {Box, Stack, Typography} from "@mui/material";
 import CardPlayer from "../../components/players/CardPlayer.tsx";
 import {usePlayers} from "../../../hooks/use-players.hook.ts";
-import { Outlet } from "react-router";
 
 const Players = () => {
     const {players, loading, error} = usePlayers();

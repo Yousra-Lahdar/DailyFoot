@@ -3,7 +3,7 @@ import Input from "../../components/compoLogin/Input.tsx";
 import BtnLogin from "../../components/compoLogin/BtnLogin.tsx";
 import {useNavigate} from "react-router";
 import {useState} from "react";
-import axios from "axios";
+import axios, {type AxiosError} from "axios";
 import {BASE_API_URL} from "../../../constants.ts";
 
 const Register = () => {
@@ -34,10 +34,11 @@ const Register = () => {
                 password
             });
             navigate("/login");
-        } catch (error: any) {
+        } catch (error) {
+            const err = error as AxiosError<{message:string}>;
             console.log(error)
             setErrors({
-                email: error.response?.data?.message || "Une erreur est survenue"
+                email: err.response?.data?.message || "Une erreur est survenue"
             });
         }
     };
@@ -76,13 +77,13 @@ const Register = () => {
 
                 <Box sx={{mt: 6, display: "flex", flexDirection: "column", justifyContent: "center", gap: 4}}>
                     <Input label="Nom" name="Nom" type="text" value={name} onChange={(e) => setName(e.target.value)}
-                           error={errors.name}/>
+                           errorText={errors.name}/>
                     <Input label="Email" name="Email" type="text" value={email}
-                           onChange={(e) => setEmail(e.target.value)} error={errors.email}/>
+                           onChange={(e) => setEmail(e.target.value)} errorText={errors.email}/>
                     <Input label="Mot de passe" name="password" type="password" value={password}
-                           onChange={(e) => setPassword(e.target.value)} error={errors.password}/>
+                           onChange={(e) => setPassword(e.target.value)} errorText={errors.password}/>
                     <Input label="Confirmer Mot de passe" name="password" type="password" value={confirmPassword}
-                           onChange={(e) => setConfirmPassword(e.target.value)} error={errors.confirmPassword}/>
+                           onChange={(e) => setConfirmPassword(e.target.value)} errorText={errors.confirmPassword}/>
                 </Box>
 
                 <Box sx={{mt: 5, display: "flex", alignItems: "center", gap: 0}}>
