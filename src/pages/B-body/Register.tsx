@@ -26,7 +26,7 @@ const Register = () => {
             return;
         }
         try {
-            await axios.post(BASE_API_URL + "/auth/register", {
+            await axios.post(BASE_API_URL + "/auth/register/agent", {
                 name,
                 email,
                 password

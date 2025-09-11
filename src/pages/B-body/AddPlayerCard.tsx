@@ -15,7 +15,8 @@ const AddPlayerCard = ({ onClick }: AddPlayerCardProps) => {
         justifyContent: "center",
         alignItems: "center",
         cursor: "pointer",
-        border: "2px dashed grey",
+        border: "2px dashed orange",
+        backgroundColor: "white",
         "&:hover": {
           borderColor: "primary.main",
           backgroundColor: "action.hover",
