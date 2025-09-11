@@ -1,8 +1,7 @@
 import { Box, Button, Card, CardContent, Typography } from "@mui/material";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
 interface Player {
-    id: number;
     name: string;
     age: number;
     nationality: string;
@@ -18,6 +17,7 @@ interface ProfilProps {
 
 const Profil = ({ player }: ProfilProps) => {
     const navigate = useNavigate();
+    const { id } = useParams<{ id: string }>();
 
     if (!player) return <p>Joueur introuvable</p>;
 
@@ -44,7 +44,14 @@ const Profil = ({ player }: ProfilProps) => {
 
                 <Button
                     type="button"
-                    onClick={() => navigate(`/1/players/${player.id}/agenda`)}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        if (!id) {
+                            console.error("ID dans l’URL est undefined");
+                            return;
+                        }
+                        navigate(`/1/players/${id}/agenda`);
+                    }}
                     sx={{ color: "#f69a03", mt: 1 }}
                 >
                     Son Agenda

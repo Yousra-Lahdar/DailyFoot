@@ -9,17 +9,15 @@ const FooterWithLogo = () => {
             component="footer"
             sx={{
                 backgroundColor: theme.palette.background.paper,
-                //border: '1px solid',
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
                 padding: "20px 40px",
                 height: "120px",
-                mt:1.5
+                mt: "auto",
             }}
         >
-
-            <Box sx={{ display: "flex", gap: 3, paddingTop:"80px"}}>
+            <Box sx={{ display: "flex", gap: 3 }}>
                 <Link href="/conditions" underline="none" color="black" fontWeight="bold">
                     Conditions générales
                 </Link>
@@ -27,8 +25,6 @@ const FooterWithLogo = () => {
                     Mentions légales
                 </Link>
             </Box>
-
-
             <Box sx={{ flexGrow: 1, textAlign: "center" }}>
                 <Box
                     component="img"
@@ -37,13 +33,9 @@ const FooterWithLogo = () => {
                     sx={{
                         height: "100px",
                         width: "100px",
-                        marginRight: "130px",
-
                     }}
                 />
             </Box>
-
-
             <Box>
                 <Link href="/contact" underline="none" color="black" fontWeight="bold">
                     Nous Contacter

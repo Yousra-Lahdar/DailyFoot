@@ -5,11 +5,11 @@ import { Chart as ChartJS, RadialLinearScale, PointElement, LineElement, Filler,
 ChartJS.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend);
 
 interface Statistics {
-    buts: number;
-    passesDecisives: number;
-    cartonsJaunes: number;
-    cartonsRouges: number;
-    matchsJoues: number;
+    goals: number;
+    assists: number;
+    yellowCards: number;
+    redCards: number;
+    matchesPlayed: number;
 }
 
 const CardStatistic = ({ stats }: { stats: Statistics }) => {
@@ -18,11 +18,11 @@ const CardStatistic = ({ stats }: { stats: Statistics }) => {
         datasets: [
             {
                 data: [
-                    stats.buts,
-                    stats.passesDecisives,
-                    stats.cartonsJaunes,
-                    stats.cartonsRouges,
-                    stats.matchsJoues,
+                    stats.goals,
+                    stats.assists,
+                    stats.yellowCards,
+                    stats.redCards,
+                    stats.matchesPlayed,
                 ],
                 backgroundColor: "rgba(255, 165, 0, 0.2)",
                 borderColor: "orange",
@@ -58,11 +58,11 @@ const CardStatistic = ({ stats }: { stats: Statistics }) => {
 
                     <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 2, px: 2, pb: 2 }}>
                         <Box>
-                            <Typography variant="body2">Buts : {stats.buts}</Typography>
-                            <Typography variant="body2">Passes décisives : {stats.passesDecisives}</Typography>
-                            <Typography variant="body2">Cartons jaunes : {stats.cartonsJaunes}</Typography>
-                            <Typography variant="body2">Cartons rouges : {stats.cartonsRouges}</Typography>
-                            <Typography variant="body2">Matchs joués : {stats.matchsJoues}</Typography>
+                            <Typography variant="body2">Buts : {stats.goals}</Typography>
+                            <Typography variant="body2">Passes décisives : {stats.assists}</Typography>
+                            <Typography variant="body2">Cartons jaunes : {stats.yellowCards}</Typography>
+                            <Typography variant="body2">Cartons rouges : {stats.redCards}</Typography>
+                            <Typography variant="body2">Matchs joués : {stats.matchesPlayed}</Typography>
                         </Box>
 
                         <Box sx={{ width: 350, height: 350 }}>

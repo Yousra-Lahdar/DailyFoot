@@ -5,7 +5,7 @@ interface Player {
     id: number;
     name: string;
     age: number;
-    poste: string;
+    poste?: string;
     nationality: string;
     club: string;
     image?: string;
@@ -23,7 +23,7 @@ const CardPlayer = ({player}: Props) => {
             console.error("Player ID is undefined", player);
             return;
         }
-        navigate(`/1/statistic/${player.id}`); // ou `/2/statistic/${player.id}` selon le rôle
+        navigate(`/1/players/${player.id}/statistic`);
     };
 
     return (

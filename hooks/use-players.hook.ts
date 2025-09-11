@@ -25,19 +25,19 @@ export const usePlayers = () => {
       return;
     }
 
-    try {
-      setLoading(true);
-      const response = await axios.get(`${BASE_API_URL}/players`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setPlayers(response.data);
-    } catch (err: any) {
-      console.error(err);
-      setError("Impossible de récupérer les joueurs");
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+        const fetchPlayers = async () => {
+            try {
+                const response = await axios.get(`${BASE_API_URL}/players/my-players`, {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+                setPlayers(response.data);
+            } catch (err: any) {
+                console.error(err);
+                setError("Impossible de récupérer les joueurs");
+            } finally {
+                setLoading(false);
+            }
+        };
 
   useEffect(() => {
     fetchPlayers();
