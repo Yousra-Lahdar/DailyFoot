@@ -42,7 +42,7 @@ const Agenda: React.FC = () => {
     };
 
     const handleDateClick = (arg: DateClickArg) => {
-        setSelectedDate(arg.date.toISOString()); // ISO complet avec heure
+        setSelectedDate(arg.date.toLocaleDateString('fr-CA'));
         setNewTitle("");
         setNewType("autre");
         setOpen(true);
@@ -50,8 +50,9 @@ const Agenda: React.FC = () => {
 
 
     const handleAddEvent = async () => {
-        const start = new Date(selectedDate); // ISO complet avec heure
-        const end = new Date(start.getTime() + 2 * 60 * 60 * 1000); // +2h
+        const start = new Date(selectedDate + "T10:00:00"); // date locale + heure
+        const end = new Date(selectedDate + "T12:00:00");
+
 
         const newEvent = {
             title: newTitle,
@@ -138,6 +139,7 @@ const Agenda: React.FC = () => {
         <Box sx={{ p: 3 }}>
             <h2>Agenda {id}</h2>
             <FullCalendar
+                timeZone="local"
                 plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
                 initialView="dayGridMonth"
                 headerToolbar={{
