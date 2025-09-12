@@ -13,9 +13,10 @@ interface Player {
 
 interface ProfilProps {
     player?: Player;
+    role?: "PLAYER" | "AGENT" | "ADMIN";
 }
 
-const Profil = ({ player }: ProfilProps) => {
+const Profil = ({ player,role }: ProfilProps) => {
     const navigate = useNavigate();
     const { id } = useParams<{ id: string }>();
 
@@ -42,20 +43,22 @@ const Profil = ({ player }: ProfilProps) => {
                     <Typography variant="body2">{player.poids}</Typography>
                 </Box>
 
-                <Button
-                    type="button"
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        if (!id) {
-                            console.error("ID dans l’URL est undefined");
-                            return;
-                        }
-                        navigate(`/1/players/${id}/agenda`);
-                    }}
-                    sx={{ color: "#f69a03", mt: 1 }}
-                >
-                    Son Agenda
-                </Button>
+                {role === "AGENT" && (
+                    <Button
+                        type="button"
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            if (!id) {
+                                console.error("ID dans l’URL est undefined");
+                                return;
+                            }
+                            navigate(`/1/players/${id}/agenda`);
+                        }}
+                        sx={{ color: "#f69a03", mt: 1 }}
+                    >
+                        Son Agenda
+                    </Button>
+                )}
             </CardContent>
         </Card>
     );

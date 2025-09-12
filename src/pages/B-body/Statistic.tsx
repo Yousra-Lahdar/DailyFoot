@@ -1,3 +1,4 @@
+
 import { Box, Typography, Button, Dialog, DialogTitle, DialogContent, TextField, DialogActions } from "@mui/material";
 import { useNavigate, useParams } from "react-router";
 import { useEffect, useState } from "react";
@@ -5,6 +6,7 @@ import axios from "axios";
 import Profil from "../../components/compoStat/Profil";
 import CardStatistic from "../../components/compoStat/CardStatistic";
 import { BASE_API_URL } from "../../../constants.ts";
+import {useParams} from "react-router";
 
 
 interface Player {
@@ -43,28 +45,41 @@ interface PlayerStatistics {
 
 const Statistic = () => {
     const { id } = useParams<{ id: string }>();
-    const navigate = useNavigate();
     const [stats, setStats] = useState<PlayerStatistics | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    const [openDialog, setOpenDialog] = useState(false);
-    const [editStats, setEditStats] = useState<Statistics | null>(null);
 
-    const fetchData = async () => {
-        setLoading(true);
-        const token = localStorage.getItem("token");
-        if (!token) {
-            setError("You must be logged in.");
-            setLoading(false);
-            return;
-        }
 
-        try {
-            let playerId: number | undefined = id ? Number(id) : undefined;
+    // Récupérer le rôle depuis le token
+    let role: "PLAYER" | "AGENT" | "ADMIN" | undefined;
+    const token = localStorage.getItem("token");
+    if (token) {
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const decodedPayload = JSON.parse(atob(base64));
+        role = decodedPayload.role;
+    }
 
-            // If no id in URL (player interface), fetch the current player
-            if (!playerId) {
-                const meResponse = await axios.get(`${BASE_API_URL}/players/me`, {
+    useEffect(() => {
+        const fetchData = async () => {
+            if (!token) {
+                setError("You must be logged in.");
+                setLoading(false);
+                return;
+            }
+
+            try {
+                let playerId: number | undefined = id ? Number(id) : undefined;
+
+                if (!playerId) {
+                    const meResponse = await axios.get(`${BASE_API_URL}/players/me`, {
+                        headers: { Authorization: `Bearer ${token}` },
+                    });
+                    playerId = meResponse.data.id;
+                }
+
+                const statsResponse = await axios.get(`${BASE_API_URL}/statistic/player/${playerId}`, {
+
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 playerId = meResponse.data.id;
@@ -87,7 +102,7 @@ const Statistic = () => {
 
     useEffect(() => {
         fetchData();
-    }, [id]);
+    }, [id, token]);
 
     if (loading)
         return <Typography sx={{ mt: 4, textAlign: "center" }}>Loading...</Typography>;
@@ -104,7 +119,7 @@ const Statistic = () => {
             </Typography>
         );
 
-  
+
     const currentPlayer = Array.isArray(stats.player)
         ? stats.player.find((p) => p.id === Number(id))
         : stats.player;
@@ -116,6 +131,7 @@ const Statistic = () => {
             </Typography>
         );
     }
+
 
     console.log("Current player to pass to Profil:", currentPlayer);
 
@@ -157,7 +173,9 @@ const Statistic = () => {
                 mt: 2,
             }}
         >
-            <Profil player={currentPlayer} />
+     <CardStatistic stats={stats.statistics} />
+
+            <Profil player={currentPlayer} role={role} />
             <Box>
                 <CardStatistic stats={openDialog && editStats ? editStats : stats.statistics} />
 
