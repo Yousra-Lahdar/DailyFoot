@@ -4,9 +4,14 @@ import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import {useTheme} from '@mui/material/styles';
 import logo from '../../assets/logo-daily.webp';
 import {Link} from 'react-router';
+import SettingsIcon from "@mui/icons-material/Settings";
 
 const HeaderPlayer: React.FC = () => {
     const theme = useTheme();
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+    };
     return (
         <AppBar position="static" sx={{ backgroundColor: theme.palette.background.paper, boxShadow: 'none' }}>
             <Toolbar sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -116,16 +121,27 @@ const HeaderPlayer: React.FC = () => {
                 </Box>
 
 
-                <Box component={Link}
-                     to={"/Login"}
-                     sx={{ display: 'flex', alignItems: 'center', gap: 5, marginRight: 5 }} >
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                     <IconButton
+                        component={Link}
+                        to="/1/setting"
                         sx={{
                             backgroundColor: '#FFFFFF',
                             borderRadius: '50%',
                         }}
                     >
+                        <SettingsIcon sx={{ color: theme.palette.text.primary }} />
+                    </IconButton>
 
+                    <IconButton
+                        component={Link}
+                        to="/Login"
+                        onClick={handleLogout}
+                        sx={{
+                            backgroundColor: '#FFFFFF',
+                            borderRadius: '50%',
+                        }}
+                    >
                         <PowerSettingsNewIcon sx={{ color: theme.palette.text.primary }} />
                     </IconButton>
                 </Box>
