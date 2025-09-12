@@ -22,14 +22,15 @@ const updateUser = async (formData: any) => {
 
 const fetchUserAgendas = async () => {
     const token = localStorage.getItem("token");
-    if (!token) return;
+    if (!token) return [];
     try {
-        const response = await axios.get(`${BASE_API_URL}/agenda`, {
+        const response = await axios.get(`${BASE_API_URL}/agenda/me`, {
             headers: {Authorization: `Bearer ${token}`}
         })
         return response.data;
     } catch (error) {
         console.error(error);
+        return [];
     }
 
     }
@@ -46,5 +47,13 @@ const addUserEvent = async (event: any) => {
     }
 }
 
-export {addUserEvent, fetchUserAgendas,fetchUserDetails,updateUser};
+const deleteUserEvent = async (eventId: string) => {
+    const token = localStorage.getItem("token");
+    if (!token) throw new Error("Token manquant");
+    return axios.delete(`${BASE_API_URL}/agenda/event/${eventId}`, {
+        headers: {Authorization: `Bearer ${token}`}
+    });
+};
+
+export {deleteUserEvent, addUserEvent, fetchUserAgendas,fetchUserDetails,updateUser};
 
