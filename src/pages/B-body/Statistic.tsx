@@ -1,13 +1,10 @@
-
-import { Box, Typography, Button, Dialog, DialogTitle, DialogContent, TextField, DialogActions } from "@mui/material";
-import { useNavigate, useParams } from "react-router";
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Typography } from "@mui/material";
+import { useParams } from "react-router";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Profil from "../../components/compoStat/Profil";
 import CardStatistic from "../../components/compoStat/CardStatistic";
 import { BASE_API_URL } from "../../../constants.ts";
-import {useParams} from "react-router";
-
 
 interface Player {
     id: number;
@@ -49,6 +46,8 @@ const Statistic = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
+    const [openDialog, setOpenDialog] = useState(false);
+    const [editStats, setEditStats] = useState<Statistics | null>(null);
 
     // Récupérer le rôle depuis le token
     let role: "PLAYER" | "AGENT" | "ADMIN" | undefined;
@@ -69,9 +68,11 @@ const Statistic = () => {
             }
 
             try {
-                let playerId: number | undefined = id ? Number(id) : undefined;
+                let playerId: number;
 
-                if (!playerId) {
+                if (id) {
+                    playerId = Number(id);
+                } else {
                     const meResponse = await axios.get(`${BASE_API_URL}/players/me`, {
                         headers: { Authorization: `Bearer ${token}` },
                     });
@@ -79,46 +80,27 @@ const Statistic = () => {
                 }
 
                 const statsResponse = await axios.get(`${BASE_API_URL}/statistic/player/${playerId}`, {
-
                     headers: { Authorization: `Bearer ${token}` },
                 });
-                playerId = meResponse.data.id;
+
+                setStats(statsResponse.data);
+            } catch (err: any) {
+                console.error(err);
+                setError("Player statistics not found or access denied.");
+            } finally {
+                setLoading(false);
             }
+        };
 
-            // Fetch statistics for the player
-            const statsResponse = await axios.get(`${BASE_API_URL}/statistic/player/${playerId}`, {
-                headers: { Authorization: `Bearer ${token}` },
-            });
-
-            setStats(statsResponse.data);
-        } catch (err: any) {
-            console.error(err);
-            setError("Player statistics not found or access denied.");
-        } finally {
-            setLoading(false);
-        }
-    };
-    
-
-    useEffect(() => {
         fetchData();
     }, [id, token]);
 
     if (loading)
         return <Typography sx={{ mt: 4, textAlign: "center" }}>Loading...</Typography>;
     if (error)
-        return (
-            <Typography sx={{ mt: 4, textAlign: "center", color: "red" }}>
-                {error}
-            </Typography>
-        );
+        return <Typography sx={{ mt: 4, textAlign: "center", color: "red" }}>{error}</Typography>;
     if (!stats)
-        return (
-            <Typography sx={{ mt: 4, textAlign: "center" }}>
-                Player profile not available
-            </Typography>
-        );
-
+        return <Typography sx={{ mt: 4, textAlign: "center" }}>Player profile not available</Typography>;
 
     const currentPlayer = Array.isArray(stats.player)
         ? stats.player.find((p) => p.id === Number(id))
@@ -132,20 +114,16 @@ const Statistic = () => {
         );
     }
 
-
-    console.log("Current player to pass to Profil:", currentPlayer);
-
     const handleOpenDialog = () => {
-        setEditStats(stats.statistics); // remplir avec les stats actuelles
+        setEditStats(stats.statistics);
         setOpenDialog(true);
     };
 
     const handleCloseDialog = () => setOpenDialog(false);
-    
+
     const handleSave = async () => {
         if (!editStats) return;
-        
-        const token = localStorage.getItem("token");
+
         try {
             await axios.patch(
                 `${BASE_API_URL}/statistic/update/${currentPlayer.id}`,
@@ -153,7 +131,11 @@ const Statistic = () => {
                 { headers: { Authorization: `Bearer ${token}` } }
             );
 
-            await fetchData();
+            // Re-fetch data pour actualiser l'affichage
+            const statsResponse = await axios.get(`${BASE_API_URL}/statistic/player/${currentPlayer.id}`, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            setStats(statsResponse.data);
 
             setOpenDialog(false);
         } catch (err) {
@@ -163,28 +145,12 @@ const Statistic = () => {
     };
 
     return (
-        <Box
-            sx={{
-                display: "flex",
-                flexWrap: "wrap",
-                gap: 5,
-                p: 2,
-                justifyContent: "center",
-                mt: 2,
-            }}
-        >
-     <CardStatistic stats={stats.statistics} />
+        <Box sx={{ display: "flex", flexWrap: "wrap", gap: 5, p: 2, justifyContent: "center", mt: 2 }}>
 
             <Profil player={currentPlayer} role={role} />
             <Box>
                 <CardStatistic stats={openDialog && editStats ? editStats : stats.statistics} />
-
-                <Button
-                    variant="contained"
-                    color="primary"
-                    sx={{ mt: 2 }}
-                    onClick={handleOpenDialog}
-                >
+                <Button variant="contained" color="primary" sx={{ mt: 2 }} onClick={handleOpenDialog}>
                     Modifier les statistiques
                 </Button>
             </Box>
