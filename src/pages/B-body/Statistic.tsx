@@ -1,10 +1,10 @@
 import { Box, Typography } from "@mui/material";
-import { useNavigate, useParams } from "react-router";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Profil from "../../components/compoStat/Profil";
 import CardStatistic from "../../components/compoStat/CardStatistic";
 import { BASE_API_URL } from "../../../constants.ts";
+import {useParams} from "react-router";
 
 interface Player {
     id: number;
@@ -42,14 +42,22 @@ interface PlayerStatistics {
 
 const Statistic = () => {
     const { id } = useParams<{ id: string }>();
-    const navigate = useNavigate();
     const [stats, setStats] = useState<PlayerStatistics | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
+    // Récupérer le rôle depuis le token
+    let role: "PLAYER" | "AGENT" | "ADMIN" | undefined;
+    const token = localStorage.getItem("token");
+    if (token) {
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const decodedPayload = JSON.parse(atob(base64));
+        role = decodedPayload.role;
+    }
+
     useEffect(() => {
         const fetchData = async () => {
-            const token = localStorage.getItem("token");
             if (!token) {
                 setError("You must be logged in.");
                 setLoading(false);
@@ -59,7 +67,6 @@ const Statistic = () => {
             try {
                 let playerId: number | undefined = id ? Number(id) : undefined;
 
-                // If no id in URL (player interface), fetch the current player
                 if (!playerId) {
                     const meResponse = await axios.get(`${BASE_API_URL}/players/me`, {
                         headers: { Authorization: `Bearer ${token}` },
@@ -67,7 +74,6 @@ const Statistic = () => {
                     playerId = meResponse.data.id;
                 }
 
-                // Fetch statistics for the player
                 const statsResponse = await axios.get(`${BASE_API_URL}/statistic/player/${playerId}`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
@@ -82,7 +88,7 @@ const Statistic = () => {
         };
 
         fetchData();
-    }, [id]);
+    }, [id, token]);
 
     if (loading)
         return <Typography sx={{ mt: 4, textAlign: "center" }}>Loading...</Typography>;
@@ -99,7 +105,6 @@ const Statistic = () => {
             </Typography>
         );
 
-    // Handle the case where stats.player is an array
     const currentPlayer = Array.isArray(stats.player)
         ? stats.player.find((p) => p.id === Number(id))
         : stats.player;
@@ -112,8 +117,6 @@ const Statistic = () => {
         );
     }
 
-    console.log("Current player to pass to Profil:", currentPlayer);
-
     return (
         <Box
             sx={{
@@ -125,7 +128,8 @@ const Statistic = () => {
                 mt: 2,
             }}
         >
-            <Profil player={currentPlayer} />
+
+            <Profil player={currentPlayer} role={role} />
             <CardStatistic stats={stats.statistics} />
         </Box>
     );
