@@ -27,7 +27,7 @@ interface Player {
 }
 
 const Players = () => {
-  // ✅ récupération des joueurs et de la fonction refetch
+  
   const { players, loading, error, refetch } = usePlayers();
 
   const [openDialog, setOpenDialog] = useState(false);
@@ -51,7 +51,6 @@ const Players = () => {
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  // ✅ handleSubmit modifié pour appeler refetch après le POST
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -69,7 +68,6 @@ const Players = () => {
 
       await refetch();
 
-      // 3️⃣ Reset du formulaire + fermeture du dialogue
       setForm({
         name: "",
         age: "",

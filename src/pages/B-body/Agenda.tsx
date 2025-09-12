@@ -7,20 +7,23 @@ import type { DateClickArg } from "@fullcalendar/interaction";
 import type { EventClickArg } from "@fullcalendar/core";
 import { Box, Dialog, DialogTitle, DialogContent, TextField, Select, MenuItem, Button, DialogActions } from "@mui/material";
 import { useParams } from "react-router";
-import {addUserEvent, fetchUserAgendas} from "../../../api/user.api.ts";
+import {addUserEvent, deleteUserEvent, fetchPlayerAgenda, fetchUserAgendas} from "../../../api/user.api.ts";
+import {BASE_API_URL} from "../../../constants.ts";
+import axios from "axios";
 type AgendaEvent = {
-    id?: number;
+    id: string;
     title: string;
-    date: string;
-    type?: string;         // pour FullCalendar
-    description?: string;  // pour ton backend
+    start: string;
+    end: string;
+    type?: string;
+    description?: string;
+    backgroundColor?: string;
+    borderColor?: string;
+    textColor?: string;
 };
 
 const Agenda: React.FC = () => {
-     const [events, setEvents] = useState<AgendaEvent[]>([
-         { title: "Match vs PSG", date: "2025-09-10", type: "match" },
-         { title: "Entraînement", date: "2025-09-12", type: "entrainement" },
-     ]);
+     const [events, setEvents] = useState<AgendaEvent[]>([]);
 
     const { id } = useParams<{ id: string }>();
     const [open, setOpen] = useState(false);
@@ -41,58 +44,127 @@ const Agenda: React.FC = () => {
     };
 
     const handleDateClick = (arg: DateClickArg) => {
-        setSelectedDate(arg.dateStr);
+        setSelectedDate(arg.date.toLocaleDateString('fr-CA'));
         setNewTitle("");
         setNewType("autre");
         setOpen(true);
     };
 
+
     const handleAddEvent = async () => {
+        const start = new Date(selectedDate + "T10:00:00");
+        const end = new Date(selectedDate + "T12:00:00");
+
         const newEvent = {
             title: newTitle,
-            description: newType, // ici tu peux mettre "match", "entrainement", "medical", "autre"
-            dateHeureDebut: selectedDate + "T10:00:00", // ajouter l'heure si nécessaire
-            dateHeureFin: selectedDate + "T12:00:00",
-            ownerType: "AGENT", // ou "PLAYER" selon ton cas
+            description: newType,
+            dateHeureDebut: start.toISOString(),
+            dateHeureFin: end.toISOString(),
+            ownerType: "AGENT", // qui crée l'événement
         };
 
         try {
-            const savedEvent = await addUserEvent(newEvent);
-            // mettre à jour le state local pour que FullCalendar l’affiche
+            let savedEvent;
+            if (id) {
+                // On ajoute l'event sur l'agenda du joueur
+                const token = localStorage.getItem("token");
+                const res = await axios.post(
+                    `${BASE_API_URL}/agenda/event/player/${id}`,
+                    newEvent,
+                    { headers: { Authorization: `Bearer ${token}` } }
+                );
+                savedEvent = res.data;
+            } else {
+                // On ajoute l'event sur son propre agenda (agent)
+                savedEvent = await addUserEvent(newEvent);
+            }
+
             setEvents([...events, {
                 id: savedEvent.id,
                 title: savedEvent.title,
-                date: savedEvent.dateHeureDebut.split("T")[0],
-                type: savedEvent.description, // ici on garde type pour color
+                start: savedEvent.dateHeureDebut,
+                end: savedEvent.dateHeureFin,
+                type: savedEvent.description,
                 description: savedEvent.description || "",
+                backgroundColor: getEventColor(savedEvent.description),
+                borderColor: getEventColor(savedEvent.description),
+                textColor: 'white'
             }]);
+
             setOpen(false);
         } catch (err) {
             console.error("Erreur lors de l’ajout :", err);
+            alert("Impossible d'ajouter l'événement");
         }
     };
 
 
+    const handleEventClick = async (arg: EventClickArg) => {
+        if (!confirm(`Supprimer l'événement "${arg.event.title}" ?`)) return;
 
-    const handleEventClick = (arg: EventClickArg) => {
-        if (confirm(`Supprimer l'événement "${arg.event.title}" ?`)) {
+        try {
+            // Si on est sur l'agenda d'un joueur (id dans l'URL), on appelle le endpoint "player"
+            if (id) {
+                await axios.delete(`${BASE_API_URL}/agenda/event/player/${arg.event.id}`, {
+                    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+                });
+            } else {
+                // Sinon suppression classique sur notre propre agenda
+                await deleteUserEvent(arg.event.id);
+            }
+
+            // Supprime l'événement du state local pour que le calendrier se mette à jour
+            setEvents(prevEvents => prevEvents.filter(e => e.id !== arg.event.id));
+
+            // Supprime l'événement du calendrier FullCalendar
             arg.event.remove();
+        } catch (err) {
+            console.error("Erreur lors de la suppression :", err);
+            alert("Impossible de supprimer l'événement en base");
         }
     };
+
+
     useEffect(() => {
         const loadAgenda = async () => {
+            setLoading(true);
             try {
-                const data = await fetchUserAgendas();
-                setEvents(data);
+                let data;
+                if (id) {
+                    // on récupère l'agenda du joueur
+                    data = await fetchPlayerAgenda(id);
+                } else {
+                    // agenda de l'utilisateur connecté
+                    data = await fetchUserAgendas();
+                }
+
+                const formattedEvents = data.map(ev => ({
+                    id: ev.id.toString(),
+                    title: ev.title,
+                    start: ev.dateHeureDebut,
+                    end: ev.dateHeureFin,
+                    description: ev.description || "",
+                    type: ev.description || "autre",
+                    backgroundColor: getEventColor(ev.description || "autre"),
+                    borderColor: getEventColor(ev.description || "autre"),
+                    textColor: 'white'
+                }));
+
+                setEvents(formattedEvents);
             } catch (err: any) {
                 setError(err.message || "Erreur lors du chargement de l’agenda");
+                setEvents([]);
             } finally {
                 setLoading(false);
             }
         };
 
         loadAgenda();
-    }, []);
+    }, [id]);
+
+
+
+
 
     if (loading) return <p>Chargement...</p>;
     if(error) return <p style={{ color: "red" }}>{error}</p>;
@@ -100,6 +172,7 @@ const Agenda: React.FC = () => {
         <Box sx={{ p: 3 }}>
             <h2>Agenda {id}</h2>
             <FullCalendar
+                timeZone="local"
                 plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
                 initialView="dayGridMonth"
                 headerToolbar={{
@@ -107,14 +180,26 @@ const Agenda: React.FC = () => {
                     center: "title",
                     right: "dayGridMonth,timeGridWeek,timeGridDay",
                 }}
-                events={events.map((event) => ({
-                    ...event,
-                    type: event.description,
-                    color: getEventColor(event.description),
-                }))}
+                events={events}
+                eventContent={(arg) => {
+                    // Custom rendering pour forcer un rectangle
+                    return (
+                        <div style={{
+                            backgroundColor: arg.event.backgroundColor,
+                            border: `1px solid ${arg.event.borderColor}`,
+                            color: arg.event.textColor,
+                            padding: "2px 4px",
+                            borderRadius: "4px",
+                            fontSize: "0.85em",
+                        }}>
+                            {arg.event.title}
+                        </div>
+                    );
+                }}
                 dateClick={handleDateClick}
                 eventClick={handleEventClick}
                 height="80vh"
+                displayEventTime={false}
             />
             <Box sx={{ display: "flex", gap: 2, mt: 2 }}>
                   <span style={{ background: "red", padding: "4px 8px", borderRadius: "4px", color: "white" }}>
