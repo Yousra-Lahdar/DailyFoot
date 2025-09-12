@@ -54,6 +54,14 @@ const deleteUserEvent = async (eventId: string) => {
         headers: {Authorization: `Bearer ${token}`}
     });
 };
+const fetchPlayerAgenda = async (playerId: string) => {
+    const token = localStorage.getItem("token");
+    if (!token) throw new Error("Token manquant");
+    const res = await axios.get(`${BASE_API_URL}/agenda/player/${playerId}`, {
+        headers: { Authorization: `Bearer ${token}` }
+    });
+    return res.data;
+};
 
-export {deleteUserEvent, addUserEvent, fetchUserAgendas,fetchUserDetails,updateUser};
+export {fetchPlayerAgenda, deleteUserEvent, addUserEvent, fetchUserAgendas,fetchUserDetails,updateUser};
 

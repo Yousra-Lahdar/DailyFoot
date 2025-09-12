@@ -7,7 +7,9 @@ import type { DateClickArg } from "@fullcalendar/interaction";
 import type { EventClickArg } from "@fullcalendar/core";
 import { Box, Dialog, DialogTitle, DialogContent, TextField, Select, MenuItem, Button, DialogActions } from "@mui/material";
 import { useParams } from "react-router";
-import {addUserEvent, deleteUserEvent, fetchUserAgendas} from "../../../api/user.api.ts";
+import {addUserEvent, deleteUserEvent, fetchPlayerAgenda, fetchUserAgendas} from "../../../api/user.api.ts";
+import {BASE_API_URL} from "../../../constants.ts";
+import axios from "axios";
 type AgendaEvent = {
     id: string;
     title: string;
@@ -50,20 +52,33 @@ const Agenda: React.FC = () => {
 
 
     const handleAddEvent = async () => {
-        const start = new Date(selectedDate + "T10:00:00"); // date locale + heure
+        const start = new Date(selectedDate + "T10:00:00");
         const end = new Date(selectedDate + "T12:00:00");
-
 
         const newEvent = {
             title: newTitle,
             description: newType,
             dateHeureDebut: start.toISOString(),
             dateHeureFin: end.toISOString(),
-            ownerType: "AGENT",
+            ownerType: "AGENT", // qui crée l'événement
         };
 
         try {
-            const savedEvent = await addUserEvent(newEvent);
+            let savedEvent;
+            if (id) {
+                // On ajoute l'event sur l'agenda du joueur
+                const token = localStorage.getItem("token");
+                const res = await axios.post(
+                    `${BASE_API_URL}/agenda/event/player/${id}`,
+                    newEvent,
+                    { headers: { Authorization: `Bearer ${token}` } }
+                );
+                savedEvent = res.data;
+            } else {
+                // On ajoute l'event sur son propre agenda (agent)
+                savedEvent = await addUserEvent(newEvent);
+            }
+
             setEvents([...events, {
                 id: savedEvent.id,
                 title: savedEvent.title,
@@ -75,42 +90,59 @@ const Agenda: React.FC = () => {
                 borderColor: getEventColor(savedEvent.description),
                 textColor: 'white'
             }]);
+
             setOpen(false);
         } catch (err) {
             console.error("Erreur lors de l’ajout :", err);
+            alert("Impossible d'ajouter l'événement");
         }
     };
+
 
     const handleEventClick = async (arg: EventClickArg) => {
-        if (confirm(`Supprimer l'événement "${arg.event.title}" ?`)) {
-            try {
-                // 1️⃣ Appel API pour supprimer l'événement en base
-                await deleteUserEvent(arg.event.id); // tu dois créer cette fonction dans user.api.ts
+        if (!confirm(`Supprimer l'événement "${arg.event.title}" ?`)) return;
 
-                // 2️⃣ Supprime l'événement du state local
-                setEvents(prevEvents => prevEvents.filter(e => e.id !== arg.event.id));
-
-                // 3️⃣ Supprime l'événement du calendrier (optionnel, FullCalendar se met à jour automatiquement)
-                arg.event.remove();
-            } catch (err) {
-                console.error("Erreur lors de la suppression :", err);
-                alert("Impossible de supprimer l'événement en base");
+        try {
+            // Si on est sur l'agenda d'un joueur (id dans l'URL), on appelle le endpoint "player"
+            if (id) {
+                await axios.delete(`${BASE_API_URL}/agenda/event/player/${arg.event.id}`, {
+                    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+                });
+            } else {
+                // Sinon suppression classique sur notre propre agenda
+                await deleteUserEvent(arg.event.id);
             }
+
+            // Supprime l'événement du state local pour que le calendrier se mette à jour
+            setEvents(prevEvents => prevEvents.filter(e => e.id !== arg.event.id));
+
+            // Supprime l'événement du calendrier FullCalendar
+            arg.event.remove();
+        } catch (err) {
+            console.error("Erreur lors de la suppression :", err);
+            alert("Impossible de supprimer l'événement en base");
         }
     };
+
 
     useEffect(() => {
         const loadAgenda = async () => {
             setLoading(true);
             try {
-                const data = await fetchUserAgendas();
-                if (!data) return setEvents([]);
+                let data;
+                if (id) {
+                    // on récupère l'agenda du joueur
+                    data = await fetchPlayerAgenda(id);
+                } else {
+                    // agenda de l'utilisateur connecté
+                    data = await fetchUserAgendas();
+                }
 
                 const formattedEvents = data.map(ev => ({
                     id: ev.id.toString(),
                     title: ev.title,
-                    start: ev.dateHeureDebut, // FullCalendar lit "start"
-                    end: ev.dateHeureFin,     // FullCalendar lit "end"
+                    start: ev.dateHeureDebut,
+                    end: ev.dateHeureFin,
                     description: ev.description || "",
                     type: ev.description || "autre",
                     backgroundColor: getEventColor(ev.description || "autre"),
@@ -128,7 +160,8 @@ const Agenda: React.FC = () => {
         };
 
         loadAgenda();
-    }, []);
+    }, [id]);
+
 
 
 
