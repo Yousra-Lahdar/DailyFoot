@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../compoDashboard/imput.css';
+import { Visibility, VisibilityOff } from "@mui/icons-material"; // si tu utilises MUI icons
+import { IconButton } from "@mui/material";
 
 type ImputProps = {
     label: string;
@@ -10,31 +12,52 @@ type ImputProps = {
     error?: boolean;
     helperText?: string;
     onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
-    errorText?: string;
 };
 
 const Input: React.FC<ImputProps> = ({
-    label,
-    name,
-    type = "text",
-    value,
-    onChange,
-    error,
-    helperText,
-    onBlur
-}) => {
+                                         label,
+                                         name,
+                                         type = "text",
+                                         value,
+                                         onChange,
+                                         error,
+                                         helperText,
+                                         onBlur
+                                     }) => {
+    const [showPassword, setShowPassword] = useState(false);
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
+
     return (
-        <div className="container">
-            <input 
-                required 
-                type={type} 
-                name={name} 
-                className={`input ${error ? "input-error" : ""}`} 
-                value={value} 
+        <div className="container" style={{ position: "relative" }}>
+            <input
+                required
+                type={type === "password" ? (showPassword ? "text" : "password") : type}
+                name={name}
+                className={`input ${error ? "input-error" : ""}`}
+                value={value}
                 onChange={onChange}
                 onBlur={onBlur}
             />
             <label className="label">{label}</label>
+
+            {/* Icône œil uniquement si type=password */}
+            {type === "password" && (
+                <IconButton
+                    onClick={togglePasswordVisibility}
+                    style={{
+                        position: "absolute",
+                        right: "10px",
+                        top: "40%",
+                        transform: "translateY(-50%)",
+                    }}
+                >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+            )}
+
             <div className="helper-slot">
                 <p className={`error-message ${error && helperText ? '' : 'error-hidden'}`}>
                     {helperText || ' '}

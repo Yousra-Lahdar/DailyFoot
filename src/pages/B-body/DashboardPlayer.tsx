@@ -1,8 +1,29 @@
 import {Box, Container, Typography} from "@mui/material";
 import AgendaCard from "../../components/compoDashboard/AgendaCard.tsx";
 import TodoList from "../../components/compoDashboard/TodoList.tsx";
+import {useEffect, useState} from "react";
+import axios from "axios";
 
 const DashboardPlayer = () => {
+
+    const [playerName, setPlayerName] = useState<string>("");
+
+    useEffect(() => {
+        const fetchPlayer = async () => {
+            try {
+                const response = await axios.get("http://localhost:8080/users/me", {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    }
+                });
+                setPlayerName(response.data.name);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        fetchPlayer();
+    }, []);
 
     return (
         <Container maxWidth="xl" sx={{ mt: 8}}>
@@ -19,7 +40,7 @@ const DashboardPlayer = () => {
                         variant="h3"
                         sx={{ color: "orange", fontWeight: "bold", mb: 3, ml:30}}
                     >
-                        BIENVENUE "Nom du joueur"
+                        BIENVENUE {playerName || "Chargement..."}
                     </Typography>
 
                     <AgendaCard />
