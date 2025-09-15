@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../compoDashboard/imput.css';
+import './imput.css';
 import { Visibility, VisibilityOff } from "@mui/icons-material"; // si tu utilises MUI icons
 import { IconButton } from "@mui/material";
 
@@ -52,6 +52,8 @@ const Input: React.FC<ImputProps> = ({
                         right: "10px",
                         top: "40%",
                         transform: "translateY(-50%)",
+                        color:"#f69a03"
+
                     }}
                 >
                     {showPassword ? <VisibilityOff /> : <Visibility />}

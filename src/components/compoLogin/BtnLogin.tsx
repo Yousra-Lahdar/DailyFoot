@@ -8,6 +8,7 @@ type BtnLoginProps = {
     disabled?: boolean;
     style?: React.CSSProperties;
     children?: React.ReactNode;
+
 };
 
 const BtnLogin = ({ label, type = "button", onClick, disabled, style, children }: BtnLoginProps) => {
@@ -18,6 +19,7 @@ const BtnLogin = ({ label, type = "button", onClick, disabled, style, children }
             className="btn"
             disabled={disabled}
             style={style}
+
         >
             {children ?? label}
         </button>

@@ -60,13 +60,13 @@ const Register = () => {
                 sx={{
                     width: 562,
                     height: 622,
-                    backgroundColor: "#FFE0B2",
+                    backgroundColor: "#ffffff",
                     borderRadius: 2,
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
                     pt: 4,
-                    boxShadow: 7,
+                    boxShadow: 0,
                 }}
             >
                 <img

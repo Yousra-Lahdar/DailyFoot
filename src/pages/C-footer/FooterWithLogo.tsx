@@ -13,7 +13,7 @@ const FooterWithLogo = () => {
                 alignItems: "center",
                 justifyContent: "space-between",
                 padding: "20px 40px",
-                height: "120px",
+                height: "80px",
                 mt: "auto",
             }}
         >
@@ -31,8 +31,8 @@ const FooterWithLogo = () => {
                     src={logo}
                     alt="DailyFoot Logo"
                     sx={{
-                        height: "100px",
-                        width: "100px",
+                        height: "70px",
+                        width: "70px",
                     }}
                 />
             </Box>
