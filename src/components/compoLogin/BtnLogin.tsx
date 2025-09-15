@@ -1,4 +1,5 @@
 import './btnImput.css'
+import {useEffect} from "react";
 
 
 type BtnLoginProps = {
@@ -12,7 +13,22 @@ type BtnLoginProps = {
 };
 
 const BtnLogin = ({ label, type = "button", onClick, disabled, style, children }: BtnLoginProps) => {
-    return (
+
+    useEffect(() => {
+        const handleEnter = (e: KeyboardEvent) => {
+            if (e.key === "Enter" && !disabled && onClick) {
+                onClick();
+            }
+        };
+
+        window.addEventListener("keydown", handleEnter);
+
+        return () => {
+            window.removeEventListener("keydown", handleEnter);
+        };
+    }, [onClick, disabled]);
+
+        return (
         <button 
             type={type} 
             onClick={onClick} 
