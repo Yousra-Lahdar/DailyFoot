@@ -149,10 +149,10 @@ const Statistic = () => {
 
             <Profil player={currentPlayer} role={role} />
             <Box>
-                <CardStatistic stats={openDialog && editStats ? editStats : stats.statistics} />
-                <Button variant="contained" color="primary" sx={{ mt: 2 }} onClick={handleOpenDialog}>
-                    Modifier les statistiques
-                </Button>
+                <CardStatistic 
+                stats={openDialog && editStats ? editStats : stats.statistics} 
+                onEdit={handleOpenDialog}
+                />
             </Box>
             <Dialog open={openDialog} onClose={handleCloseDialog}>
                 <DialogTitle>Modifier les statistiques</DialogTitle>

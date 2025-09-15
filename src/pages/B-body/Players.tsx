@@ -17,6 +17,7 @@ import axios from "axios";
 import { BASE_API_URL } from "../../../constants.ts";
 
 interface Player {
+  id: number;
   name: string;
   age?: string;
   nationality?: string;
@@ -27,11 +28,14 @@ interface Player {
 }
 
 const Players = () => {
-  
   const { players, loading, error, refetch } = usePlayers();
 
   const [openDialog, setOpenDialog] = useState(false);
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [selectedPlayerId, setSelectedPlayerId] = useState<number | null>(null);
+
   const [form, setForm] = useState<Player>({
+    id: 0,
     name: "",
     age: "",
     nationality: "",
@@ -43,6 +47,38 @@ const Players = () => {
 
   const handleAddPlayer = () => setOpenDialog(true);
   const handleClose = () => setOpenDialog(false);
+
+  // --- Ouvrir la confirmation ---
+  const handleOpenConfirm = (playerId: number) => {
+    setSelectedPlayerId(playerId);
+    setConfirmOpen(true);
+  };
+
+  const handleCloseConfirm = () => {
+    setSelectedPlayerId(null);
+    setConfirmOpen(false);
+  };
+
+  // --- Supprimer avec confirmation ---
+  const deletePlayer = async () => {
+    if (!selectedPlayerId) return;
+
+    const token = localStorage.getItem("token");
+    if (!token) return;
+
+    try {
+      await axios.delete(`${BASE_API_URL}/players/${selectedPlayerId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      await refetch(); // recharge les joueurs depuis le backend
+    } catch (err) {
+      console.error("Erreur lors de la suppression :", err);
+      alert("Impossible de supprimer le joueur.");
+    } finally {
+      handleCloseConfirm();
+    }
+  };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -69,6 +105,7 @@ const Players = () => {
       await refetch();
 
       setForm({
+        id: 0,
         name: "",
         age: "",
         nationality: "",
@@ -100,12 +137,24 @@ const Players = () => {
         }}
       >
         {players.map((player, idx) => (
-          <CardPlayer key={(player.name || "player") + idx} player={player} />
+          <Box key={(player.name || "player") + idx} sx={{ mb: 2 }}>
+            <CardPlayer player={player} />
+            <Box sx={{ display: "flex", justifyContent: "center", mt: 1 }}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => handleOpenConfirm(player.id)}
+              >
+                Supprimer
+              </Button>
+            </Box>
+          </Box>
         ))}
 
         <AddPlayerCard onClick={handleAddPlayer} />
       </Box>
 
+      {/* Dialog d’ajout */}
       <Dialog open={openDialog} onClose={handleClose}>
         <form onSubmit={handleSubmit}>
           <DialogTitle>Ajouter un joueur</DialogTitle>
@@ -166,10 +215,28 @@ const Players = () => {
           </DialogActions>
         </form>
       </Dialog>
+
+      {/* Dialog de confirmation de suppression */}
+      <Dialog open={confirmOpen} onClose={handleCloseConfirm}>
+        <DialogTitle>Confirmation</DialogTitle>
+        <DialogContent>
+          <Typography>
+            Êtes-vous sûr de vouloir supprimer ce joueur ? Cette action est
+            irréversible.
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseConfirm}>Annuler</Button>
+          <Button onClick={deletePlayer} variant="contained" color="primary">
+            Supprimer
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Stack>
   );
 };
 
 export default Players;
+
 
 
