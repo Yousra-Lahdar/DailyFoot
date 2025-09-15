@@ -124,7 +124,7 @@ const HeaderPlayer: React.FC = () => {
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                     <IconButton
                         component={Link}
-                        to="/1/setting"
+                        to="/2/setting"
                         sx={{
                             backgroundColor: '#FFFFFF',
                             borderRadius: '50%',

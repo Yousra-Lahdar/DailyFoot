@@ -65,7 +65,9 @@ export const Router = createBrowserRouter([
                 children: [
                     {index: true, element: <DashboardPlayer/>},
                     {path: "agenda", element: <Agenda/>},
-                    {path: "statistic", element: <Statistic/>}, // ID du joueur
+                    {path: "statistic", element: <Statistic/>},
+                    {path: "setting", element: <Setting/>, loader: fetchUserDetails},
+                    // ID du joueur
                 ],
             },
         ],
