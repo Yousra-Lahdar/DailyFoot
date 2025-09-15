@@ -1,4 +1,4 @@
-import {createBrowserRouter, Navigate} from "react-router";
+import { createBrowserRouter, Navigate } from "react-router";
 
 // Layouts
 import LayoutWithBarAgent from "../layout/LayoutWithBarAgent";
@@ -25,65 +25,67 @@ import Home from "../pages/B-body/Home.tsx";
 
 // Auth
 import PrivateRoute from "./PrivateRoute.tsx";
-import {fetchUserDetails} from "../../api/user.api.ts";
+import RoleRedirect from "./RoleRedirect.tsx";
+import { fetchUserDetails } from "../../api/user.api.ts";
 
 export const Router = createBrowserRouter([
-    // AGENT
-    {
-        element: <PrivateRoute allowedRoles={["AGENT"]}/>,
-        children: [
-            {
-                path: "/1",
-                element: <LayoutWithBarAgent/>,
-                children: [
-                    {index: true, element: <DashboardAgent/>},
-
-                    // Liste des joueurs
-                    {path: "players", element: <Players/>},
-
-                    // Pages indépendantes pour chaque joueur
-                    {path: "players/:id/agenda", element: <Agenda/>},
-                    {path: "players/:id/statistic", element: <Statistic/>},
-
-                    // Agenda global de l'agent
-                    {path: "agenda", element: <Agenda/>},
-
-                    {path: "setting", element: <Setting/>, loader: fetchUserDetails},
-                    {path: "pay", element: <Pay/>},
-                ],
-            },
-        ],
-    },
-
-    // PLAYER
-    {
-        element: <PrivateRoute allowedRoles={["PLAYER"]}/>,
-        children: [
-            {
-                path: "/2",
-                element: <LayoutWithBarPlayer/>,
-                children: [
-                    {index: true, element: <DashboardPlayer/>},
-                    {path: "agenda", element: <Agenda/>},
-                    {path: "statistic", element: <Statistic/>},
-                    {path: "setting", element: <Setting/>, loader: fetchUserDetails},
-                    // ID du joueur
-                ],
-            },
-        ],
-    },
-
-    // PUBLIC
+    // Route racine protégée → redirige selon le rôle
     {
         path: "/",
-        element: <LayoutWithoutBar/>,
+        element: <PrivateRoute />, // vérifie seulement si connecté
         children: [
-            {index: true, element: <Navigate to="Home" replace/>},
-            {path: "Home", element: <Home/>},
-            {path: "login", element: <Login/>},
-            {path: "forgetPass", element: <ForgetPass/>},
-            {path: "register", element: <Register/>},
-            {path: "contactUs", element: <ContactUs/>},
+            { index: true, element: <RoleRedirect /> }, // dispatch vers /agent ou /player
+        ],
+    },
+
+    // Routes AGENT
+    {
+        path: "/agent",
+        element: <PrivateRoute allowedRoles={["AGENT"]} />,
+        children: [
+            {
+                element: <LayoutWithBarAgent />,
+                children: [
+                    { index: true, element: <DashboardAgent /> },
+                    { path: "players", element: <Players /> },
+                    { path: "players/:id/agenda", element: <Agenda /> },
+                    { path: "players/:id/statistic", element: <Statistic /> },
+                    { path: "agenda", element: <Agenda /> },
+                    { path: "setting", element: <Setting />, loader: fetchUserDetails },
+                    { path: "pay", element: <Pay /> },
+                ],
+            },
+        ],
+    },
+
+    // Routes PLAYER
+    {
+        path: "/player",
+        element: <PrivateRoute allowedRoles={["PLAYER"]} />,
+        children: [
+            {
+                element: <LayoutWithBarPlayer />,
+                children: [
+                    { index: true, element: <DashboardPlayer /> },
+                    { path: "agenda", element: <Agenda /> },
+                    { path: "statistic", element: <Statistic /> },
+                    { path: "setting", element: <Setting />, loader: fetchUserDetails },
+                ],
+            },
+        ],
+    },
+
+    // Routes publiques
+    {
+        path: "/",
+        element: <LayoutWithoutBar />,
+        children: [
+            { index: true, element: <Navigate to="home" replace /> },
+            { path: "home", element: <Home /> },
+            { path: "login", element: <Login /> },
+            { path: "forgetPass", element: <ForgetPass /> },
+            { path: "register", element: <Register /> },
+            { path: "contactUs", element: <ContactUs /> },
         ],
     },
 ]);

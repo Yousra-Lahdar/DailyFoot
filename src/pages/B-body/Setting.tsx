@@ -138,7 +138,7 @@ const Setting = () => {
                     <Box sx={{mt: 3, display: "flex", alignItems: "center", gap: 4}}>
                         <Button
                             type="button"
-                            onClick={() => navigate("/1")}
+                            onClick={() => navigate("/")}
                             style={{color: "#f69a03"}}
                         >
                             Retour page principal

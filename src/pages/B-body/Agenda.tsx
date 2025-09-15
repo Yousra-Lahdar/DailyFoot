@@ -5,6 +5,7 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import type { DateClickArg } from "@fullcalendar/interaction";
 import type { EventClickArg } from "@fullcalendar/core";
+import frLocale from "@fullcalendar/core/locales/fr";
 import { Box, Dialog, DialogTitle, DialogContent, TextField, Select, MenuItem, Button, DialogActions } from "@mui/material";
 import { useParams } from "react-router";
 import {addUserEvent, deleteUserEvent, fetchPlayerAgenda, fetchUserAgendas} from "../../../api/user.api.ts";
@@ -27,7 +28,7 @@ const Agenda: React.FC = () => {
 
     const { id } = useParams<{ id: string }>();
     const [open, setOpen] = useState(false);
-    const [selectedDate, setSelectedDate] = useState("");
+    const [selectedDate, setSelectedDate] = useState<Date>(new Date());
     const [newTitle, setNewTitle] = useState("");
     const [newType, setNewType] = useState("autre");
     const [loading, setLoading] = useState(true);
@@ -44,7 +45,7 @@ const Agenda: React.FC = () => {
     };
 
     const handleDateClick = (arg: DateClickArg) => {
-        setSelectedDate(arg.date.toLocaleDateString('fr-CA'));
+        setSelectedDate(arg.date);
         setNewTitle("");
         setNewType("autre");
         setOpen(true);
@@ -52,9 +53,9 @@ const Agenda: React.FC = () => {
 
 
     const handleAddEvent = async () => {
-        const start = new Date(selectedDate + "T10:00:00");
-        const end = new Date(selectedDate + "T12:00:00");
-
+        const start = selectedDate!
+        const end = new Date(start.getTime() + 60 * 60 * 1000);
+        console.log(new Date(), selectedDate);
         const newEvent = {
             title: newTitle,
             description: newType,
@@ -82,8 +83,8 @@ const Agenda: React.FC = () => {
             setEvents([...events, {
                 id: savedEvent.id,
                 title: savedEvent.title,
-                start: savedEvent.dateHeureDebut,
-                end: savedEvent.dateHeureFin,
+                start: start.toISOString(),
+                end: end.toISOString(),
                 type: savedEvent.description,
                 description: savedEvent.description || "",
                 backgroundColor: getEventColor(savedEvent.description),
@@ -172,6 +173,7 @@ const Agenda: React.FC = () => {
         <Box sx={{ p: 3 }}>
             <h2>Agenda {id}</h2>
             <FullCalendar
+                locale={frLocale}
                 timeZone="local"
                 plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
                 initialView="dayGridMonth"

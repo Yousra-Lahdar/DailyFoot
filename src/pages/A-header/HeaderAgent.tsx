@@ -18,7 +18,7 @@ const HeaderAgent: React.FC = () => {
 
                 <Button
                     component={Link}
-                    to={"/1"}
+                    to={"/"}
                     variant="contained"
                     sx={{
                         backgroundColor: '#FFF8E1',
@@ -38,7 +38,7 @@ const HeaderAgent: React.FC = () => {
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                     <Button
                         component={Link}
-                        to="/1/agenda"
+                        to="/agent/agenda"
                         variant="outlined"
                         sx={{
                             borderColor: theme.palette.primary.main,
@@ -60,7 +60,7 @@ const HeaderAgent: React.FC = () => {
 
                     <Box
                         component={Link}
-                        to={"/1"}
+                        to={"/"}
                         sx={{
                             width: 140,
                             height: 140,
@@ -99,7 +99,7 @@ const HeaderAgent: React.FC = () => {
 
                     <Button
                         component={Link}
-                        to="/1/players"
+                        to="/agent/players"
                         variant="outlined"
                         sx={{
                             borderColor: theme.palette.primary.main,
@@ -123,7 +123,7 @@ const HeaderAgent: React.FC = () => {
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                     <IconButton
                         component={Link}
-                        to="/1/setting"
+                        to="/agent/setting"
                         sx={{
                             backgroundColor: '#FFFFFF',
                             borderRadius: '50%',

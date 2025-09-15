@@ -27,12 +27,12 @@ const Login = () => {
             const decodedPayload = JSON.parse(atob(base64));
             const role = decodedPayload.role; // ex: "PLAYER" ou "AGENT"
 
-            // Redirection selon le rôle
-            if (role === "PLAYER") navigate("/2");
-            else if (role === "AGENT") navigate("/1");
-            else if (role === "ADMIN") navigate("/3");
-            else navigate("/"); // fallback
-
+            // Dans Login.tsx
+            if (role === "PLAYER" || role === "AGENT" || role === "ADMIN") {
+                navigate("/");
+            } else {
+                navigate("/"); // fallback
+            }
         } catch (error: any) {
             console.log(error.response?.data || error.message);
             alert("Email ou mot de passe incorrect");

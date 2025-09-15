@@ -18,7 +18,7 @@ const HeaderPlayer: React.FC = () => {
 
                 <Button
                     component={Link}
-                    to={"/2"}
+                    to={"/"}
                     variant="contained"
                     sx={{
                         backgroundColor: '#FFF8E1',
@@ -38,7 +38,7 @@ const HeaderPlayer: React.FC = () => {
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                     <Button
                         component={Link}
-                        to="/2/agenda"
+                        to="/player/agenda"
                         variant="outlined"
                         sx={{
                             borderColor: theme.palette.primary.main,
@@ -60,7 +60,7 @@ const HeaderPlayer: React.FC = () => {
 
                     <Box
                         component={Link}
-                        to={"/2"}
+                        to={"/"}
                         sx={{
                             width: 140,
                             height: 140,
@@ -99,7 +99,7 @@ const HeaderPlayer: React.FC = () => {
 
                     <Button
                         component={Link}
-                        to={`/2/statistic`}
+                        to={`/player/statistic`}
                         variant="outlined"
                         sx={{
                             borderColor: theme.palette.primary.main,
@@ -124,7 +124,7 @@ const HeaderPlayer: React.FC = () => {
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                     <IconButton
                         component={Link}
-                        to="/2/setting"
+                        to="/player/setting"
                         sx={{
                             backgroundColor: '#FFFFFF',
                             borderRadius: '50%',
