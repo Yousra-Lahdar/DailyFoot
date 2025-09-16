@@ -4,13 +4,17 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import { useTheme } from '@mui/material/styles';
 import logo from '../../assets/logo-daily.webp';
-import { Link } from 'react-router';
+import {Link, useNavigate} from 'react-router';
+import {toast} from "react-toastify";
 
 const HeaderAgent: React.FC = () => {
     const theme = useTheme();
+    const navigate = useNavigate();
     const handleLogout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
+        toast.info(`À bientôt !`);
+        navigate('/login');
     };
     return (
         <AppBar position="static" sx={{ backgroundColor: theme.palette.background.paper, boxShadow: 'none' }}>
@@ -133,8 +137,6 @@ const HeaderAgent: React.FC = () => {
                     </IconButton>
 
                     <IconButton
-                        component={Link}
-                        to="/Login"
                         onClick={handleLogout}
                         sx={{
                             backgroundColor: '#FFFFFF',

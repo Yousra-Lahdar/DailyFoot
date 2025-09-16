@@ -20,7 +20,6 @@ const Login = () => {
             });
             const token = response.data.token;
             localStorage.setItem("token", token);
-
             // Extraire le rôle depuis le JWT
             const base64Url = token.split('.')[1];
             const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -29,6 +28,7 @@ const Login = () => {
 
             // Dans Login.tsx
             if (role === "PLAYER" || role === "AGENT" || role === "ADMIN") {
+                localStorage.setItem("justLoggedIn", "true");
                 navigate("/");
             } else {
                 navigate("/"); // fallback
@@ -37,6 +37,7 @@ const Login = () => {
             console.log(error.response?.data || error.message);
             alert("Email ou mot de passe incorrect");
         }
+
     };
 
     return (

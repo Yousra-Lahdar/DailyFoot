@@ -53,14 +53,18 @@ const Agenda: React.FC = () => {
 
 
     const handleAddEvent = async () => {
+        const formatDateLocal = (d: Date) => {
+            const pad = (n: number) => n.toString().padStart(2, "0");
+            return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}:00`;
+        };
         const start = selectedDate!
         const end = new Date(start.getTime() + 60 * 60 * 1000);
         console.log(new Date(), selectedDate);
         const newEvent = {
             title: newTitle,
             description: newType,
-            dateHeureDebut: start.toISOString(),
-            dateHeureFin: end.toISOString(),
+            dateHeureDebut: formatDateLocal(start),
+            dateHeureFin: formatDateLocal(end),
             ownerType: "AGENT", // qui crée l'événement
         };
 
