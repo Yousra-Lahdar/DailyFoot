@@ -1,6 +1,6 @@
 // components/ConfirmDialog.tsx
 import React from 'react';
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Typography } from '@mui/material';
+import {Dialog, DialogTitle, DialogContent, DialogActions, Button, Typography, type DialogProps} from '@mui/material';
 
 interface ConfirmDialogProps {
     open: boolean;
@@ -10,6 +10,7 @@ interface ConfirmDialogProps {
     onCancel: () => void;
     confirmText?: string;
     cancelText?: string;
+    PaperProps?: DialogProps['PaperProps'];
 }
 
 const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
@@ -20,9 +21,10 @@ const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
                                                          onCancel,
                                                          confirmText = "Confirmer",
                                                          cancelText = "Annuler",
+                                                         PaperProps,
                                                      }) => {
     return (
-        <Dialog open={open} onClose={onCancel}>
+        <Dialog open={open} onClose={onCancel} PaperProps={PaperProps} >
             <DialogTitle>{title}</DialogTitle>
             <DialogContent>
                 <Typography>{message}</Typography>
