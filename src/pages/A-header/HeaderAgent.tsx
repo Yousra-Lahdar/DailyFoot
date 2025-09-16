@@ -18,7 +18,7 @@ const HeaderAgent: React.FC = () => {
     };
     return (
         <AppBar position="static" sx={{ backgroundColor: theme.palette.background.paper, boxShadow: 'none' }}>
-            <Toolbar sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Toolbar sx={{display: 'flex', alignItems: 'center' }}>
 
                 <Button
                     component={Link}
@@ -39,7 +39,7 @@ const HeaderAgent: React.FC = () => {
                     DAILYFOOT
                 </Button>
 
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Box sx={{ display: 'flex', alignItems: 'center',justifyContent:"center",flexGrow:1 }}>
                     <Button
                         component={Link}
                         to="/agent/agenda"
@@ -124,7 +124,7 @@ const HeaderAgent: React.FC = () => {
                     </Button>
                 </Box>
 
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2}}>
                     <IconButton
                         component={Link}
                         to="/agent/setting"

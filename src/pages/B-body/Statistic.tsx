@@ -154,9 +154,14 @@ const Statistic = () => {
                     Modifier les statistiques
                 </Button>
             </Box>
-            <Dialog open={openDialog} onClose={handleCloseDialog}>
+
+            <Dialog open={openDialog} onClose={handleCloseDialog} PaperProps={{
+                sx: {
+                    backgroundColor: "#f9f9f9"
+                }
+            }}>
                 <DialogTitle>Modifier les statistiques</DialogTitle>
-                <DialogContent>
+                <DialogContent >
                     {editStats && (
                         <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 1 }}>
                             <TextField

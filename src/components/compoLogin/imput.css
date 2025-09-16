@@ -1,0 +1,66 @@
+/* From Uiverse.io by AmIt-DasIT */
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    position: relative;
+    color: #d38004;
+}
+
+.container .label {
+    font-size: 15px;
+    padding-left: 10px;
+    position: absolute;
+    top: 13px;
+    transition: 0.3s;
+    pointer-events: none;
+}
+
+.input {
+    width: 300px;
+    height: 45px;
+    outline: none;
+    padding: 0px 7px;
+    border-radius: 6px;
+    color: #000000;
+    font-size: 15px;
+    border: 2px solid #e8a020;
+    background-color: transparent;
+
+}
+
+.input:focus {
+    border: 3px solid transparent;
+    border-color: #e8a020;
+    color: #757575;
+
+}
+
+.container .input:valid ~ .label,
+.container .input:focus ~ .label {
+    transition: 0.3s;
+    padding-left: 2px;
+    transform: translateY(-35px);
+}
+
+.container .input:valid,
+.container .input:focus {
+
+
+    /* Reserve space for helper/error text to avoid layout shift */
+
+    .helper-slot {
+        min-height: 18px; /* ensures space even when no error */
+    }
+
+    .error-message {
+        color: #ffffff; /* Material error color */
+        font-size: 12px;
+        line-height: 16px;
+        margin: 2px 4px 0 4px;
+    }
+
+    .error-hidden {
+        visibility: hidden;
+    }
+}

@@ -14,7 +14,7 @@ const HeaderPlayer: React.FC = () => {
     };
     return (
         <AppBar position="static" sx={{ backgroundColor: theme.palette.background.paper, boxShadow: 'none' }}>
-            <Toolbar sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Toolbar sx={{display: 'flex',  alignItems: 'center' }}>
 
                 <Button
                     component={Link}
@@ -35,7 +35,8 @@ const HeaderPlayer: React.FC = () => {
                     DAILYFOOT
                 </Button>
 
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Box sx={{ display: 'flex', alignItems: 'center',justifyContent:"center",flexGrow:1 }}>
+
                     <Button
                         component={Link}
                         to="/player/agenda"

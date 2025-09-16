@@ -24,7 +24,7 @@ const Setting = () => {
         }}>
             <Typography
                 variant="h5"
-                sx={{fontWeight: "bold", color: "#c06e04"}}
+                sx={{fontWeight: "bold", color: "#f69a03"}}
             >
                 Modifier mon compte
             </Typography>
@@ -33,19 +33,13 @@ const Setting = () => {
                 width: 562,
                 minHeight: 622,
                 height: 'auto',
-                backgroundColor: "#FFE0B2",
-                borderRadius: 2,
+                backgroundColor: "rgb(255,255,255)",
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
                 pt: 4,
-                boxShadow: 7
             }}>
-                <img
-                    src="/logo-dailyfoot.png"
-                    alt="Logo DailyFoot"
-                    style={{width: 120, borderRadius: 70}}
-                />
+
 
                 <Box
                     component="form"
@@ -87,6 +81,19 @@ const Setting = () => {
 
                     <Box sx={{width: '100%', maxWidth: 400, display: 'flex', justifyContent: 'center'}}>
                         <Input
+                            label="Mot de passe actuelle "
+                            name="confirmPassword"
+                            type="password"
+                            value={formData.confirmPassword || ""}
+                            error={!!errors.confirmPassword}
+                            helperText={errors.confirmPassword}
+                            onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})}
+
+                        />
+                    </Box>
+
+                    <Box sx={{width: '100%', maxWidth: 400, display: 'flex', justifyContent: 'center'}}>
+                        <Input
                             label="Nouveau mot de passe"
                             name="password"
                             type="password"
@@ -121,12 +128,7 @@ const Setting = () => {
                     )}
 
                     <Box sx={{display: 'flex', gap: 2, mt: 2, mb: 4}}>
-                        <BtnLogin
-                            onClick={() => navigate(-1)}
 
-                        >
-                            Annuler
-                        </BtnLogin>
                         <BtnLogin
                             type="submit"
                             style={{minWidth: 120}}
@@ -134,6 +136,7 @@ const Setting = () => {
                             Valider
                         </BtnLogin>
                     </Box>
+
 
                     <Box sx={{mt: 3, display: "flex", alignItems: "center", gap: 4}}>
                         <Button
