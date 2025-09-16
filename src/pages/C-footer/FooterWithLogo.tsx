@@ -1,5 +1,5 @@
 import logo from "../../assets/logo-daily.webp";
-import { Box, Link, useTheme } from "@mui/material";
+import {Box, Link, Typography, useTheme} from "@mui/material";
 
 const FooterWithLogo = () => {
     const theme = useTheme();
@@ -11,33 +11,37 @@ const FooterWithLogo = () => {
                 backgroundColor: theme.palette.background.paper,
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "space-between",
+                justifyContent: "center",
                 padding: "20px 40px",
-                height: "120px",
+                height: "80px",
                 mt: "auto",
             }}
         >
-            <Box sx={{ display: "flex", gap: 3 }}>
-                <Link href="/conditions" underline="none" color="black" fontWeight="bold">
+            <Box sx={{ display: "flex", alignItems: "center",gap: 3, marginRight: 4 }}>
+
+                <Link href="/conditions" underline="none" color="#666666" fontWeight="bold">
                     Conditions générales
                 </Link>
-                <Link href="/mentions" underline="none" color="black" fontWeight="bold">
+                <Link href="/mentions" underline="none" color="#666666" fontWeight="bold">
                     Mentions légales
                 </Link>
-            </Box>
-            <Box sx={{ flexGrow: 1, textAlign: "center" }}>
+
                 <Box
                     component="img"
                     src={logo}
                     alt="DailyFoot Logo"
                     sx={{
-                        height: "100px",
-                        width: "100px",
+                        height: "30px",
+                        width: "30px",
+                        marginLeft:"40px"
                     }}
                 />
-            </Box>
-            <Box>
-                <Link href="/contact" underline="none" color="black" fontWeight="bold">
+
+                <Typography variant="body2" color="text.secondary">
+                    © 2025 SYS — Tous droits réservés
+                </Typography>
+
+                <Link href="/contact" underline="none" color="#666666" fontWeight="bold" style={{marginLeft:"40px"}}>
                     Nous Contacter
                 </Link>
             </Box>

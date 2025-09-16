@@ -1,4 +1,4 @@
-import {Box, Button, Container, Typography} from "@mui/material";
+import {Box, Button, Typography} from "@mui/material";
 import Input from "../../components/compoLogin/Input.tsx";
 import BtnLogin from "../../components/compoLogin/BtnLogin.tsx";
 import {useNavigate} from "react-router";
@@ -40,35 +40,37 @@ const Login = () => {
     };
 
     return (
-        <Container maxWidth="xl" sx={{ mt: 4, padding: "30vh" }}>
+        <Box sx={{  padding: "0vh" }}>
             <Box
                 sx={{
                     display: "flex",
-                    gap: 4,
-                    justifyContent: "center",
+                    gap: 21,
+                    alignItems: "flex-start",
+                    alignContent:"flex-start",
+
                 }}
             >
-                {/* Box gauche */}
+
                 <Box
                     sx={{
-                        width: 630,
-                        height: 750,
-                        backgroundColor: "#FEBC2F",
-                        borderRadius: 2,
-                        boxShadow:7
+                        width: 990,
+                        height: 845,
+                        backgroundColor: "#f69a03",
+                        borderRadius: 0,
+                        boxShadow:0,
                     }}
                 >
                     <Typography
                         variant="h4"
                         sx={{fontWeight: "bold", color: "#ffffff", textAlign: "center",mt:10,
-                        fontSize: 40,}}
+                        fontSize: 50,}}
                     >
                         BIENVENUE
                     </Typography>
                     <Typography
                         variant="h5"
                         sx={{ color: "#ffffff", textAlign: "center",mt:10,
-                            fontSize: 25,}}
+                            fontSize: 35,}}
                     >
                         Gérez, suivez, connectez :<br/>
                         tout est réuni sur DAILYFOOT.<br/>
@@ -81,28 +83,28 @@ const Login = () => {
                     </Typography>
                 </Box>
 
-                {/* Partie droite avec titre + box */}
-                <Box sx={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-                    {/* Titre à l'extérieur */}
+
+                <Box sx={{ display: "flex", flexDirection: "column", alignItems: "flex-start",mt:4 }}>
+
                     <Typography
                         variant="h5"
-                        sx={{fontWeight: "bold", color: "#c06e04",}}
+                        sx={{fontWeight: "bold", color: "#f69a03",}}
                     >
                         Se connecter
                     </Typography>
 
-                    {/* Box droite */}
+
                     <Box
                         sx={{
                             width: 562,
                             height: 622,
-                            backgroundColor: "#FFE0B2",
-                            borderRadius: 2,
+                            backgroundColor: "#ffffff",
+                            borderRadius: 0,
                             display: "flex",
                             flexDirection: "column",
                             alignItems: "center",
-                            pt: 4,
-                            boxShadow:7
+                            pt: 6,
+                           // border:" 2px solid beige"
                         }}
                     >
                         <img
@@ -113,14 +115,16 @@ const Login = () => {
 
                         />
 
-                        <Box sx={{mt:6,display: "flex", alignItems: "center",gap: 4}}>
+                        <Box sx={{mt:6,display: "flex", alignItems: "center",}}>
                             <Input label="Email" name="username" type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
+                        </Box>
+                        <Box sx={{mt:2,display: "flex", alignItems: "center",}}>
                             <Input label="Mot de passe" name="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                         </Box>
                         <Box sx={{mt:3, display: "flex", alignItems: "center",gap: 4}}>
                             <BtnLogin label="Valider" type="button"  onClick={handleLogin} />
                         </Box>
-                        <Box sx={{mt:5, display: "flex", alignItems: "center",gap: 4}}>
+                        <Box sx={{mt:1, display: "flex", flexDirection:"column", alignItems: "center",gap:1}}>
                             <Button type="submit" onClick={() => navigate("/forgetPass")} style={{color:"#f69a03"}} >Mot de passe oublié</Button>
                             <Button type="submit" onClick={() => navigate("/register")} style={{color:"#f69a03"}} >Inscription</Button>
                         </Box>
@@ -128,7 +132,7 @@ const Login = () => {
                     </Box>
                 </Box>
             </Box>
-        </Container>
+        </Box>
 
 
     );

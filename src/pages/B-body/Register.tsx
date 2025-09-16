@@ -44,6 +44,15 @@ const Register = () => {
     };
 
     return (
+        <div style={{
+            background: "linear-gradient(16deg, rgba(192, 110, 4, 1) 23%, rgba(246, 154, 3, 1) 48%, rgba(255, 244, 158, 1) 72%, rgba(255, 224, 178, 1) 100%)",
+            backgroundColor: "#C06E04",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            minHeight: "100vh",
+            width: "100%",
+            display: "flex", alignItems:"center",justifyContent:"center",flexDirection:"column"
+        }}>
         <Box sx={{
             display: "flex", flexDirection: "column",
             justifyContent: "center", alignItems: "center", minHeight: "90vh"
@@ -60,22 +69,24 @@ const Register = () => {
                 sx={{
                     width: 562,
                     height: 622,
-                    backgroundColor: "#FFE0B2",
+                    backgroundColor: "rgba(255,255,255,0.91)",
                     borderRadius: 2,
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
-                    pt: 4,
-                    boxShadow: 7,
+                    pt: 2,
+                    boxShadow: 0,
+                    pb:80
                 }}
             >
                 <img
                     src="/logo-dailyfoot.png"
                     alt="Logo DailyFoot"
                     style={{width: 120, borderRadius: 70}}
+                    onClick={() => navigate("/login")}
                 />
 
-                <Box sx={{mt: 6, display: "flex", flexDirection: "column", justifyContent: "center", gap: 4}}>
+                <Box sx={{mt: 3, display: "flex", flexDirection: "column", justifyContent: "center", gap: 3}}>
                     <Input label="Nom" name="Nom" type="text" value={name} onChange={(e) => setName(e.target.value)}
                            errorText={errors.name}/>
                     <Input label="Email" name="Email" type="text" value={email}
@@ -90,12 +101,9 @@ const Register = () => {
                     <BtnLogin label="Valider" type="button" onClick={handleRegister}/>
                 </Box>
 
-                <Box sx={{mt: 0, display: "flex", alignItems: "center", gap: 4}}>
-                    <Button type="submit" onClick={() => navigate("/login")} style={{color: "#f69a03"}}>Page de
-                        connexion</Button>
-                </Box>
             </Box>
         </Box>
+        </div>
     );
 };
 
