@@ -107,7 +107,7 @@ const Players = () => {
       </Box>
 
       <Dialog open={openDialog} onClose={handleClose}>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} style={{backgroundColor: "white"}}>
           <DialogTitle>Ajouter un joueur</DialogTitle>
           <DialogContent
             sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 1 }}

@@ -14,28 +14,9 @@ const HeaderAgent: React.FC = () => {
     };
     return (
         <AppBar position="static" sx={{ backgroundColor: theme.palette.background.paper, boxShadow: 'none' }}>
-            <Toolbar sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Toolbar sx={{display: 'flex', alignItems: 'center' }}>
 
-                <Button
-                    component={Link}
-                    to={"/1"}
-                    variant="contained"
-                    sx={{
-                        backgroundColor: '#FFF8E1',
-                        color: theme.palette.primary.main,
-                        borderRadius: '16px',
-                        fontWeight: 'bold',
-                        px: 3,
-                        textTransform: 'none',
-                        marginLeft: 5,
-                        letterSpacing: 1,
-                        fontSize: 17
-                    }}
-                >
-                    DAILYFOOT
-                </Button>
-
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Box sx={{ display: 'flex', alignItems: 'center',justifyContent:"center",flexGrow:1 }}>
                     <Button
                         component={Link}
                         to="/1/agenda"
@@ -120,7 +101,7 @@ const HeaderAgent: React.FC = () => {
                     </Button>
                 </Box>
 
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2}}>
                     <IconButton
                         component={Link}
                         to="/1/setting"

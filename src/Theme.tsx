@@ -12,7 +12,7 @@ const palette: PaletteOptions = {
     },*/
     background: {
         default: '#FFFFFF',
-        paper: 'rgba(217,217,217,0.18)',
+        paper: 'rgba(255,246,230,0.59)',
     },
     text: {
         primary: '#000000',
