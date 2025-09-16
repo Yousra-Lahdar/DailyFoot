@@ -16,10 +16,30 @@ const HeaderPlayer: React.FC = () => {
         <AppBar position="static" sx={{ backgroundColor: theme.palette.background.paper, boxShadow: 'none' }}>
             <Toolbar sx={{display: 'flex',  alignItems: 'center' }}>
 
+                <Button
+                    component={Link}
+                    to={"/"}
+                    variant="contained"
+                    sx={{
+                        backgroundColor: '#FFF8E1',
+                        color: theme.palette.primary.main,
+                        borderRadius: '16px',
+                        fontWeight: 'bold',
+                        px: 3,
+                        textTransform: 'none',
+                        marginLeft: 5,
+                        letterSpacing: 1,
+                        fontSize: 17
+                    }}
+                >
+                    DAILYFOOT
+                </Button>
+
                 <Box sx={{ display: 'flex', alignItems: 'center',justifyContent:"center",flexGrow:1 }}>
+
                     <Button
                         component={Link}
-                        to="/2/agenda"
+                        to="/player/agenda"
                         variant="outlined"
                         sx={{
                             borderColor: theme.palette.primary.main,
@@ -41,7 +61,7 @@ const HeaderPlayer: React.FC = () => {
 
                     <Box
                         component={Link}
-                        to={"/2"}
+                        to={"/"}
                         sx={{
                             width: 140,
                             height: 140,
@@ -80,7 +100,7 @@ const HeaderPlayer: React.FC = () => {
 
                     <Button
                         component={Link}
-                        to={`/2/statistic`}
+                        to={`/player/statistic`}
                         variant="outlined"
                         sx={{
                             borderColor: theme.palette.primary.main,
@@ -105,7 +125,7 @@ const HeaderPlayer: React.FC = () => {
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                     <IconButton
                         component={Link}
-                        to="/2/setting"
+                        to="/player/setting"
                         sx={{
                             backgroundColor: '#FFFFFF',
                             borderRadius: '50%',

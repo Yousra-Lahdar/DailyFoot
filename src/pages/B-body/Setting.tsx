@@ -137,6 +137,16 @@ const Setting = () => {
                         </BtnLogin>
                     </Box>
 
+
+                    <Box sx={{mt: 3, display: "flex", alignItems: "center", gap: 4}}>
+                        <Button
+                            type="button"
+                            onClick={() => navigate("/")}
+                            style={{color: "#f69a03"}}
+                        >
+                            Retour page principal
+                        </Button>
+                    </Box>
                 </Box>
             </Box>
         </Box>

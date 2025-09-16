@@ -23,7 +23,7 @@ const CardPlayer = ({player}: Props) => {
             console.error("Player ID is undefined", player);
             return;
         }
-        navigate(`/1/players/${player.id}/statistic`);
+        navigate(`/agent/players/${player.id}/statistic`);
     };
 
     return (

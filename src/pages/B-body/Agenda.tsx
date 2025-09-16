@@ -5,11 +5,14 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import type { DateClickArg } from "@fullcalendar/interaction";
 import type { EventClickArg } from "@fullcalendar/core";
+import frLocale from "@fullcalendar/core/locales/fr";
 import { Box, Dialog, DialogTitle, DialogContent, TextField, Select, MenuItem, Button, DialogActions } from "@mui/material";
 import { useParams } from "react-router";
 import {addUserEvent, deleteUserEvent, fetchPlayerAgenda, fetchUserAgendas} from "../../../api/user.api.ts";
 import {BASE_API_URL} from "../../../constants.ts";
 import axios from "axios";
+import ConfirmDialog from "../../components/compoDashboard/ConfirmDialog.tsx";
+
 type AgendaEvent = {
     id: string;
     title: string;
@@ -27,11 +30,13 @@ const Agenda: React.FC = () => {
 
     const { id } = useParams<{ id: string }>();
     const [open, setOpen] = useState(false);
-    const [selectedDate, setSelectedDate] = useState("");
+    const [selectedDate, setSelectedDate] = useState<Date>(new Date());
     const [newTitle, setNewTitle] = useState("");
     const [newType, setNewType] = useState("autre");
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+    const [selectedEvent, setSelectedEvent] = useState<EventClickArg | null>(null);
 
     const getEventColor = (type: string) => {
         switch (type) {
@@ -44,7 +49,7 @@ const Agenda: React.FC = () => {
     };
 
     const handleDateClick = (arg: DateClickArg) => {
-        setSelectedDate(arg.date.toLocaleDateString('fr-CA'));
+        setSelectedDate(arg.date);
         setNewTitle("");
         setNewType("autre");
         setOpen(true);
@@ -52,14 +57,18 @@ const Agenda: React.FC = () => {
 
 
     const handleAddEvent = async () => {
-        const start = new Date(selectedDate + "T10:00:00");
-        const end = new Date(selectedDate + "T12:00:00");
-
+        const formatDateLocal = (d: Date) => {
+            const pad = (n: number) => n.toString().padStart(2, "0");
+            return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}:00`;
+        };
+        const start = selectedDate!
+        const end = new Date(start.getTime() + 60 * 60 * 1000);
+        console.log(new Date(), selectedDate);
         const newEvent = {
             title: newTitle,
             description: newType,
-            dateHeureDebut: start.toISOString(),
-            dateHeureFin: end.toISOString(),
+            dateHeureDebut: formatDateLocal(start),
+            dateHeureFin: formatDateLocal(end),
             ownerType: "AGENT", // qui crée l'événement
         };
 
@@ -82,8 +91,8 @@ const Agenda: React.FC = () => {
             setEvents([...events, {
                 id: savedEvent.id,
                 title: savedEvent.title,
-                start: savedEvent.dateHeureDebut,
-                end: savedEvent.dateHeureFin,
+                start: start.toISOString(),
+                end: end.toISOString(),
                 type: savedEvent.description,
                 description: savedEvent.description || "",
                 backgroundColor: getEventColor(savedEvent.description),
@@ -99,30 +108,33 @@ const Agenda: React.FC = () => {
     };
 
 
-    const handleEventClick = async (arg: EventClickArg) => {
-        if (!confirm(`Supprimer l'événement "${arg.event.title}" ?`)) return;
+    const handleEventClick = (arg: EventClickArg) => {
+        setSelectedEvent(arg);
+        setDeleteDialogOpen(true);
+    };
+    const handleConfirmDelete = async () => {
+        if (!selectedEvent) return;
 
         try {
-            // Si on est sur l'agenda d'un joueur (id dans l'URL), on appelle le endpoint "player"
             if (id) {
-                await axios.delete(`${BASE_API_URL}/agenda/event/player/${arg.event.id}`, {
+                await axios.delete(`${BASE_API_URL}/agenda/event/player/${selectedEvent.event.id}`, {
                     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
                 });
             } else {
-                // Sinon suppression classique sur notre propre agenda
-                await deleteUserEvent(arg.event.id);
+                await deleteUserEvent(selectedEvent.event.id);
             }
 
-            // Supprime l'événement du state local pour que le calendrier se mette à jour
-            setEvents(prevEvents => prevEvents.filter(e => e.id !== arg.event.id));
-
-            // Supprime l'événement du calendrier FullCalendar
-            arg.event.remove();
+            setEvents(prev => prev.filter(e => e.id !== selectedEvent.event.id));
+            selectedEvent.event.remove();
         } catch (err) {
             console.error("Erreur lors de la suppression :", err);
             alert("Impossible de supprimer l'événement en base");
+        } finally {
+            setDeleteDialogOpen(false);
+            setSelectedEvent(null);
         }
     };
+
 
 
     useEffect(() => {
@@ -172,6 +184,7 @@ const Agenda: React.FC = () => {
         <Box sx={{ p: 3 }}>
             <h2>Agenda {id}</h2>
             <FullCalendar
+                locale={frLocale}
                 timeZone="local"
                 plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
                 initialView="dayGridMonth"
@@ -243,6 +256,15 @@ const Agenda: React.FC = () => {
                     <Button onClick={handleAddEvent} variant="contained">Ajouter</Button>
                 </DialogActions>
             </Dialog>
+            <ConfirmDialog
+                open={deleteDialogOpen}
+                message={`Êtes-vous sûr de vouloir supprimer l'événement "${selectedEvent?.event.title}" ?`}
+                onConfirm={handleConfirmDelete}
+                onCancel={() => setDeleteDialogOpen(false)}
+                confirmText="Supprimer"
+                cancelText="Annuler"
+            />
+
         </Box>
     );
 };

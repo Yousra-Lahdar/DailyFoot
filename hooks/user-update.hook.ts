@@ -14,7 +14,7 @@ export const useUserUpdate = (formData: any, setErrors: any) => {
         }
         try {
             await updateUser(formData);
-            navigate("/1");
+            navigate("/");
         } catch (error: any) {
             if (error.response?.status === 400){
                 setErrors(error.response.data);

@@ -1,9 +1,10 @@
-import { Container, Typography, Box } from "@mui/material";
+import {Box, Container, Typography} from "@mui/material";
 import AgendaCard from "../../components/compoDashboard/AgendaCard.tsx";
 import PlayersCarouselAgenda from "../../components/compoDashboard/PlayersCarouselAgenda.tsx";
 import TodoList from "../../components/compoDashboard/TodoList.tsx";
 import axios from "axios";
 import {useEffect, useState} from "react";
+import {toast} from "react-toastify";
 
 
 const DashboardAgent = () => {
@@ -19,6 +20,10 @@ const DashboardAgent = () => {
                     }
                 });
                 setAgentName(response.data.name);
+                if (localStorage.getItem("justLoggedIn") === "true") {
+                    toast.success(`Bienvenue ${response.data.name} !`);
+                    localStorage.removeItem("justLoggedIn");
+                }
             } catch (error) {
                 console.error(error);
             }
@@ -28,7 +33,7 @@ const DashboardAgent = () => {
     }, []);
 
     return (
-        <Container maxWidth="xl" sx={{ mt: 8}}>
+        <Container maxWidth="xl" sx={{mt: 8}}>
             <Box
                 sx={{
                     display: "flex",
@@ -38,21 +43,21 @@ const DashboardAgent = () => {
                 }}
             >
 
-                <Box sx={{ flex: 2, minWidth: 300 }}>
+                <Box sx={{flex: 2, minWidth: 300}}>
                     <Typography
                         variant="h3"
-                        sx={{ color: "orange", fontWeight: "bold", mb: 3, ml:30}}
+                        sx={{color: "orange", fontWeight: "bold", mb: 3, ml: 30}}
                     >
                         Bienvenue {agentName || "Chargement..."}
                     </Typography>
 
-                    <AgendaCard />
-                    <PlayersCarouselAgenda />
+                    <AgendaCard/>
+                    <PlayersCarouselAgenda/>
                 </Box>
 
 
-                <Box sx={{ flex: 1, minWidth: 250 }}>
-                    <TodoList />
+                <Box sx={{flex: 1, minWidth: 250}}>
+                    <TodoList/>
                 </Box>
             </Box>
         </Container>

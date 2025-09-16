@@ -52,7 +52,7 @@ const Profil = ({ player,role }: ProfilProps) => {
                                 console.error("ID dans l’URL est undefined");
                                 return;
                             }
-                            navigate(`/1/players/${id}/agenda`);
+                            navigate(`/agent/players/${id}/agenda`);
                         }}
                         sx={{ color: "#f69a03", mt: 1 }}
                     >

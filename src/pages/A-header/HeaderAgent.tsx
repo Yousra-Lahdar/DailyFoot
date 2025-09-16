@@ -4,22 +4,45 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import { useTheme } from '@mui/material/styles';
 import logo from '../../assets/logo-daily.webp';
-import { Link } from 'react-router';
+import {Link, useNavigate} from 'react-router';
+import {toast} from "react-toastify";
 
 const HeaderAgent: React.FC = () => {
     const theme = useTheme();
+    const navigate = useNavigate();
     const handleLogout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
+        toast.info(`À bientôt !`);
+        navigate('/login');
     };
     return (
         <AppBar position="static" sx={{ backgroundColor: theme.palette.background.paper, boxShadow: 'none' }}>
             <Toolbar sx={{display: 'flex', alignItems: 'center' }}>
 
+                <Button
+                    component={Link}
+                    to={"/"}
+                    variant="contained"
+                    sx={{
+                        backgroundColor: '#FFF8E1',
+                        color: theme.palette.primary.main,
+                        borderRadius: '16px',
+                        fontWeight: 'bold',
+                        px: 3,
+                        textTransform: 'none',
+                        marginLeft: 5,
+                        letterSpacing: 1,
+                        fontSize: 17
+                    }}
+                >
+                    DAILYFOOT
+                </Button>
+
                 <Box sx={{ display: 'flex', alignItems: 'center',justifyContent:"center",flexGrow:1 }}>
                     <Button
                         component={Link}
-                        to="/1/agenda"
+                        to="/agent/agenda"
                         variant="outlined"
                         sx={{
                             borderColor: theme.palette.primary.main,
@@ -41,7 +64,7 @@ const HeaderAgent: React.FC = () => {
 
                     <Box
                         component={Link}
-                        to={"/1"}
+                        to={"/"}
                         sx={{
                             width: 140,
                             height: 140,
@@ -80,7 +103,7 @@ const HeaderAgent: React.FC = () => {
 
                     <Button
                         component={Link}
-                        to="/1/players"
+                        to="/agent/players"
                         variant="outlined"
                         sx={{
                             borderColor: theme.palette.primary.main,
@@ -104,7 +127,7 @@ const HeaderAgent: React.FC = () => {
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 2}}>
                     <IconButton
                         component={Link}
-                        to="/1/setting"
+                        to="/agent/setting"
                         sx={{
                             backgroundColor: '#FFFFFF',
                             borderRadius: '50%',
@@ -114,8 +137,6 @@ const HeaderAgent: React.FC = () => {
                     </IconButton>
 
                     <IconButton
-                        component={Link}
-                        to="/Login"
                         onClick={handleLogout}
                         sx={{
                             backgroundColor: '#FFFFFF',

@@ -3,6 +3,7 @@ import AgendaCard from "../../components/compoDashboard/AgendaCard.tsx";
 import TodoList from "../../components/compoDashboard/TodoList.tsx";
 import {useEffect, useState} from "react";
 import axios from "axios";
+import {toast} from "react-toastify";
 
 const DashboardPlayer = () => {
 
@@ -17,6 +18,10 @@ const DashboardPlayer = () => {
                     }
                 });
                 setPlayerName(response.data.name);
+                if (localStorage.getItem("justLoggedIn") === "true") {
+                    toast.success(`Bienvenue ${response.data.name} !`);
+                    localStorage.removeItem("justLoggedIn");
+                }
             } catch (error) {
                 console.error(error);
             }
