@@ -50,7 +50,7 @@ const Input: React.FC<ImputProps> = ({
                     style={{
                         position: "absolute",
                         right: "10px",
-                        top: "40%",
+                        top: "35%",
                         transform: "translateY(-50%)",
                         color:"#f69a03"
 
