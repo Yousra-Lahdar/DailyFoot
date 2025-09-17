@@ -112,7 +112,7 @@ const Login = () => {
                             src="/logo-dailyfoot.png"
                             alt="Logo DailyFoot"
                             style={{ width: 120, borderRadius: 70 }}
-                            onClick={() => navigate("/")}
+                            onClick={() => navigate("/home")}
 
                         />
 

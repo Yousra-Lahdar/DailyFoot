@@ -18,28 +18,9 @@ const HeaderAgent: React.FC = () => {
     };
     return (
         <AppBar position="static" sx={{ backgroundColor: theme.palette.background.paper, boxShadow: 'none' }}>
-            <Toolbar sx={{display: 'flex', alignItems: 'center' }}>
+            <Toolbar sx={{display: 'flex', alignItems: 'center',justifyContent: 'center' }}>
 
-                <Button
-                    component={Link}
-                    to={"/"}
-                    variant="contained"
-                    sx={{
-                        backgroundColor: '#FFF8E1',
-                        color: theme.palette.primary.main,
-                        borderRadius: '16px',
-                        fontWeight: 'bold',
-                        px: 3,
-                        textTransform: 'none',
-                        marginLeft: 5,
-                        letterSpacing: 1,
-                        fontSize: 17
-                    }}
-                >
-                    DAILYFOOT
-                </Button>
-
-                <Box sx={{ display: 'flex', alignItems: 'center',justifyContent:"center",flexGrow:1 }}>
+                <Box sx={{ display: 'flex', alignItems: 'center',justifyContent:"center",flexGrow:1 ,pl:17 }}>
                     <Button
                         component={Link}
                         to="/agent/agenda"

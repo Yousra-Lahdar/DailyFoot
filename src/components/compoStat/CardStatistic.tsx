@@ -24,10 +24,10 @@ const CardStatistic = ({ stats }: { stats: Statistics }) => {
                     stats.redCards,
                     stats.matchesPlayed,
                 ],
-                backgroundColor: "rgba(255, 165, 0, 0.2)",
-                borderColor: "orange",
+                backgroundColor: "rgba(255,165,0,0.53)",
+                borderColor: "#f5672a",
                 borderWidth: 2,
-                pointBackgroundColor: "orange",
+                pointBackgroundColor: "#f5672a",
             },
         ],
     };
@@ -47,31 +47,31 @@ const CardStatistic = ({ stats }: { stats: Statistics }) => {
     };
 
     return (
-        <Card sx={{ width: 650, borderRadius: 3, boxShadow: 3 }}>
-            <CardContent>
-                <Box sx={{ border: "1px solid orange", borderRadius: 2, mb: 3, overflow: "hidden" }}>
-                    <Box sx={{ bgcolor: "orange", py: 1, textAlign: "center" }}>
+
+            <CardContent  sx={{p:0,  width:"100%"}}>
+                <Box sx={{   mb: 3, overflow: "hidden",display:"flex", flexDirection: "column", alignItems: "center" }}>
+                    <Box sx={{ bgcolor: "orange", py: 1, textAlign: "center",width:"100%" }}>
                         <Typography variant="h6" sx={{ color: "white", fontWeight: "bold" }}>
                             Statistiques
                         </Typography>
                     </Box>
 
-                    <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 2, px: 2, pb: 2 }}>
-                        <Box>
-                            <Typography variant="body2">Buts : {stats.goals}</Typography>
-                            <Typography variant="body2">Passes décisives : {stats.assists}</Typography>
-                            <Typography variant="body2">Cartons jaunes : {stats.yellowCards}</Typography>
-                            <Typography variant="body2">Cartons rouges : {stats.redCards}</Typography>
-                            <Typography variant="body2">Matchs joués : {stats.matchesPlayed}</Typography>
+                    <Box sx={{ display: "flex", justifyContent: "center", flexWrap:"wrap"  }}>
+                        <Box sx={{display: "flex", flexDirection: "row", justifyContent: "center",gap:3,mt:5}}>
+                            <Typography variant="h6">Buts : {stats.goals}</Typography>
+                            <Typography variant="h6">Passes décisives :{stats.assists}</Typography>
+                            <Typography variant="h6">Cartons jaunes :{stats.yellowCards}</Typography>
+                            <Typography variant="h6">Cartons rouges :{stats.redCards}</Typography>
+                            <Typography variant="h6">Matchs joués :{stats.matchesPlayed}</Typography>
                         </Box>
 
-                        <Box sx={{ width: 350, height: 350 }}>
+                        <Box sx={{ width: 550, height: 550 }}>
                             <Radar data={data} options={options} />
                         </Box>
                     </Box>
                 </Box>
             </CardContent>
-        </Card>
+
     );
 };
 

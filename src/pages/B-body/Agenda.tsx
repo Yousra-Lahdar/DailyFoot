@@ -230,7 +230,7 @@ const Agenda: React.FC = () => {
             </Box>
 
 
-            <Dialog open={open} onClose={() => setOpen(false)}>
+            <Dialog  open={open} onClose={() => setOpen(false)} PaperProps={{sx: {backgroundColor: "#f9f9f9"}}} >
                 <DialogTitle>Ajouter un événement</DialogTitle>
                 <DialogContent>
                     <TextField
@@ -251,7 +251,7 @@ const Agenda: React.FC = () => {
                         <MenuItem value="autre">Autre</MenuItem>
                     </Select>
                 </DialogContent>
-                <DialogActions>
+                <DialogActions >
                     <Button onClick={() => setOpen(false)}>Annuler</Button>
                     <Button onClick={handleAddEvent} variant="contained">Ajouter</Button>
                 </DialogActions>
@@ -263,6 +263,8 @@ const Agenda: React.FC = () => {
                 onCancel={() => setDeleteDialogOpen(false)}
                 confirmText="Supprimer"
                 cancelText="Annuler"
+                PaperProps={{ sx: { backgroundColor: "#f9f9f9"} }}
+
             />
 
         </Box>
