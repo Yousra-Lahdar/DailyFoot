@@ -1,4 +1,14 @@
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Typography } from "@mui/material";
+import {
+    Box,
+    Button,
+    Card,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    TextField,
+    Typography
+} from "@mui/material";
 import { useParams } from "react-router";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -145,12 +155,21 @@ const Statistic = () => {
     };
 
     return (
-        <Box sx={{ display: "flex", flexWrap: "wrap", gap: 5, p: 2, justifyContent: "center", mt: 2 }}>
+        <Box sx={{ display: "flex", width: "100%" }}>
 
-            <Profil player={currentPlayer} role={role} />
-            <Box>
+            <Box sx={{ display:"flex" , flex: 1 , borderRight:"solid 1px orange"}}>
+
+                    <Profil player={currentPlayer} role={role} />
+            </Box>
+
+
+            <Box sx={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center" }}>
                 <CardStatistic stats={openDialog && editStats ? editStats : stats.statistics} />
-                <Button variant="contained" color="primary" sx={{ mt: 2 }} onClick={handleOpenDialog}>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleOpenDialog}
+                >
                     Modifier les statistiques
                 </Button>
             </Box>

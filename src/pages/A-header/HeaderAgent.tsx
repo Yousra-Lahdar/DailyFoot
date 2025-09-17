@@ -18,9 +18,9 @@ const HeaderAgent: React.FC = () => {
     };
     return (
         <AppBar position="static" sx={{ backgroundColor: theme.palette.background.paper, boxShadow: 'none' }}>
-            <Toolbar sx={{display: 'flex', alignItems: 'center' }}>
+            <Toolbar sx={{display: 'flex', alignItems: 'center',justifyContent: 'center' }}>
 
-                <Box sx={{ display: 'flex', alignItems: 'center',justifyContent:"center",flexGrow:1 }}>
+                <Box sx={{ display: 'flex', alignItems: 'center',justifyContent:"center",flexGrow:1 ,pl:17 }}>
                     <Button
                         component={Link}
                         to="/agent/agenda"
