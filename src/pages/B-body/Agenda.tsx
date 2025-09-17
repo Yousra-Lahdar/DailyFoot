@@ -12,6 +12,7 @@ import {addUserEvent, deleteUserEvent, fetchPlayerAgenda, fetchUserAgendas} from
 import {BASE_API_URL} from "../../../constants.ts";
 import axios from "axios";
 import ConfirmDialog from "../../components/compoDashboard/ConfirmDialog.tsx";
+import {toast} from "react-toastify";
 
 type AgendaEvent = {
     id: string;
@@ -88,8 +89,8 @@ const Agenda: React.FC = () => {
                 savedEvent = await addUserEvent(newEvent);
             }
 
-            setEvents([...events, {
-                id: savedEvent.id,
+            setEvents(prev => [...prev, {
+                id: savedEvent.id.toString(),
                 title: savedEvent.title,
                 start: start.toISOString(),
                 end: end.toISOString(),
@@ -124,16 +125,20 @@ const Agenda: React.FC = () => {
                 await deleteUserEvent(selectedEvent.event.id);
             }
 
-            setEvents(prev => prev.filter(e => e.id !== selectedEvent.event.id));
-            selectedEvent.event.remove();
+            setEvents(prev =>
+                prev.filter(e => e.id !== String(selectedEvent.event.id)) // 👈 cast en string
+            );
+
+            toast.success("L'événement a bien été supprimé !");
         } catch (err) {
             console.error("Erreur lors de la suppression :", err);
-            alert("Impossible de supprimer l'événement en base");
+            toast.error("Un problème est survenu lors de la suppression de l'événement");
         } finally {
             setDeleteDialogOpen(false);
             setSelectedEvent(null);
         }
     };
+
 
 
 
@@ -182,7 +187,6 @@ const Agenda: React.FC = () => {
     if(error) return <p style={{ color: "red" }}>{error}</p>;
     return (
         <Box sx={{ p: 3 }}>
-            <h2>Agenda {id}</h2>
             <FullCalendar
                 locale={frLocale}
                 timeZone="local"

@@ -82,12 +82,12 @@ const Setting = () => {
                     <Box sx={{width: '100%', maxWidth: 400, display: 'flex', justifyContent: 'center'}}>
                         <Input
                             label="Mot de passe actuelle "
-                            name="confirmPassword"
+                            name="currentPassword"
                             type="password"
-                            value={formData.confirmPassword || ""}
-                            error={!!errors.confirmPassword}
-                            helperText={errors.confirmPassword}
-                            onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})}
+                            value={formData.currentPassword || ""}
+                            error={!!errors.currentPassword}
+                            helperText={errors.currentPassword}
+                            onChange={(e) => setFormData({...formData, currentPassword: e.target.value})}
 
                         />
                     </Box>

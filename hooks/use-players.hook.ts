@@ -6,7 +6,7 @@ interface Player {
     id: number;
     name: string;
     position: string;
-    age: string;
+    age: number;
     club: string;
     image: string;
     nationality: string;

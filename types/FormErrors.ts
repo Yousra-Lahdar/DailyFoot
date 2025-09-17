@@ -3,5 +3,6 @@ export interface FormErrors {
     email?: string;
     password?: string;
     confirmPassword?: string;
+    currentPassword?: string;
     general?: string;
 }
