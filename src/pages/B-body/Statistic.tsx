@@ -118,7 +118,6 @@ const Statistic = () => {
         setEditStats(stats.statistics);
         setOpenDialog(true);
     };
-
     const handleCloseDialog = () => setOpenDialog(false);
 
     const handleSave = async () => {
