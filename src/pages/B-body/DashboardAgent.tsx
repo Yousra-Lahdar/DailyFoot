@@ -1,10 +1,11 @@
 import {Box, Container, Typography} from "@mui/material";
 import AgendaCard from "../../components/compoDashboard/AgendaCard.tsx";
 import PlayersCarouselAgenda from "../../components/compoDashboard/PlayersCarouselAgenda.tsx";
-import TodoList from "../../components/compoDashboard/TodoList.tsx";
 import axios from "axios";
 import {useEffect, useState} from "react";
 import {toast} from "react-toastify";
+import FootSiteCard from "../../components/compoDashboard/FootSiteCard.tsx";
+
 
 
 const DashboardAgent = () => {
@@ -57,7 +58,7 @@ const DashboardAgent = () => {
 
 
                 <Box sx={{flex: 1, minWidth: 250}}>
-                    <TodoList/>
+                    <FootSiteCard/>
                 </Box>
             </Box>
         </Container>
