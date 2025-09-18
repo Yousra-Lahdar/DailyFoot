@@ -21,13 +21,14 @@ const FooterWithLogo = () => {
             }}
         >
             <Box sx={{ display: "flex",flexDirection: { xs: "column", sm: "row" }, alignItems: "center",gap: { xs: 1, sm: 3 } }}>
-
-                <Link href="/conditions" underline="none" color="#666666" fontWeight="bold">
+            <Box sx={{ display: "flex", gap: 3 }} >
+                <Link href="/conditions" underline="none" color="#666666" fontWeight="bold" >
                     Conditions générales
                 </Link>
                 <Link href="/mentions" underline="none" color="#666666" fontWeight="bold">
                     Mentions légales
                 </Link>
+            </Box>
 
                 <Box
                     component="img"
@@ -44,7 +45,7 @@ const FooterWithLogo = () => {
                     © 2025 SYS — Tous droits réservés
                 </Typography>
 
-                <Link href="/contact" underline="none" color="#666666" fontWeight="bold" style={{marginLeft:"40px"}}>
+                <Link href="/contact" underline="none" color="#666666" fontWeight="bold">
                     Nous Contacter
                 </Link>
             </Box>
