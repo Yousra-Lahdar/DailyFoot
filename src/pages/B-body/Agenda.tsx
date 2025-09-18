@@ -6,7 +6,18 @@ import interactionPlugin from "@fullcalendar/interaction";
 import type { DateClickArg } from "@fullcalendar/interaction";
 import type { EventClickArg } from "@fullcalendar/core";
 import frLocale from "@fullcalendar/core/locales/fr";
-import { Box, Dialog, DialogTitle, DialogContent, TextField, Select, MenuItem, Button, DialogActions } from "@mui/material";
+import {
+    Box,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    TextField,
+    Select,
+    MenuItem,
+    Button,
+    DialogActions,
+    duration
+} from "@mui/material";
 import { useParams } from "react-router";
 import {addUserEvent, deleteUserEvent, fetchPlayerAgenda, fetchUserAgendas} from "../../../api/user.api.ts";
 import {BASE_API_URL} from "../../../constants.ts";
@@ -197,7 +208,11 @@ const Agenda: React.FC = () => {
                     center: "title",
                     right: "dayGridMonth,timeGridWeek,timeGridDay",
                 }}
+                allDaySlot={false}
+                slotMinTime={"08:00:00"}
+                slotMaxTime={"18:00:00"}
                 events={events}
+                expandRows={true}
                 eventContent={(arg) => {
                     // Custom rendering pour forcer un rectangle
                     return (

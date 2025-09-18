@@ -1,13 +1,13 @@
-import { Box, Button, Card, CardContent, Typography } from "@mui/material";
-import { useNavigate, useParams } from "react-router";
+import {Box, Button, CardContent, Typography} from "@mui/material";
+import {useNavigate, useParams} from "react-router";
 
 interface Player {
     name: string;
     age: number;
     nationality: string;
     club: string;
-    poids: string;
-    taille: string;
+    weight: string;
+    height: string;
     image?: string;
 }
 
@@ -43,8 +43,8 @@ const Profil = ({ player,role }: ProfilProps) => {
                 <Typography variant="h6" >{player.club}</Typography>
 
                 <Box sx={{ mt: 2, textAlign: "center" }}>
-                    <Typography variant="h6">{/*player.taille*/}50kg</Typography>
-                    <Typography variant="h6">{player.poids}1.70cm</Typography>
+                    <Typography variant="h6">{/*player.height*/}50kg</Typography>
+                    <Typography variant="h6">{player.weight}1.70cm</Typography>
                 </Box>
 
                 {role === "AGENT" && (

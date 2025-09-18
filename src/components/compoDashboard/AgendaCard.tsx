@@ -45,7 +45,7 @@ export default function AgendaCard() {
                     {eventsToday.map((e: any) => {
                         const start = new Date(e.dateHeureDebut);
                         const time = start.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-                        const chipColor = e.type === "match" ? "primary" : "success";
+                        const chipColor = e.description === "match" ? "primary" : "success";
 
                         return (
                             <Card key={e.id} variant="outlined">
@@ -55,14 +55,14 @@ export default function AgendaCard() {
                                             {e.title}
                                         </Typography>
                                         {e.description && (
-                                            <Typography variant="body2" color="text.secondary">
+                                            <Typography variant="body1" color="text.secondary">
                                                 {e.description}
                                             </Typography>
                                         )}
                                     </Box>
                                     <Stack direction="column" alignItems="flex-end" spacing={1}>
-                                        <Typography variant="body2">{time}</Typography>
-                                        {e.type && <Chip label={e.type} color={chipColor} size="small" />}
+                                        <Typography variant="body1">{time}</Typography>
+                                        {e.description && <Chip label={e.description} color={chipColor} size="small" />}
                                     </Stack>
                                 </CardContent>
                             </Card>

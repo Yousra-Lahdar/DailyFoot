@@ -1,20 +1,10 @@
-import {
-    Box,
-    Button,
-    Card,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogTitle,
-    TextField,
-    Typography
-} from "@mui/material";
-import { useParams } from "react-router";
-import { useEffect, useState } from "react";
+import {Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Typography} from "@mui/material";
+import {useParams} from "react-router";
+import {useEffect, useState} from "react";
 import axios from "axios";
 import Profil from "../../components/compoStat/Profil";
 import CardStatistic from "../../components/compoStat/CardStatistic";
-import { BASE_API_URL } from "../../../constants.ts";
+import {BASE_API_URL} from "../../../constants.ts";
 
 interface Player {
     id: number;

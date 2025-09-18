@@ -25,7 +25,7 @@ const FootSiteCard = () => {
                 <Typography variant="h5" sx={{ mb: 5, textAlign: "center" }}>
                     Sites de Foot
                 </Typography>
-                <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2,flexDirection: "column",justifyItems:"center",alignItems:'center',gap:10}}>
+                <Box sx={{ display: "flex", flexWrap: "wrap",flexDirection: "column",justifyItems:"center",alignItems:'center',gap:10}}>
                     {sites.map((site) => (
                         <Card
                             key={site.name}
