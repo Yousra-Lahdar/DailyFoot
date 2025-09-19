@@ -24,37 +24,38 @@ const Setting = () => {
         }}>
             <Typography
                 variant="h5"
-                sx={{fontWeight: "bold", color: "#f69a03"}}
+                sx={{fontWeight: "bold", color: "#f69a03",mt:6}}
             >
                 Modifier mon compte
             </Typography>
 
             <Box sx={{
-                width: 562,
-                minHeight: 622,
-                height: 'auto',
+                width: { xs: "90%", sm: 400, md: 480, lg: 562 },
+                minHeight: { xs: "auto", md: 620 },
+                //height: 'auto',
                 backgroundColor: "rgb(255,255,255)",
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                pt: 4,
+                pt: {xs:2, md:3},
+                px: { xs: 2, md: 4 },
+                pb:{xs:3, md:5},
             }}>
 
 
                 <Box
                     component="form"
                     sx={{
-                        mt: 6,
+                        mt: {xs:2 , md:3},
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "center",
-                        gap: 4,
+                        gap: 3,
                         width: '100%',
-                        px: 4
                     }}
                     onSubmit={userUpdate}
                 >
-                    <Box sx={{width: '100%', maxWidth: 400, display: 'flex', justifyContent: 'center'}}>
+                    <Box sx={{width: '100%', display: 'flex', justifyContent: 'center'}}>
                         <Input
                             label="Nom"
                             name="name"
@@ -66,7 +67,7 @@ const Setting = () => {
                         />
                     </Box>
 
-                    <Box sx={{width: '100%', maxWidth: 400, display: 'flex', justifyContent: 'center'}}>
+                    <Box sx={{width: '100%', display: 'flex', justifyContent: 'center'}}>
                         <Input
                             label="Email"
                             name="email"
@@ -79,7 +80,7 @@ const Setting = () => {
                         />
                     </Box>
 
-                    <Box sx={{width: '100%', maxWidth: 400, display: 'flex', justifyContent: 'center'}}>
+                    <Box sx={{width: '100%',  display: 'flex', justifyContent: 'center'}}>
                         <Input
                             label="Mot de passe actuelle "
                             name="currentPassword"
@@ -92,7 +93,7 @@ const Setting = () => {
                         />
                     </Box>
 
-                    <Box sx={{width: '100%', maxWidth: 400, display: 'flex', justifyContent: 'center'}}>
+                    <Box sx={{width: '100%',  display: 'flex', justifyContent: 'center'}}>
                         <Input
                             label="Nouveau mot de passe"
                             name="password"
@@ -105,7 +106,7 @@ const Setting = () => {
                         />
                     </Box>
 
-                    <Box sx={{width: '100%', maxWidth: 400, display: 'flex', justifyContent: 'center'}}>
+                    <Box sx={{width: '100%',display: 'flex', justifyContent: 'center'}}>
                         <Input
                             label="Confirmer le mot de passe"
                             name="confirmPassword"
@@ -127,25 +128,8 @@ const Setting = () => {
                         </Typography>
                     )}
 
-                    <Box sx={{display: 'flex', gap: 2, mt: 2, mb: 4}}>
-
-                        <BtnLogin
-                            type="submit"
-                            style={{minWidth: 120}}
-                        >
-                            Valider
-                        </BtnLogin>
-                    </Box>
-
-
-                    <Box sx={{mt: 3, display: "flex", alignItems: "center", gap: 4}}>
-                        <Button
-                            type="button"
-                            onClick={() => navigate("/")}
-                            style={{color: "#f69a03"}}
-                        >
-                            Retour page principal
-                        </Button>
+                    <Box sx={{mt:{xs:3, md:3},width:"100%", display: "flex", alignItems: "center", gap: 0}}>
+                        <BtnLogin label="Valider" type="submit"/>
                     </Box>
                 </Box>
             </Box>
