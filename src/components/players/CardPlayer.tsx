@@ -41,7 +41,7 @@ const CardPlayer = ({player}: Props) => {
                 <img
                     src={player.image || "/default-avatar.png"}
                     alt={player.name}
-                    style={{width: "100%", height: 120, objectFit: "cover", borderRadius: "10%"}}
+                    style={{width: "30vw", height: "30vw", maxWidth:"150px", maxHeight:"150px", objectFit: "cover", borderRadius: "50%"}}
                 />
                 <Typography variant="subtitle1" sx={{mt: 1, fontWeight: "bold"}}>
                     {player.name}
