@@ -202,11 +202,11 @@ const Agenda: React.FC = () => {
                 locale={frLocale}
                 timeZone="local"
                 plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-                initialView="dayGridMonth"
+                initialView="timeGridWeek"
                 headerToolbar={{
                     left: "prev,next today",
                     center: "title",
-                    right: "dayGridMonth,timeGridWeek,timeGridDay",
+                    right: "timeGridWeek,timeGridDay",
                 }}
                 allDaySlot={false}
                 slotMinTime={"08:00:00"}
