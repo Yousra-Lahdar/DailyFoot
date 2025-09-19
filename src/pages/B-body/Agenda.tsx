@@ -6,18 +6,7 @@ import interactionPlugin from "@fullcalendar/interaction";
 import type { DateClickArg } from "@fullcalendar/interaction";
 import type { EventClickArg } from "@fullcalendar/core";
 import frLocale from "@fullcalendar/core/locales/fr";
-import {
-    Box,
-    Dialog,
-    DialogTitle,
-    DialogContent,
-    TextField,
-    Select,
-    MenuItem,
-    Button,
-    DialogActions,
-    duration
-} from "@mui/material";
+import {Box, Dialog, DialogTitle, DialogContent, TextField, Select, MenuItem, Button, DialogActions} from "@mui/material";
 import { useParams } from "react-router";
 import {addUserEvent, deleteUserEvent, fetchPlayerAgenda, fetchUserAgendas} from "../../../api/user.api.ts";
 import {BASE_API_URL} from "../../../constants.ts";
@@ -49,6 +38,12 @@ const Agenda: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
     const [selectedEvent, setSelectedEvent] = useState<EventClickArg | null>(null);
+
+    const [headerToolbar, setHeaderToolbar] = useState({
+        left: "prev,next today",
+        center: "title",
+        right: "timeGridWeek,timeGridDay"
+    });
 
     const getEventColor = (type: string) => {
         switch (type) {
@@ -191,23 +186,51 @@ const Agenda: React.FC = () => {
     }, [id]);
 
 
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth < 600) {
+                setHeaderToolbar({ left: "prev,next today", center: "title", right: "timeGridWeek,timeGridDay" });
+            } else if (window.innerWidth < 1024) {
+                setHeaderToolbar({ left: "prev,next today", center: "title", right: "timeGridWeek,timeGridDay" });
+            } else {
+                setHeaderToolbar({ left: "prev,next today", center: "title", right: "timeGridWeek,timeGridDay" });
+            }
+        };
+
+        handleResize();
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
 
 
     if (loading) return <p>Chargement...</p>;
     if(error) return <p style={{ color: "red" }}>{error}</p>;
     return (
-        <Box sx={{ p: 3 }}>
+        <Box
+                sx={{
+                    "& .fc-toolbar-title": {
+                        fontFamily: "Arial, sans-serif",
+                        fontWeight: "bold",
+                        fontSize: { xs: "16px", md: "20px" },
+                    },
+                    "& .fc-button": {
+                        fontSize: { xs: "12px", md: "14px" },
+                        padding: { xs: "0.3em 0.6em", md: "0.5em 1em" },
+                    },
+                    "& .fc-header-toolbar": {
+                        flexWrap: { xs: "wrap", md: "nowrap" },
+                        justifyContent: { xs: "center", md: "space-between" },
+                        gap: { xs: 1, md: 2 },
+                    },
+                }}
+            >
             <FullCalendar
                 locale={frLocale}
                 timeZone="local"
                 plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
                 initialView="timeGridWeek"
-                headerToolbar={{
-                    left: "prev,next today",
-                    center: "title",
-                    right: "timeGridWeek,timeGridDay",
-                }}
+                headerToolbar={headerToolbar}
                 allDaySlot={false}
                 slotMinTime={"08:00:00"}
                 slotMaxTime={"18:00:00"}
