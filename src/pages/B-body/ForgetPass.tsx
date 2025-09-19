@@ -20,7 +20,7 @@ const ForgetPass = () => {
         try {
             await axios.post(`${BASE_API_URL}/auth/forgot-password`, { email });
             toast.success("Un email avec votre nouveau mot de passe a été envoyé !");
-            navigate("/Login"); // redirige vers la page de login
+            navigate("/Login");
         } catch (error: any) {
             console.error(error);
             toast.error(error.response?.data?.message || "Erreur lors de la réinitialisation du mot de passe");
@@ -45,23 +45,26 @@ const ForgetPass = () => {
                 </Typography>
 
                 <Box sx={{
-                    width: 512,
-                    height: 390,
-                    backgroundColor: "#ffffff",
-                    borderRadius: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    pt: 4,
-                    boxShadow: 2,
-                }}>
+                        width: { xs: "100%", sm: 400, md: 480, lg: 512 },
+                        minHeight: { xs: "auto", md: 390 },
+                        backgroundColor: "#ffffff",
+                        borderRadius: 2,
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        px:{xs:2, md:4},
+                        py:{xs:3,md:4},
+                        boxShadow: 2,
+                    }}
+                >
                     <img
                         src="/logo-dailyfoot.png"
                         alt="Logo DailyFoot"
-                        style={{ width: 120, borderRadius: 70 }}
+                        style={{ width: 100, borderRadius: 70, cursor: "pointer" }}
+                        onClick={() => navigate("/login")}
                     />
 
-                    <Box sx={{ mt: 7, width: "80%" }}>
+                    <Box sx={{ mt:{xs:4, md:7}, width: "100%" }}>
                         <Input
                             label="Email"
                             name="email"
@@ -71,7 +74,7 @@ const ForgetPass = () => {
                         />
                     </Box>
 
-                    <Box sx={{ mt: 4 }}>
+                    <Box sx={{ mt:{xs:3, md:4} , width: "100%", display: "flex", justifyContent: "center"}}>
                         <BtnLogin
                             label="Valider"
                             type="button"

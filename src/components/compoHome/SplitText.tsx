@@ -20,6 +20,7 @@ export interface SplitTextProps {
     tag?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span';
     textAlign?: React.CSSProperties['textAlign'];
     onLetterAnimationComplete?: () => void;
+    style?: React.CSSProperties;
 }
 
 const SplitText: React.FC<SplitTextProps> = ({

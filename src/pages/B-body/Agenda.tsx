@@ -214,7 +214,6 @@ const Agenda: React.FC = () => {
                 events={events}
                 expandRows={true}
                 eventContent={(arg) => {
-                    // Custom rendering pour forcer un rectangle
                     return (
                         <div style={{
                             backgroundColor: arg.event.backgroundColor,

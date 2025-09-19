@@ -67,26 +67,26 @@ const Register = () => {
 
             <Box
                 sx={{
-                    width: 562,
-                    height: 622,
+                    width: { xs: "90%", sm: 400, md: 480, lg: 562 },
+                    minHeight: { xs: "auto", md: 620 },
                     backgroundColor: "rgba(255,255,255,0.91)",
                     borderRadius: 2,
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
-                    pt: 2,
-                    boxShadow: 0,
-                    pb:80
+                    pt: {xs:2, md:3},
+                    px: { xs: 2, md: 4 },
+                    pb:{xs:3, md:6},
                 }}
             >
                 <img
                     src="/logo-dailyfoot.png"
                     alt="Logo DailyFoot"
-                    style={{width: 120, borderRadius: 70}}
+                    style={{width: 100, borderRadius: 70 , cursor: "pointer"}}
                     onClick={() => navigate("/login")}
                 />
 
-                <Box sx={{mt: 3, display: "flex", flexDirection: "column", justifyContent: "center", gap: 3}}>
+                <Box sx={{mt:{xs:2 , md:3},width:"100%", display: "flex", flexDirection: "column", justifyContent: "center", gap: 3}}>
                     <Input label="Nom" name="Nom" type="text" value={name} onChange={(e) => setName(e.target.value)}
                            errorText={errors.name}/>
                     <Input label="Email" name="Email" type="text" value={email}
@@ -97,7 +97,7 @@ const Register = () => {
                            onChange={(e) => setConfirmPassword(e.target.value)} errorText={errors.confirmPassword}/>
                 </Box>
 
-                <Box sx={{mt: 5, display: "flex", alignItems: "center", gap: 0}}>
+                <Box sx={{mt:{xs:3, md:5},width:"100%", display: "flex", alignItems: "center", gap: 0}}>
                     <BtnLogin label="Valider" type="button" onClick={handleRegister}/>
                 </Box>
 

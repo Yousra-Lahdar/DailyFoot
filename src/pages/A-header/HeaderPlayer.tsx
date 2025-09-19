@@ -1,10 +1,11 @@
-import React from 'react';
-import {AppBar, Box, Button, IconButton, Toolbar} from '@mui/material';
+import React, {useState} from 'react';
+import {AppBar, Box, Button, IconButton, Menu, MenuItem, Toolbar} from '@mui/material';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import {useTheme} from '@mui/material/styles';
 import logo from '../../assets/logo-daily.webp';
 import {Link} from 'react-router';
 import SettingsIcon from "@mui/icons-material/Settings";
+import MenuIcon from "@mui/icons-material/Menu";
 
 const HeaderPlayer: React.FC = () => {
     const theme = useTheme();
@@ -12,30 +13,20 @@ const HeaderPlayer: React.FC = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
     };
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+    const open = Boolean(anchorEl);
+
+    const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
     return (
         <AppBar position="static" sx={{ backgroundColor: theme.palette.background.paper, boxShadow: 'none' }}>
-            <Toolbar sx={{display: 'flex',  alignItems: 'center' }}>
+            <Toolbar sx={{display: 'flex',  alignItems: 'center' ,justifyContent: 'center',gap: '16px' }}>
 
-                <Button
-                    component={Link}
-                    to={"/"}
-                    variant="contained"
-                    sx={{
-                        backgroundColor: '#FFF8E1',
-                        color: theme.palette.primary.main,
-                        borderRadius: '16px',
-                        fontWeight: 'bold',
-                        px: 3,
-                        textTransform: 'none',
-                        marginLeft: 5,
-                        letterSpacing: 1,
-                        fontSize: 17
-                    }}
-                >
-                    DAILYFOOT
-                </Button>
-
-                <Box sx={{ display: 'flex', alignItems: 'center',justifyContent:"center",flexGrow:1 }}>
+                <Box sx={{ display: 'flex', alignItems: 'center',justifyContent:{xs:"start",md:'center'},flexGrow:{xs:0,md:1} ,pl:{xs:0,md:17} }}>
 
                     <Button
                         component={Link}
@@ -46,9 +37,9 @@ const HeaderPlayer: React.FC = () => {
                             borderRadius: '16px 0 0 16px',
                             borderRight: '0',
                             px: 5,
-                            height: 60,
-                            paddingRight: 30,
-                            fontSize: 17,
+                            height:{xs:30,md:60},
+                            paddingRight: {xs:3,md:23},
+                            fontSize: {xs:11,md:17},
                             "&:hover": {
                                 backgroundColor: 'orange',
                                 color: 'white',
@@ -63,8 +54,8 @@ const HeaderPlayer: React.FC = () => {
                         component={Link}
                         to={"/"}
                         sx={{
-                            width: 140,
-                            height: 140,
+                            width: {xs:70,md:140},
+                            height: {xs:70,md:140},
                             border: `5px dashed ${theme.palette.primary.main}`,
                             borderRadius: '50%',
                             display: 'flex',
@@ -91,8 +82,8 @@ const HeaderPlayer: React.FC = () => {
                             alt="Logo"
                             sx={{
 
-                                height: 100,
-                                width: 100,
+                                height: {xs:50,md:100},
+                                width: {xs:50,md:100},
 
                             }}
                         />
@@ -107,9 +98,9 @@ const HeaderPlayer: React.FC = () => {
                             borderRadius: '0 16px 16px 0',
                             borderLeft: '0',
                             px: 5,
-                            height: 60,
-                            paddingLeft: 30,
-                            fontSize: 17,
+                            height:{xs:30,md:60},
+                            paddingLeft: {xs:5,md:30},
+                            fontSize: {xs:11,md:17},
                             "&:hover": {
                                 backgroundColor: 'orange',
                                 color: 'white',
@@ -123,28 +114,63 @@ const HeaderPlayer: React.FC = () => {
 
 
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                    <IconButton
-                        component={Link}
-                        to="/player/setting"
-                        sx={{
-                            backgroundColor: '#FFFFFF',
-                            borderRadius: '50%',
-                        }}
-                    >
-                        <SettingsIcon sx={{ color: theme.palette.text.primary }} />
-                    </IconButton>
+                    <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 2 }}>
+                        <IconButton
+                            component={Link}
+                            to="/player/setting"
+                            sx={{
+                                backgroundColor: '#FFFFFF',
+                                borderRadius: '50%',
+                                width: 50,
+                                height:50,
+                            }}
+                        >
+                            <SettingsIcon sx={{ color: theme.palette.text.primary }} />
+                        </IconButton>
 
-                    <IconButton
-                        component={Link}
-                        to="/Login"
-                        onClick={handleLogout}
-                        sx={{
-                            backgroundColor: '#FFFFFF',
-                            borderRadius: '50%',
-                        }}
-                    >
-                        <PowerSettingsNewIcon sx={{ color: theme.palette.text.primary }} />
-                    </IconButton>
+                        <IconButton
+                            component={Link}
+                            to="/Login"
+                            onClick={handleLogout}
+                            sx={{
+                                backgroundColor: '#FFFFFF',
+                                borderRadius: '50%',
+                                width: {xs:5,md:50},
+                                height: {xs:5,md:50},
+                            }}
+                        >
+                            <PowerSettingsNewIcon sx={{ color: theme.palette.text.primary }} />
+                        </IconButton>
+                    </Box>
+                    <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+                        <IconButton onClick={handleMenuClick} sx={{ backgroundColor: '#FFFFFF' }}>
+                            <MenuIcon />
+                        </IconButton>
+                        <Menu
+                            anchorEl={anchorEl}
+                            open={open}
+                            onClose={handleClose}
+                            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+                            disableScrollLock
+                        >
+                            <MenuItem
+                                component={Link}
+                                to="/agent/setting"
+                                onClick={handleClose}
+                            >
+                                <SettingsIcon sx={{ mr: 1 }} /> Paramètres
+                            </MenuItem>
+                            <MenuItem
+                                onClick={() => {
+                                    handleClose();
+                                    handleLogout();
+                                }}
+                            >
+                                <PowerSettingsNewIcon sx={{ mr: 1 }} /> Déconnexion
+                            </MenuItem>
+                        </Menu>
+                    </Box>
                 </Box>
             </Toolbar>
         </AppBar>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './imput.css';
-import { Visibility, VisibilityOff } from "@mui/icons-material"; // si tu utilises MUI icons
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 
 type ImputProps = {
@@ -52,7 +52,8 @@ const Input: React.FC<ImputProps> = ({
                         right: "10px",
                         top: "35%",
                         transform: "translateY(-50%)",
-                        color:"#f69a03"
+                        color:"#f69a03",
+                        padding:4,
 
                     }}
                 >
