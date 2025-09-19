@@ -27,7 +27,7 @@ const HeaderAgent: React.FC = () => {
         setAnchorEl(null);
     };
     return (
-        <AppBar position="static" sx={{ backgroundColor: theme.palette.background.paper, boxShadow: 'none' }}>
+        <AppBar position="static" sx={{backgroundColor: theme.palette.background.paper, boxShadow: 'none' }}>
             <Toolbar sx={{display: 'flex', alignItems: 'center',justifyContent: 'center',gap: '16px' }}>
 
                 <Box sx={{ display: 'flex', alignItems:'center',justifyContent:{xs:"start",md:'center'},flexGrow:{xs:0,md:1} ,pl:{xs:0,md:17} }}>

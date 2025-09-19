@@ -199,7 +199,6 @@ const Agenda: React.FC = () => {
                 }}
                 events={events}
                 eventContent={(arg) => {
-                    // Custom rendering pour forcer un rectangle
                     return (
                         <div style={{
                             backgroundColor: arg.event.backgroundColor,
