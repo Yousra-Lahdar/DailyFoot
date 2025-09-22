@@ -2,45 +2,33 @@ import React, {useEffect, useState} from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
+import type {DateClickArg} from "@fullcalendar/interaction";
 import interactionPlugin from "@fullcalendar/interaction";
-import type { DateClickArg } from "@fullcalendar/interaction";
-import type { EventClickArg } from "@fullcalendar/core";
+import type {EventClickArg} from "@fullcalendar/core";
 import frLocale from "@fullcalendar/core/locales/fr";
 import {
     Box,
-    Dialog,
-    DialogTitle,
-    DialogContent,
-    TextField,
-    Select,
-    MenuItem,
     Button,
+    Dialog,
     DialogActions,
-    duration
+    DialogContent,
+    DialogTitle,
+    MenuItem,
+    Select,
+    TextField
 } from "@mui/material";
-import { useParams } from "react-router";
+import {useParams} from "react-router";
 import {addUserEvent, deleteUserEvent, fetchPlayerAgenda, fetchUserAgendas} from "../../../api/user.api.ts";
 import {BASE_API_URL} from "../../../constants.ts";
 import axios from "axios";
 import ConfirmDialog from "../../components/compoDashboard/ConfirmDialog.tsx";
 import {toast} from "react-toastify";
-
-type AgendaEvent = {
-    id: string;
-    title: string;
-    start: string;
-    end: string;
-    type?: string;
-    description?: string;
-    backgroundColor?: string;
-    borderColor?: string;
-    textColor?: string;
-};
+import type {AgendaEvent} from "../../../types/AgendaEvent.ts";
 
 const Agenda: React.FC = () => {
-     const [events, setEvents] = useState<AgendaEvent[]>([]);
+    const [events, setEvents] = useState<AgendaEvent[]>([]);
 
-    const { id } = useParams<{ id: string }>();
+    const {id} = useParams<{ id: string }>();
     const [open, setOpen] = useState(false);
     const [selectedDate, setSelectedDate] = useState<Date>(new Date());
     const [newTitle, setNewTitle] = useState("");
@@ -52,11 +40,16 @@ const Agenda: React.FC = () => {
 
     const getEventColor = (type: string) => {
         switch (type) {
-            case "match": return "red";
-            case "entrainement": return "green";
-            case "medical": return "blue";
-            case "autre": return "orange";
-            default: return "orange";
+            case "match":
+                return "red";
+            case "entrainement":
+                return "green";
+            case "medical":
+                return "blue";
+            case "autre":
+                return "orange";
+            default:
+                return "orange";
         }
     };
 
@@ -92,7 +85,7 @@ const Agenda: React.FC = () => {
                 const res = await axios.post(
                     `${BASE_API_URL}/agenda/event/player/${id}`,
                     newEvent,
-                    { headers: { Authorization: `Bearer ${token}` } }
+                    {headers: {Authorization: `Bearer ${token}`}}
                 );
                 savedEvent = res.data;
             } else {
@@ -130,7 +123,7 @@ const Agenda: React.FC = () => {
         try {
             if (id) {
                 await axios.delete(`${BASE_API_URL}/agenda/event/player/${selectedEvent.event.id}`, {
-                    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+                    headers: {Authorization: `Bearer ${localStorage.getItem("token")}`}
                 });
             } else {
                 await deleteUserEvent(selectedEvent.event.id);
@@ -149,8 +142,6 @@ const Agenda: React.FC = () => {
             setSelectedEvent(null);
         }
     };
-
-
 
 
     useEffect(() => {
@@ -191,13 +182,10 @@ const Agenda: React.FC = () => {
     }, [id]);
 
 
-
-
-
     if (loading) return <p>Chargement...</p>;
-    if(error) return <p style={{ color: "red" }}>{error}</p>;
+    if (error) return <p style={{color: "red"}}>{error}</p>;
     return (
-        <Box sx={{ p: 3 }}>
+        <Box sx={{p: 3}}>
             <FullCalendar
                 locale={frLocale}
                 timeZone="local"
@@ -232,23 +220,23 @@ const Agenda: React.FC = () => {
                 height="80vh"
                 displayEventTime={false}
             />
-            <Box sx={{ display: "flex", gap: 2, mt: 2 }}>
-                  <span style={{ background: "red", padding: "4px 8px", borderRadius: "4px", color: "white" }}>
+            <Box sx={{display: "flex", gap: 2, mt: 2}}>
+                  <span style={{background: "red", padding: "4px 8px", borderRadius: "4px", color: "white"}}>
                     Match
                   </span>
-                <span style={{ background: "green", padding: "4px 8px", borderRadius: "4px", color: "white" }}>
+                <span style={{background: "green", padding: "4px 8px", borderRadius: "4px", color: "white"}}>
                     Entraînement
                   </span>
-                <span style={{ background: "blue", padding: "4px 8px", borderRadius: "4px", color: "white" }}>
+                <span style={{background: "blue", padding: "4px 8px", borderRadius: "4px", color: "white"}}>
                     RDV Médical
                   </span>
-                <span style={{ background: "orange", padding: "4px 8px", borderRadius: "4px", color: "white" }}>
+                <span style={{background: "orange", padding: "4px 8px", borderRadius: "4px", color: "white"}}>
                     Autre RDV
                   </span>
             </Box>
 
 
-            <Dialog  open={open} onClose={() => setOpen(false)} PaperProps={{sx: {backgroundColor: "#f9f9f9"}}} >
+            <Dialog open={open} onClose={() => setOpen(false)} PaperProps={{sx: {backgroundColor: "#f9f9f9"}}}>
                 <DialogTitle>Ajouter un événement</DialogTitle>
                 <DialogContent>
                     <TextField
@@ -269,7 +257,7 @@ const Agenda: React.FC = () => {
                         <MenuItem value="autre">Autre</MenuItem>
                     </Select>
                 </DialogContent>
-                <DialogActions >
+                <DialogActions>
                     <Button onClick={() => setOpen(false)}>Annuler</Button>
                     <Button onClick={handleAddEvent} variant="contained">Ajouter</Button>
                 </DialogActions>
@@ -281,7 +269,7 @@ const Agenda: React.FC = () => {
                 onCancel={() => setDeleteDialogOpen(false)}
                 confirmText="Supprimer"
                 cancelText="Annuler"
-                PaperProps={{ sx: { backgroundColor: "#f9f9f9"} }}
+                PaperProps={{sx: {backgroundColor: "#f9f9f9"}}}
 
             />
 

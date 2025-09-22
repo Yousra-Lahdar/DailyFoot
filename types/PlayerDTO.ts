@@ -4,7 +4,7 @@ export interface PlayerDTO {
     poste: string;
     image: string;
     club: string;
-    age: number;
-    nationality: string;
+    age?: number;
+    nationality?: string;
     agentId?: string;
 }

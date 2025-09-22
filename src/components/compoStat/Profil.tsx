@@ -1,18 +1,9 @@
 import {Box, Button, CardContent, Typography} from "@mui/material";
 import {useNavigate, useParams} from "react-router";
-
-interface Player {
-    name: string;
-    age: number;
-    nationality: string;
-    club: string;
-    weight: string;
-    height: string;
-    image?: string;
-}
+import type {PlayerWithHeightAndWeight} from "../../../types/Player.ts";
 
 interface ProfilProps {
-    player?: Player;
+    player: PlayerWithHeightAndWeight;
     role?: "PLAYER" | "AGENT" | "ADMIN";
 }
 

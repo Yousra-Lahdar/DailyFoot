@@ -1,17 +1,6 @@
-import './btnImput.css'
+import './btnInput.css'
 import {useEffect} from "react";
-
-
-type BtnLoginProps = {
-    label?: string;
-    type?: "button" | "submit" | "reset";
-    onClick?: () => void;
-    disabled?: boolean;
-    style?: React.CSSProperties;
-    children?: React.ReactNode;
-
-};
-
+import type {BtnLoginProps} from "../../../types/ButtonLoginProps.ts";
 const BtnLogin = ({ label, type = "button", onClick, disabled, style, children }: BtnLoginProps) => {
 
     useEffect(() => {

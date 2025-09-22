@@ -3,16 +3,9 @@ import {Radar} from "react-chartjs-2";
 import {Chart as ChartJS, Filler, Legend, LineElement, PointElement, RadialLinearScale, Tooltip} from "chart.js";
 
 ChartJS.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend);
+import type {StatisticsWithoutHeightAndWeight} from "../../../types/Statistics.ts";
 
-interface Statistics {
-    goals: number;
-    assists: number;
-    yellowCards: number;
-    redCards: number;
-    matchesPlayed: number;
-}
-
-const CardStatistic = ({ stats }: { stats: Statistics }) => {
+const CardStatistic = ({ stats }: { stats: StatisticsWithoutHeightAndWeight }) => {
     const data = {
         labels: ["Buts", "Passes décisives", "Cartons jaunes", "Cartons rouges", "Matchs joués"],
         datasets: [

@@ -1,11 +1,6 @@
 import { jwtDecode } from "jwt-decode";
+import type {JWTPayload} from "../types/Jwt.ts";
 
-type JWTPayload = {
-    role?: "AGENT" | "PLAYER";
-    id?:string;
-    name?: string;
-    email?: string;
-};
 
 export const isAuthenticated = (): boolean => {
     return !!localStorage.getItem("token");

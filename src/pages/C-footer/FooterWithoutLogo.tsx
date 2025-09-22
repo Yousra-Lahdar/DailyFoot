@@ -1,4 +1,4 @@
-import { Box, Link, Typography, useTheme } from "@mui/material";
+import {Box, Typography, useTheme} from "@mui/material";
 
 const FooterWithoutLogo = () => {
     const theme = useTheme();
@@ -21,7 +21,7 @@ const FooterWithoutLogo = () => {
                 },
             }}
         >
-            <Box sx={{ flexGrow: 1, textAlign: "center" }}>
+            <Box sx={{flexGrow: 1, textAlign: "center"}}>
                 <Typography variant="body2" color="text.secondary">
                     © 2025 SYS — Tous droits réservés
                 </Typography>

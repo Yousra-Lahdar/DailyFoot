@@ -5,9 +5,6 @@ import axios from "axios";
 import {useEffect, useState} from "react";
 import {toast} from "react-toastify";
 import FootSiteCard from "../../components/compoDashboard/FootSiteCard.tsx";
-
-
-
 const DashboardAgent = () => {
 
     const [agentName, setAgentName] = useState<string>("");
