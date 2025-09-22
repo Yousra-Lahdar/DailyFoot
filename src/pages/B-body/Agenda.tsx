@@ -6,14 +6,24 @@ import type {DateClickArg} from "@fullcalendar/interaction";
 import interactionPlugin from "@fullcalendar/interaction";
 import type {EventClickArg} from "@fullcalendar/core";
 import frLocale from "@fullcalendar/core/locales/fr";
-import {Box, Dialog, DialogTitle, DialogContent, TextField, Select, MenuItem, Button, DialogActions} from "@mui/material";
-import { useParams } from "react-router";
+import {
+    Box,
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    MenuItem,
+    Select,
+    TextField
+} from "@mui/material";
+import {useParams} from "react-router";
 import {addUserEvent, deleteUserEvent, fetchPlayerAgenda, fetchUserAgendas} from "../../../api/user.api.ts";
-import {BASE_API_URL} from "../../../constants.ts";
-import axios from "axios";
 import ConfirmDialog from "../../components/compoDashboard/ConfirmDialog.tsx";
 import {toast} from "react-toastify";
 import type {AgendaEvent} from "../../../types/AgendaEvent.ts";
+import {addEventForPlayer, deletePlayerEvent} from "../../../api/agenda.api.ts";
+
 
 const Agenda: React.FC = () => {
     const [events, setEvents] = useState<AgendaEvent[]>([]);
@@ -77,13 +87,7 @@ const Agenda: React.FC = () => {
             let savedEvent;
             if (id) {
                 // On ajoute l'event sur l'agenda du joueur
-                const token = localStorage.getItem("token");
-                const res = await axios.post(
-                    `${BASE_API_URL}/agenda/event/player/${id}`,
-                    newEvent,
-                    {headers: {Authorization: `Bearer ${token}`}}
-                );
-                savedEvent = res.data;
+                savedEvent = await addEventForPlayer(id, newEvent);
             } else {
                 // On ajoute l'event sur son propre agenda (agent)
                 savedEvent = await addUserEvent(newEvent);
@@ -118,17 +122,14 @@ const Agenda: React.FC = () => {
 
         try {
             if (id) {
-                await axios.delete(`${BASE_API_URL}/agenda/event/player/${selectedEvent.event.id}`, {
-                    headers: {Authorization: `Bearer ${localStorage.getItem("token")}`}
-                });
+                await deletePlayerEvent(selectedEvent.event.id);
             } else {
                 await deleteUserEvent(selectedEvent.event.id);
             }
 
             setEvents(prev =>
-                prev.filter(e => e.id !== String(selectedEvent.event.id)) // 👈 cast en string
+                prev.filter(e => e.id !== String(selectedEvent.event.id))
             );
-
             toast.success("L'événement a bien été supprimé !");
         } catch (err) {
             console.error("Erreur lors de la suppression :", err);
@@ -180,11 +181,11 @@ const Agenda: React.FC = () => {
     useEffect(() => {
         const handleResize = () => {
             if (window.innerWidth < 600) {
-                setHeaderToolbar({ left: "prev,next today", center: "title", right: "timeGridWeek,timeGridDay" });
+                setHeaderToolbar({left: "prev,next today", center: "title", right: "timeGridWeek,timeGridDay"});
             } else if (window.innerWidth < 1024) {
-                setHeaderToolbar({ left: "prev,next today", center: "title", right: "timeGridWeek,timeGridDay" });
+                setHeaderToolbar({left: "prev,next today", center: "title", right: "timeGridWeek,timeGridDay"});
             } else {
-                setHeaderToolbar({ left: "prev,next today", center: "title", right: "timeGridWeek,timeGridDay" });
+                setHeaderToolbar({left: "prev,next today", center: "title", right: "timeGridWeek,timeGridDay"});
             }
         };
 
@@ -199,23 +200,23 @@ const Agenda: React.FC = () => {
     return (
 
         <Box
-                sx={{
-                    "& .fc-toolbar-title": {
-                        fontFamily: "Arial, sans-serif",
-                        fontWeight: "bold",
-                        fontSize: { xs: "16px", md: "20px" },
-                    },
-                    "& .fc-button": {
-                        fontSize: { xs: "12px", md: "14px" },
-                        padding: { xs: "0.3em 0.6em", md: "0.5em 1em" },
-                    },
-                    "& .fc-header-toolbar": {
-                        flexWrap: { xs: "wrap", md: "nowrap" },
-                        justifyContent: { xs: "center", md: "space-between" },
-                        gap: { xs: 1, md: 2 },
-                    },
-                }}
-            >
+            sx={{
+                "& .fc-toolbar-title": {
+                    fontFamily: "Arial, sans-serif",
+                    fontWeight: "bold",
+                    fontSize: {xs: "16px", md: "20px"},
+                },
+                "& .fc-button": {
+                    fontSize: {xs: "12px", md: "14px"},
+                    padding: {xs: "0.3em 0.6em", md: "0.5em 1em"},
+                },
+                "& .fc-header-toolbar": {
+                    flexWrap: {xs: "wrap", md: "nowrap"},
+                    justifyContent: {xs: "center", md: "space-between"},
+                    gap: {xs: 1, md: 2},
+                },
+            }}
+        >
             <FullCalendar
                 locale={frLocale}
                 timeZone="local"
@@ -264,7 +265,7 @@ const Agenda: React.FC = () => {
 
             <Dialog open={open} onClose={() => setOpen(false)} PaperProps={{sx: {backgroundColor: "#f9f9f9"}}}>
                 <DialogTitle>Ajouter un événement</DialogTitle>
-                <DialogContent >
+                <DialogContent>
                     <TextField
                         label="Titre"
                         fullWidth
@@ -276,7 +277,7 @@ const Agenda: React.FC = () => {
                         value={newType}
                         fullWidth
                         onChange={(e) => setNewType(e.target.value)}
-                        MenuProps={{PaperProps: {sx:{backgroundColor: "white"}}}}
+                        MenuProps={{PaperProps: {sx: {backgroundColor: "white"}}}}
                     >
                         <MenuItem value="match">Match</MenuItem>
                         <MenuItem value="entrainement">Entraînement</MenuItem>
