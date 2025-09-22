@@ -1,5 +1,5 @@
-import {useLoaderData, useNavigate} from "react-router";
-import {Box, Button, Typography} from "@mui/material";
+import {useLoaderData} from "react-router";
+import {Box, Typography} from "@mui/material";
 import Input from "../../components/compoLogin/Input.tsx";
 import BtnLogin from "../../components/compoLogin/BtnLogin.tsx";
 import {useState} from "react";
@@ -8,8 +8,6 @@ import type {FormErrors} from "../../../types/FormErrors.ts";
 
 const Setting = () => {
     const data = useLoaderData();
-    const navigate = useNavigate();
-
     const [formData, setFormData] = useState(data || {});
     const [errors, setErrors] = useState<FormErrors>({});
     const userUpdate = useUserUpdate(formData, setErrors);

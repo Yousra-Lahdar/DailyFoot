@@ -1,19 +1,6 @@
 import {Card, CardContent, Typography} from "@mui/material";
 import {useNavigate} from "react-router";
-
-interface Player {
-    id: number;
-    name: string;
-    age: number;
-    poste?: string;
-    nationality: string;
-    club: string;
-    image?: string;
-}
-
-interface Props {
-    player: Player;
-}
+import type {Props} from "../../../types/Player.ts";
 
 const CardPlayer = ({player}: Props) => {
     const navigate = useNavigate();

@@ -5,40 +5,8 @@ import axios from "axios";
 import Profil from "../../components/compoStat/Profil";
 import CardStatistic from "../../components/compoStat/CardStatistic";
 import {BASE_API_URL} from "../../../constants.ts";
-
-interface Player {
-    id: number;
-    name: string;
-    age: number;
-    nationality: string;
-    club: string;
-    height: string;
-    weight: string;
-    image?: string;
-}
-
-interface Statistics {
-    goals: number;
-    assists: number;
-    yellowCards: number;
-    redCards: number;
-    matchesPlayed: number;
-    height: number;
-    weight: number;
-}
-
-interface Match {
-    id: number;
-    date: string;
-    opponent: string;
-    score: string;
-}
-
-interface PlayerStatistics {
-    player: Player | Player[];
-    statistics: Statistics;
-    matches?: Match[];
-}
+import type {Statistics} from "../../../types/Statistics.ts";
+import type {PlayerStatistics} from "../../../types/Statistics.ts";
 
 const Statistic = () => {
     const { id } = useParams<{ id: string }>();

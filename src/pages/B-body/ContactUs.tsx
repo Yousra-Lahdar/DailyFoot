@@ -15,7 +15,7 @@ const ContactUs = () => {
                 variant="h5"
                 sx={{fontWeight: "bold", color: "#c06e04",}}
             >
-                Contacter Nous
+                Contactez Nous
             </Typography>
 
             <Box

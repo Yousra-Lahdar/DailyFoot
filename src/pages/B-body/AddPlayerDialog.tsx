@@ -9,16 +9,7 @@ import {
     Typography,
     Box,
 } from "@mui/material";
-
-export interface Player {
-    name: string;
-    age?: string;
-    nationality?: string;
-    poste?: string;
-    club?: string;
-    email?: string;
-    image?: string;
-}
+import type {Player} from "../../../types/Player.ts";
 
 type AddPlayerDialogProps = {
     open: boolean;
@@ -33,7 +24,7 @@ const AddPlayerDialog: React.FC<AddPlayerDialogProps> = ({
                                                          }) => {
     const [form, setForm] = useState<Player>({
         name: "",
-        age: "",
+        age: 0,
         nationality: "",
         poste: "",
         club: "",
@@ -48,7 +39,7 @@ const AddPlayerDialog: React.FC<AddPlayerDialogProps> = ({
         if (!open) {
             setForm({
                 name: "",
-                age: "",
+                age: 0,
                 nationality: "",
                 poste: "",
                 club: "",

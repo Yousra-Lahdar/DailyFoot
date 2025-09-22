@@ -3,12 +3,13 @@ import {AppBar, Box, Button, IconButton, Menu, MenuItem, Toolbar} from '@mui/mat
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import {useTheme} from '@mui/material/styles';
 import logo from '../../assets/logo-daily.webp';
-import {Link} from 'react-router';
+import {Link, useNavigate} from 'react-router';
 import SettingsIcon from "@mui/icons-material/Settings";
 import MenuIcon from "@mui/icons-material/Menu";
 
 const HeaderPlayer: React.FC = () => {
     const theme = useTheme();
+    const navigate = useNavigate();
     const handleLogout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
@@ -156,7 +157,7 @@ const HeaderPlayer: React.FC = () => {
                         >
                             <MenuItem
                                 component={Link}
-                                to="/agent/setting"
+                                to="/player/setting"
                                 onClick={handleClose}
                             >
                                 <SettingsIcon sx={{ mr: 1 }} /> Paramètres
@@ -165,7 +166,9 @@ const HeaderPlayer: React.FC = () => {
                                 onClick={() => {
                                     handleClose();
                                     handleLogout();
+                                    navigate("/login")
                                 }}
+
                             >
                                 <PowerSettingsNewIcon sx={{ mr: 1 }} /> Déconnexion
                             </MenuItem>
