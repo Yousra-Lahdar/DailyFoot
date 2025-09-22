@@ -9,3 +9,9 @@ export type AgendaEvent = {
     borderColor?: string;
     textColor?: string;
 };
+
+export type AgendaEventFormatted = AgendaEvent & {
+    dateHeureDebut: string | Date;
+    dateHeureFin: string | Date;
+    ownerType: string;
+}

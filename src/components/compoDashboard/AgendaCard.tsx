@@ -1,15 +1,20 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
-import { BASE_API_URL } from "../../../constants";
-import { Box, Card, CardContent, Chip, Stack, Typography } from "@mui/material";
+import {BASE_API_URL} from "../../../constants";
+import {Box, Card, CardContent, Chip, Stack, Typography} from "@mui/material";
 
 const getEventColor = (type: string) => {
     switch (type) {
-        case "match": return "red";
-        case "entrainement": return "green";
-        case "medical": return "blue";
-        case "autre": return "orange";
-        default: return "orange";
+        case "match":
+            return "red";
+        case "entrainement":
+            return "green";
+        case "medical":
+            return "blue";
+        case "autre":
+            return "orange";
+        default:
+            return "orange";
     }
 };
 
@@ -20,8 +25,8 @@ export default function AgendaCard() {
         const fetchEvents = async () => {
             try {
                 const token = localStorage.getItem("token");
-                const { data } = await axios.get(`${BASE_API_URL}/agenda/me`, {
-                    headers: { Authorization: `Bearer ${token}` },
+                const {data} = await axios.get(`${BASE_API_URL}/agenda/me`, {
+                    headers: {Authorization: `Bearer ${token}`},
                 });
 
                 const now = new Date();
@@ -45,7 +50,7 @@ export default function AgendaCard() {
     }, []);
 
     return (
-        <Box sx={{ p: 2 }}>
+        <Box sx={{p: 2}}>
             <Typography variant="h6" gutterBottom>
                 Événements aujourd’hui
             </Typography>
@@ -54,30 +59,27 @@ export default function AgendaCard() {
                 <Stack spacing={2}>
                     {eventsToday.map((e: any) => {
                         const start = new Date(e.dateHeureDebut);
-                        const time = start.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+                        const time = start.toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"});
 
                         return (
                             <Card key={e.id} variant="outlined">
-                                <CardContent sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                                <CardContent
+                                    sx={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
                                     <Box>
                                         <Typography variant="subtitle1" fontWeight="bold">
                                             {e.title}
                                         </Typography>
-                                        {e.description && (
-                                            <Typography variant="body1" color="text.secondary">
-                                                {e.description}
-                                            </Typography>
-                                        )}
+                                        <Typography variant="body1" color="text.secondary">
+                                            {e.userName}
+                                        </Typography>
                                     </Box>
                                     <Stack direction="column" alignItems="flex-end" spacing={1}>
                                         <Typography variant="body1">{time}</Typography>
-                                        {e.description && <Chip label={e.description}  size="small" sx={{
-                                            backgroundColor: getEventColor(
-                                                e.description
-                                            ),
+                                        {e.description && <Chip label={e.description.charAt(0).toUpperCase() + e.description.slice(1)} size="small" sx={{
+                                            backgroundColor: getEventColor(e.description),
                                             color: "white",
                                             fontWeight: "bold",
-                                        }} />}
+                                        }}/>}
                                     </Stack>
                                 </CardContent>
                             </Card>
@@ -85,7 +87,7 @@ export default function AgendaCard() {
                     })}
                 </Stack>
             ) : (
-                <Typography color="text.secondary">Aucun événement à venir aujourd’hui</Typography>
+                <Typography color="text.secondary">Aucun événement à venir</Typography>
             )}
         </Box>
     );
