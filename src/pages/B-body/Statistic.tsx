@@ -111,9 +111,9 @@ const Statistic = () => {
     };
 
     return (
-        <Box sx={{ display: "flex", width: "100%" }}>
+        <Box sx={{ display: "flex",flexDirection:{xs:"column",md:"row"}, width: "100%" }}>
 
-            <Box sx={{ display:"flex" , flex: 1 , borderRight:"solid 1px orange"}}>
+            <Box sx={{ display:"flex" , flex: 1 , borderRight:{md:"solid 1px orange"}}}>
 
                     <Profil player={currentPlayer} role={role} />
             </Box>

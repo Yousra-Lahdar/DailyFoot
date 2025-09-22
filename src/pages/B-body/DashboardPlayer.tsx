@@ -1,9 +1,9 @@
 import {Box, Container, Typography} from "@mui/material";
 import AgendaCard from "../../components/compoDashboard/AgendaCard.tsx";
-import TodoList from "../../components/compoDashboard/TodoList.tsx";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {toast} from "react-toastify";
+import FootSiteCard from "../../components/compoDashboard/FootSiteCard.tsx";
 
 const DashboardPlayer = () => {
 
@@ -43,7 +43,7 @@ const DashboardPlayer = () => {
                 <Box sx={{ flex: 2, minWidth: 300 }}>
                     <Typography
                         variant="h3"
-                        sx={{ color: "orange", fontWeight: "bold", mb: 3, ml:30}}
+                        sx={{color: "orange", fontSize: { xs: "1.25rem", md: "2rem" } ,fontWeight: "bold", display:"flex", justifyContent: "center",mb:3}}
                     >
                         BIENVENUE {playerName || "Chargement..."}
                     </Typography>
@@ -54,7 +54,7 @@ const DashboardPlayer = () => {
 
 
                 <Box sx={{ flex: 1, minWidth: 250 }}>
-                    <TodoList />
+                    <FootSiteCard/>
                 </Box>
             </Box>
         </Container>
