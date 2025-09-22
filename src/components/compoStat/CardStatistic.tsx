@@ -58,14 +58,14 @@ const CardStatistic = ({ stats }: { stats: Statistics }) => {
 
                     <Box sx={{ display: "flex", justifyContent: "center", flexWrap:"wrap"  }}>
                         <Box sx={{display: "flex", flexDirection: "row", justifyContent: "center",gap:3,mt:5}}>
-                            <Typography variant="h6">Buts : {stats.goals}</Typography>
-                            <Typography variant="h6">Passes décisives :{stats.assists}</Typography>
-                            <Typography variant="h6">Cartons jaunes :{stats.yellowCards}</Typography>
-                            <Typography variant="h6">Cartons rouges :{stats.redCards}</Typography>
-                            <Typography variant="h6">Matchs joués :{stats.matchesPlayed}</Typography>
+                            <Typography sx={{fontSize: { xs: "1rem", md: "2rem" }}}>Buts: {stats.goals}</Typography>
+                            <Typography sx={{fontSize: { xs: "1rem", md: "2rem" }}}>Passes décisives: {stats.assists}</Typography>
+                            <Typography sx={{fontSize: { xs: "1rem", md: "2rem" }}}>Cartons jaunes: {stats.yellowCards}</Typography>
+                            <Typography sx={{fontSize: { xs: "1rem", md: "2rem" }}}>Cartons rouges: {stats.redCards}</Typography>
+                            <Typography sx={{fontSize: { xs: "1rem", md: "2rem" }}}>Matchs joués: {stats.matchesPlayed}</Typography>
                         </Box>
 
-                        <Box sx={{ width: 550, height: 550 }}>
+                        <Box sx={{ width:{md:550,xs:430}, height:{md:550,xs:430} }}>
                             <Radar data={data} options={options} />
                         </Box>
                     </Box>
