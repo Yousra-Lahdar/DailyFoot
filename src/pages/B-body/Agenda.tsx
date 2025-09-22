@@ -273,7 +273,7 @@ const Agenda: React.FC = () => {
 
             <Dialog  open={open} onClose={() => setOpen(false)} PaperProps={{sx: {backgroundColor: "#f9f9f9"}}} >
                 <DialogTitle>Ajouter un événement</DialogTitle>
-                <DialogContent>
+                <DialogContent >
                     <TextField
                         label="Titre"
                         fullWidth
@@ -285,6 +285,7 @@ const Agenda: React.FC = () => {
                         value={newType}
                         fullWidth
                         onChange={(e) => setNewType(e.target.value)}
+                        MenuProps={{PaperProps: {sx:{backgroundColor: "white"}}}}
                     >
                         <MenuItem value="match">Match</MenuItem>
                         <MenuItem value="entrainement">Entraînement</MenuItem>
