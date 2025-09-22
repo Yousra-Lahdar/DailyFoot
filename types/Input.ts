@@ -9,4 +9,5 @@ export type InputProps = {
     error?: boolean;
     helperText?: string;
     onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
+    errorText?: string;
 };

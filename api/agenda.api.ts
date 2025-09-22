@@ -19,7 +19,7 @@ export const fetchUserAgendas = (): Promise<AgendaEvent[]> => {
 };
 
 // Ajouter un événement pour l'utilisateur connecté
-export const addUserEvent = (event: any): Promise<AgendaEvent> => {
+export const addUserEvent = (event: AgendaEvent): Promise<AgendaEvent> => {
     const token = localStorage.getItem("token");
     return axios
         .post(`${BASE_API_URL}/agenda/event`, event, { headers: { Authorization: `Bearer ${token}` } })

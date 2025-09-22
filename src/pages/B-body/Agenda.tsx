@@ -21,7 +21,7 @@ import {useParams} from "react-router";
 import {addUserEvent, deleteUserEvent, fetchPlayerAgenda, fetchUserAgendas} from "../../../api/user.api.ts";
 import ConfirmDialog from "../../components/compoDashboard/ConfirmDialog.tsx";
 import {toast} from "react-toastify";
-import type {AgendaEvent} from "../../../types/AgendaEvent.ts";
+import type {AgendaEvent, AgendaEventFormatted} from "../../../types/AgendaEvent.ts";
 import {addEventForPlayer, deletePlayerEvent} from "../../../api/agenda.api.ts";
 
 
@@ -154,7 +154,7 @@ const Agenda: React.FC = () => {
                     data = await fetchUserAgendas();
                 }
 
-                const formattedEvents = data.map(ev => ({
+                const formattedEvents:AgendaEventFormatted[] = data.map((ev:AgendaEventFormatted) => ({
                     id: ev.id.toString(),
                     title: ev.title,
                     start: ev.dateHeureDebut,
