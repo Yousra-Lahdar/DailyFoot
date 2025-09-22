@@ -74,7 +74,7 @@ const Agenda: React.FC = () => {
             description: newType,
             dateHeureDebut: formatDateLocal(start),
             dateHeureFin: formatDateLocal(end),
-            ownerType: "AGENT", // qui crée l'événement
+            ownerType: id ? "PLAYER" : "AGENT", // qui crée l'événement
         };
 
         try {
@@ -163,7 +163,7 @@ const Agenda: React.FC = () => {
                     start: ev.dateHeureDebut,
                     end: ev.dateHeureFin,
                     description: ev.description || "",
-                    type: ev.description || "autre",
+                    type: ev.type || ev.ownerType || "autre",
                     backgroundColor: getEventColor(ev.description || "autre"),
                     borderColor: getEventColor(ev.description || "autre"),
                     textColor: 'white'
