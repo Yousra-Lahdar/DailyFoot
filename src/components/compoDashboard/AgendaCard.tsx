@@ -3,6 +3,16 @@ import axios from "axios";
 import { BASE_API_URL } from "../../../constants";
 import { Box, Card, CardContent, Chip, Stack, Typography } from "@mui/material";
 
+const getEventColor = (type: string) => {
+    switch (type) {
+        case "match": return "red";
+        case "entrainement": return "green";
+        case "medical": return "blue";
+        case "autre": return "orange";
+        default: return "orange";
+    }
+};
+
 export default function AgendaCard() {
     const [eventsToday, setEventsToday] = useState([]);
 
@@ -45,7 +55,6 @@ export default function AgendaCard() {
                     {eventsToday.map((e: any) => {
                         const start = new Date(e.dateHeureDebut);
                         const time = start.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-                        const chipColor = e.description === "match" ? "primary" : "success";
 
                         return (
                             <Card key={e.id} variant="outlined">
@@ -62,7 +71,13 @@ export default function AgendaCard() {
                                     </Box>
                                     <Stack direction="column" alignItems="flex-end" spacing={1}>
                                         <Typography variant="body1">{time}</Typography>
-                                        {e.description && <Chip label={e.description} color={chipColor} size="small" />}
+                                        {e.description && <Chip label={e.description}  size="small" sx={{
+                                            backgroundColor: getEventColor(
+                                                e.description
+                                            ),
+                                            color: "white",
+                                            fontWeight: "bold",
+                                        }} />}
                                     </Stack>
                                 </CardContent>
                             </Card>
