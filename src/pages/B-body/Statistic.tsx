@@ -7,6 +7,7 @@ import CardStatistic from "../../components/compoStat/CardStatistic";
 import {BASE_API_URL} from "../../../constants.ts";
 import type {Statistics} from "../../../types/Statistics.ts";
 import type {PlayerStatistics} from "../../../types/Statistics.ts";
+import Pages from "../../components/layout/Pages.tsx";
 
 const Statistic = () => {
     const { id } = useParams<{ id: string }>();
@@ -111,75 +112,77 @@ const Statistic = () => {
     };
 
     return (
-        <Box sx={{ display: "flex",flexDirection:{xs:"column",md:"row"}, width: "100%" }}>
+        <Pages title="statistique">
+            <Box sx={{ display: "flex",flexDirection:{xs:"column",md:"row"}, width: "100%" }}>
 
-            <Box sx={{ display:"flex" , flex: 1 , borderRight:{md:"solid 1px orange"}}}>
+                <Box sx={{ display:"flex" , flex: 1 , borderRight:{md:"solid 1px orange"}}}>
 
-                    <Profil player={currentPlayer} role={role} />
-            </Box>
+                        <Profil player={currentPlayer} role={role} />
+                </Box>
 
 
-            <Box sx={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center" }}>
-                <CardStatistic stats={openDialog && editStats ? editStats : stats.statistics} />
-                <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleOpenDialog}
-                >
-                    Modifier les statistiques
-                </Button>
-            </Box>
-
-            <Dialog open={openDialog} onClose={handleCloseDialog} PaperProps={{
-                sx: {
-                    backgroundColor: "#f9f9f9"
-                }
-            }}>
-                <DialogTitle>Modifier les statistiques</DialogTitle>
-                <DialogContent >
-                    {editStats && (
-                        <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 1 }}>
-                            <TextField
-                                label="Buts"
-                                type="number"
-                                value={editStats.goals}
-                                onChange={(e) => setEditStats({ ...editStats, goals: Number(e.target.value) })}
-                            />
-                            <TextField
-                                label="Passes décisives"
-                                type="number"
-                                value={editStats.assists}
-                                onChange={(e) => setEditStats({ ...editStats, assists: Number(e.target.value) })}
-                            />
-                            <TextField
-                                label="Cartons jaunes"
-                                type="number"
-                                value={editStats.yellowCards}
-                                onChange={(e) => setEditStats({ ...editStats, yellowCards: Number(e.target.value) })}
-                            />
-                            <TextField
-                                label="Cartons rouges"
-                                type="number"
-                                value={editStats.redCards}
-                                onChange={(e) => setEditStats({ ...editStats, redCards: Number(e.target.value) })}
-                            />
-                            <TextField
-                                label="Matchs joués"
-                                type="number"
-                                value={editStats.matchesPlayed}
-                                onChange={(e) => setEditStats({ ...editStats, matchesPlayed: Number(e.target.value) })}
-                            />
-                        </Box>
-                    )}
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleCloseDialog}>Annuler</Button>
-                    <Button onClick={handleSave} variant="contained" color="success">
-                        Sauvegarder
+                <Box sx={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center" }}>
+                    <CardStatistic stats={openDialog && editStats ? editStats : stats.statistics} />
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={handleOpenDialog}
+                    >
+                        Modifier les statistiques
                     </Button>
-                </DialogActions>
-            </Dialog>
-        </Box>
+                </Box>
+
+                <Dialog open={openDialog} onClose={handleCloseDialog} PaperProps={{
+                    sx: {
+                        backgroundColor: "#f9f9f9"
+                    }
+                }}>
+                    <DialogTitle>Modifier les statistiques</DialogTitle>
+                    <DialogContent >
+                        {editStats && (
+                            <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 1 }}>
+                                <TextField
+                                    label="Buts"
+                                    type="number"
+                                    value={editStats.goals}
+                                    onChange={(e) => setEditStats({ ...editStats, goals: Number(e.target.value) })}
+                                />
+                                <TextField
+                                    label="Passes décisives"
+                                    type="number"
+                                    value={editStats.assists}
+                                    onChange={(e) => setEditStats({ ...editStats, assists: Number(e.target.value) })}
+                                />
+                                <TextField
+                                    label="Cartons jaunes"
+                                    type="number"
+                                    value={editStats.yellowCards}
+                                    onChange={(e) => setEditStats({ ...editStats, yellowCards: Number(e.target.value) })}
+                                />
+                                <TextField
+                                    label="Cartons rouges"
+                                    type="number"
+                                    value={editStats.redCards}
+                                    onChange={(e) => setEditStats({ ...editStats, redCards: Number(e.target.value) })}
+                                />
+                                <TextField
+                                    label="Matchs joués"
+                                    type="number"
+                                    value={editStats.matchesPlayed}
+                                    onChange={(e) => setEditStats({ ...editStats, matchesPlayed: Number(e.target.value) })}
+                                />
+                            </Box>
+                        )}
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleCloseDialog}>Annuler</Button>
+                        <Button onClick={handleSave} variant="contained" color="success">
+                            Sauvegarder
+                        </Button>
+                    </DialogActions>
+                </Dialog>
+            </Box>
+        </Pages>
     );
 };
 
