@@ -12,7 +12,7 @@ import {
 
 export interface Player {
     name: string;
-    age?: string;
+    age?: number;
     nationality?: string;
     poste?: string;
     club?: string;
@@ -24,16 +24,20 @@ type AddPlayerDialogProps = {
     open: boolean;
     onClose: () => void;
     onCreate: (player: Player) => Promise<void> | void;
+    playerToEdit?: Player;
+    onUpdate?: (player: Player) => Promise<void> | void;
 };
 
 const AddPlayerDialog: React.FC<AddPlayerDialogProps> = ({
-                                                             open,
-                                                             onClose,
-                                                             onCreate,
-                                                         }) => {
+    open, 
+    onClose,
+    onCreate,
+    playerToEdit,
+    onUpdate,
+}) => {
     const [form, setForm] = useState<Player>({
         name: "",
-        age: "",
+        age: 0,
         nationality: "",
         poste: "",
         club: "",
@@ -43,12 +47,13 @@ const AddPlayerDialog: React.FC<AddPlayerDialogProps> = ({
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
 
-    // Reset form when dialog closes
     useEffect(() => {
-        if (!open) {
+        if (playerToEdit) {
+            setForm(playerToEdit)
+        } else if(!open) {
             setForm({
                 name: "",
-                age: "",
+                age: 0,
                 nationality: "",
                 poste: "",
                 club: "",
@@ -58,13 +63,18 @@ const AddPlayerDialog: React.FC<AddPlayerDialogProps> = ({
             setError(null);
             setLoading(false);
         }
-    }, [open]);
+    }, [playerToEdit, open]);
 
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
         const { name, value } = e.target;
-        setForm((prev) => ({ ...prev, [name]: value }));
+        const numericFields = ["age", "agentId", "userId"];
+        setForm((prev) => ({ ...prev, [name]: 
+            numericFields.includes(name)
+            ? value === ""
+            ? undefined
+            : Number(value) : value}));
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -76,8 +86,13 @@ const AddPlayerDialog: React.FC<AddPlayerDialogProps> = ({
 
         try {
             setLoading(true);
+           if (playerToEdit && onUpdate) {
+            await onUpdate (form);
+        } else { 
             await onCreate(form);
-            onClose();
+        } 
+        
+        onClose();
         } catch (err: any) {
             setError(err?.message || "Erreur lors de l’ajout du joueur");
         } finally {
@@ -88,12 +103,12 @@ const AddPlayerDialog: React.FC<AddPlayerDialogProps> = ({
     return (
         <Dialog open={open} onClose={() => !loading && onClose()} maxWidth="xs" fullWidth>
             <Box component="form" onSubmit={handleSubmit}>
-                <DialogTitle>Ajouter un joueur</DialogTitle>
+                <DialogTitle>{playerToEdit ? "Modifier un joueur" : "Ajouter un joueur"}</DialogTitle>
                 <DialogContent sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
                     <TextField
                         label="Nom"
                         name="name"
-                        value={form.name}
+                        value={form.name ?? ""}
                         onChange={handleChange}
                         required
                         fullWidth
@@ -102,42 +117,43 @@ const AddPlayerDialog: React.FC<AddPlayerDialogProps> = ({
                     <TextField
                         label="Age"
                         name="age"
-                        value={form.age}
+                        type="number"
+                        value={form.age ?? ""}
                         onChange={handleChange}
                         fullWidth
                     />
                     <TextField
                         label="Nationalité"
                         name="nationality"
-                        value={form.nationality}
+                        value={form.nationality ?? ""}
                         onChange={handleChange}
                         fullWidth
                     />
                     <TextField
                         label="Poste"
                         name="poste"
-                        value={form.poste}
+                        value={form.poste ?? ""}
                         onChange={handleChange}
                         fullWidth
                     />
                     <TextField
                         label="Club"
                         name="club"
-                        value={form.club}
+                        value={form.club ?? ""}
                         onChange={handleChange}
                         fullWidth
                     />
                     <TextField
                         label="Email"
                         name="email"
-                        value={form.email}
+                        value={form.email ?? ""}
                         onChange={handleChange}
                         fullWidth
                     />
                     <TextField
                         label="Image"
                         name="image"
-                        value={form.image}
+                        value={form.image ?? ""}
                         onChange={handleChange}
                         fullWidth
                     />
@@ -149,7 +165,7 @@ const AddPlayerDialog: React.FC<AddPlayerDialogProps> = ({
                         Annuler
                     </Button>
                     <Button type="submit" variant="contained" disabled={loading}>
-                        {loading ? "Création..." : "Ajouter"}
+                        {loading ? "Enregistrement..." : playerToEdit ? "Enregistrer" : "Ajouter"}
                     </Button>
                 </DialogActions>
             </Box>

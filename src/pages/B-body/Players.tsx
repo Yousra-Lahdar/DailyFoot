@@ -26,6 +26,47 @@ const Players = () => {
         }
     };
 
+    const handleDeletePlayer = async (id: number) => {
+    if (!window.confirm("Voulez-vous vraiment supprimer ce joueur ?")) return;
+
+    try {
+        const token = localStorage.getItem("token");
+        await axios.delete(`${BASE_API_URL}/players/${id}`, {
+            headers: { Authorization: `Bearer ${token}` },
+        });
+        toast.success("Joueur supprimé !");
+        await refetch();
+    } catch (err) {
+        console.error(err);
+        toast.error("Erreur lors de la suppression du joueur.");
+    }
+};
+
+const [editingPlayer, setEditingPlayer] = useState<any | null>(null);
+
+const handleEditPlayer = (player: any) => {
+    setEditingPlayer(player);
+    setOpenDialog(true);
+};
+
+const handleUpdatePlayer = async (updatedPlayer: any) => {
+    console.log("PUT payload:", updatedPlayer);
+    try {
+        const token = localStorage.getItem("token");
+        await axios.put(`${BASE_API_URL}/players/${updatedPlayer.id}`, updatedPlayer, {
+            headers: { Authorization: `Bearer ${token}` },
+        });
+        toast.success(`Le joueur ${updatedPlayer.name} a été mis à jour.`);
+        setEditingPlayer(null);
+        setOpenDialog(false);
+        await refetch();
+    } catch (err) {
+        console.error(err);
+        toast.error("Erreur lors de la mise à jour du joueur.");
+    }
+};
+
+
     if (loading) return <Typography>Chargement...</Typography>;
     if (error) return <Typography color="error">{error}</Typography>;
 
@@ -47,16 +88,25 @@ const Players = () => {
                 }}
             >
                 {players.map((player) => (
-                    <CardPlayer key={player.id} player={player}/>
+                    <CardPlayer key={player.id} player={player} onEdit={handleEditPlayer} onDelete={handleDeletePlayer}/>
                 ))}
 
-                <AddPlayerCard onClick={() => setOpenDialog(true)}/>
+                <AddPlayerCard onClick={() => {
+                    setEditingPlayer(null);
+                    setOpenDialog(true);
+                }}
+                />
             </Box>
 
             <AddPlayerDialog
                 open={openDialog}
-                onClose={() => setOpenDialog(false)}
+                onClose={() => {
+                    setOpenDialog(false);
+                    setEditingPlayer(null);
+                }}
                 onCreate={handleCreatePlayer}
+                playerToEdit={editingPlayer}
+                onUpdate={handleUpdatePlayer}
             />
         </Stack>
     );
