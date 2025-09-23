@@ -1,15 +1,15 @@
-import { Card, CardContent, Typography, IconButton, Box } from "@mui/material";
-import { ArrowBack, ArrowForward } from "@mui/icons-material";
-import { useRef, useState } from "react";
-import { usePlayers } from "../../../hooks/use-players.hook";
-import CardPlayer from "../players/CardPlayer";
+import {Box, Card, CardContent, IconButton, Typography} from "@mui/material";
+import {ArrowBack, ArrowForward} from "@mui/icons-material";
+import {useRef, useState} from "react";
+import {usePlayers} from "../../../hooks/use-players.hook";
 import AddPlayerCard from "../../pages/B-body/AddPlayerCard.tsx";
 import AddPlayerDialog from "../../pages/B-body/AddPlayerDialog.tsx";
-import axios from "axios";
-import { BASE_API_URL } from "../../../constants.ts";
+import CardPlayerForCarousel from "./CardPlayerForCarousel.tsx";
+import {createPlayer} from "../../../api/player.api.ts";
+import type {Player} from "../../../types/Player.ts";
 
 const PlayersCarouselAgenda = () => {
-    const { players, loading, error, refetch } = usePlayers();
+    const {players, loading, error, refetch} = usePlayers();
     const carouselRef = useRef<HTMLDivElement>(null);
     const [openDialog, setOpenDialog] = useState(false);
 
@@ -27,27 +27,22 @@ const PlayersCarouselAgenda = () => {
             behavior: "smooth",
         });
     };
-
-    const handleCreatePlayer = async (player:any) => {
-        const token = localStorage.getItem("token");
-        await axios.post(`${BASE_API_URL}/agent`, player, {
-            headers: { Authorization: `Bearer ${token}` },
-        });
+    const handleCreatePlayer = async (player: Player) => {
+        await createPlayer(player);
         await refetch();
     };
-
     return (
         <>
-            <Card sx={{ mb: 4, p: 2 }}>
+            <Card sx={{mb: 4, p: 2}}>
                 <CardContent>
                     <Typography variant="h6" gutterBottom>
                         Mes Joueurs
                     </Typography>
 
-                    <Box sx={{ display: "flex", alignItems: "center", gap: 1, mt: 2 }}>
+                    <Box sx={{display: "flex", alignItems: "center", gap: 1, mt: 2}}>
                         {players.length > 3 && (
                             <IconButton onClick={() => scroll("left")}>
-                                <ArrowBack />
+                                <ArrowBack/>
                             </IconButton>
                         )}
 
@@ -61,32 +56,29 @@ const PlayersCarouselAgenda = () => {
                                 scrollBehavior: "smooth",
                                 paddingBottom: 1,
                                 justifyContent: players.length <= 3 ? "center" : "flex-start",
-                                "&::-webkit-scrollbar": { display: "none" },
+                                "&::-webkit-scrollbar": {display: "none"},
                             }}
                         >
                             {players.map((player) => (
-                                <Box key={player.id} sx={{ flex: "0 0 auto", minWidth: 200 }}>
-                                    <CardPlayer player={player} />
+                                <Box key={player.id} sx={{flex: "0 0 auto", minWidth: 200}}>
+                                    <CardPlayerForCarousel player={player}/>
                                 </Box>
                             ))}
-
-                            {/* Ajouter la card seulement si aucun joueur */}
                             {players.length === 0 && (
-                                <Box sx={{ flex: "0 0 auto", minWidth: 200 }}>
-                                    <AddPlayerCard onClick={() => setOpenDialog(true)} />
+                                <Box sx={{flex: "0 0 auto", minWidth: 200}}>
+                                    <AddPlayerCard onClick={() => setOpenDialog(true)}/>
                                 </Box>
                             )}
                         </Box>
 
                         {players.length > 3 && (
                             <IconButton onClick={() => scroll("right")}>
-                                <ArrowForward />
+                                <ArrowForward/>
                             </IconButton>
                         )}
                     </Box>
                 </CardContent>
             </Card>
-
             <AddPlayerDialog
                 open={openDialog}
                 onClose={() => setOpenDialog(false)}

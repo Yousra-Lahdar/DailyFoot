@@ -81,7 +81,7 @@ export const Router = createBrowserRouter([
         element: <LayoutWithoutBar/>,
         children: [
             {index: true, element: <Navigate to="/" replace/>},
-            {path: "/", element: <Home/>},
+            {path: "/home", element: <Home/>},
             {
                 element: <PublicRoute/>,
                 children: [
