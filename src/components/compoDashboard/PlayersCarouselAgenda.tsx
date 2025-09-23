@@ -3,8 +3,8 @@ import { ArrowBack, ArrowForward } from "@mui/icons-material";
 import { useRef, useState } from "react";
 import { usePlayers } from "../../../hooks/use-players.hook";
 import CardPlayer from "../players/CardPlayer";
-import AddPlayerCard from "../../pages/B-body/AddPlayerCard.tsx";
-import AddPlayerDialog from "../../pages/B-body/AddPlayerDialog.tsx";
+import AddPlayerCard from "../players/AddPlayerCard.tsx";
+import AddPlayerDialog from "../players/AddPlayerDialog.tsx";
 import axios from "axios";
 import { BASE_API_URL } from "../../../constants.ts";
 

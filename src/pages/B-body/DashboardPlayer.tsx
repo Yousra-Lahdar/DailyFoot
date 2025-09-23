@@ -7,6 +7,7 @@ import FootSiteCard from "../../components/compoDashboard/FootSiteCard.tsx";
 import CardStatistic from "../../components/compoStat/CardStatistic.tsx";
 import {BASE_API_URL} from "../../../constants.ts";
 import type {PlayerStatistics} from "../../../types/Statistics.ts";
+import Pages from "../../components/layout/Pages.tsx";
 
 const DashboardPlayer = () => {
     const [playerName, setPlayerName] = useState<string>("");
@@ -41,39 +42,41 @@ const DashboardPlayer = () => {
     }, []);
 
     return (
-        <Container maxWidth="xl" sx={{ mt: 8 }}>
-            <Box
-                sx={{
-                    display: "flex",
-                    gap: 8,
-                    flexWrap: "wrap",
-                }}
-            >
-                <Box sx={{ flex: 2, minWidth: 300 }}>
-                    <Typography
-                        variant="h3"
-                        sx={{
-                            color: "orange",
-                            fontSize: { xs: "1.25rem", md: "2rem" },
-                            fontWeight: "bold",
-                            display:"flex",
-                            justifyContent: "center",
-                            mb:3
-                        }}
-                    >
-                        BIENVENUE {playerName || "Chargement..."}
-                    </Typography>
+        <Pages title="accueil joueur">
+            <Container maxWidth="xl" sx={{ mt: 8 }}>
+                <Box
+                    sx={{
+                        display: "flex",
+                        gap: 8,
+                        flexWrap: "wrap",
+                    }}
+                >
+                    <Box sx={{ flex: 2, minWidth: 300 }}>
+                        <Typography
+                            variant="h3"
+                            sx={{
+                                color: "orange",
+                                fontSize: { xs: "1.25rem", md: "2rem" },
+                                fontWeight: "bold",
+                                display:"flex",
+                                justifyContent: "center",
+                                mb:3
+                            }}
+                        >
+                            BIENVENUE {playerName || "Chargement..."}
+                        </Typography>
 
-                    <AgendaCard />
+                        <AgendaCard />
 
-                    {stats &&  <CardStatistic stats={stats.statistics} />}
+                        {stats &&  <CardStatistic stats={stats.statistics} />}
+                    </Box>
+
+                    <Box sx={{ flex: 1, minWidth: 250 }}>
+                        <FootSiteCard />
+                    </Box>
                 </Box>
-
-                <Box sx={{ flex: 1, minWidth: 250 }}>
-                    <FootSiteCard />
-                </Box>
-            </Box>
-        </Container>
+            </Container>
+        </Pages>
     );
 };
 

@@ -18,7 +18,7 @@ const Pages = ({ children, title }: PagesProps) => {
         >
             <title>{title}</title>
             <Box sx={{ flex: 1 }}>{children}</Box>
-            <FooterWithLogo />
+
         </Box>
     );
 };

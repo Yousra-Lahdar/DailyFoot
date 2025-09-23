@@ -11,7 +11,6 @@ import Players from "../pages/B-body/Players";
 import Agenda from "../pages/B-body/Agenda";
 import Statistic from "../pages/B-body/Statistic";
 import Setting from "../pages/B-body/Setting";
-import Pay from "../pages/B-body/Pay";
 
 // Pages PLAYER
 import DashboardPlayer from "../pages/B-body/DashboardPlayer";
@@ -53,7 +52,6 @@ export const Router = createBrowserRouter([
                     { path: "players/:id/statistic", element: <Statistic /> },
                     { path: "agenda", element: <Agenda /> },
                     { path: "setting", element: <Setting />, loader: fetchUserDetails },
-                    { path: "pay", element: <Pay /> },
                 ],
             },
         ],
