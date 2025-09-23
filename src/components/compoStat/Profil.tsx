@@ -32,10 +32,11 @@ const Profil = ({ player,role }: ProfilProps) => {
                 <Typography variant="h6" >{player.age} ans</Typography>
                 <Typography variant="h6" >{player.nationality}</Typography>
                 <Typography variant="h6" >{player.club}</Typography>
+                <Typography variant="h6" >{player.poste}</Typography>
 
                 <Box sx={{ mt: 2, textAlign: "center" }}>
-                    <Typography variant="h6">{/*player.height*/}50kg</Typography>
-                    <Typography variant="h6">{player.weight}1.70cm</Typography>
+                    <Typography variant="h6">{player.height} cm</Typography>
+                    <Typography variant="h6">{player.weight} kg</Typography>
                 </Box>
 
                 {role === "AGENT" && (
