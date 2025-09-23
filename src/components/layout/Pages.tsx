@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { Box } from "@mui/material";
-import FooterWithLogo from "../../pages/C-footer/FooterWithLogo.tsx"; // ou FooterWithoutLogo
+
 
 type PagesProps = {
     children: ReactNode;
