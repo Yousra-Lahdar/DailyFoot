@@ -1,5 +1,6 @@
 import {Button, Card, CardContent, Stack, Typography} from "@mui/material";
 import {useNavigate} from "react-router";
+import type {Props} from "../../../types/Player.ts";
 
 interface Player {
     id: number;
@@ -16,6 +17,7 @@ interface Props {
     onEdit?: (player: Player) => void;
     onDelete?: (id: number) => void
 }
+
 
 const CardPlayer = ({player, onEdit, onDelete}: Props) => {
     const navigate = useNavigate();

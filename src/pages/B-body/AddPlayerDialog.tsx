@@ -9,6 +9,7 @@ import {
     Typography,
     Box,
 } from "@mui/material";
+import type {Player} from "../../../types/Player.ts";
 
 export interface Player {
     name: string;
@@ -68,6 +69,7 @@ const AddPlayerDialog: React.FC<AddPlayerDialogProps> = ({
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
+
         const { name, value } = e.target;
         const numericFields = ["age", "agentId", "userId"];
         setForm((prev) => ({ ...prev, [name]: 
@@ -75,6 +77,7 @@ const AddPlayerDialog: React.FC<AddPlayerDialogProps> = ({
             ? value === ""
             ? undefined
             : Number(value) : value}));
+
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -101,10 +104,14 @@ const AddPlayerDialog: React.FC<AddPlayerDialogProps> = ({
     };
 
     return (
-        <Dialog open={open} onClose={() => !loading && onClose()} maxWidth="xs" fullWidth>
+
+        <Dialog open={open} onClose={() => !loading && onClose()} maxWidth="xs" fullWidth PaperProps={{sx: {backgroundColor: "#f9f9f9"}}}>
+
             <Box component="form" onSubmit={handleSubmit}>
+
                 <DialogTitle>{playerToEdit ? "Modifier un joueur" : "Ajouter un joueur"}</DialogTitle>
                 <DialogContent sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+
                     <TextField
                         label="Nom"
                         name="name"

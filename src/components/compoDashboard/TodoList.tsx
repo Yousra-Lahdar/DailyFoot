@@ -1,5 +1,15 @@
-import { Card, CardContent, Typography, List, ListItem, ListItemAvatar, Avatar, ListItemText, Checkbox, Button } from "@mui/material";
-
+import {
+    Avatar,
+    Button,
+    Card,
+    CardContent,
+    Checkbox,
+    List,
+    ListItem,
+    ListItemAvatar,
+    ListItemText,
+    Typography
+} from "@mui/material";
 
 const TodoList = () => {
     const todos = [

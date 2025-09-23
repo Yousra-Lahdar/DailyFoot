@@ -5,9 +5,6 @@ import axios from "axios";
 import {useEffect, useState} from "react";
 import {toast} from "react-toastify";
 import FootSiteCard from "../../components/compoDashboard/FootSiteCard.tsx";
-
-
-
 const DashboardAgent = () => {
 
     const [agentName, setAgentName] = useState<string>("");
@@ -43,11 +40,9 @@ const DashboardAgent = () => {
 
                 }}
             >
-
                 <Box sx={{flex: 2, minWidth: 300}}>
                     <Typography
-                        variant="h3"
-                        sx={{color: "orange", fontWeight: "bold", mb: 3, ml: 30}}
+                        sx={{color: "orange", fontSize: { xs: "1.25rem", md: "2rem" } ,fontWeight: "bold", display:"flex", justifyContent: "center",mb:3}}
                     >
                         Bienvenue {agentName || "Chargement..."}
                     </Typography>

@@ -27,6 +27,7 @@ import Home from "../pages/B-body/Home.tsx";
 import PrivateRoute from "./PrivateRoute.tsx";
 import RoleRedirect from "./RoleRedirect.tsx";
 import { fetchUserDetails } from "../../api/user.api.ts";
+import PublicRoute from "./PublicRoute.tsx";
 
 export const Router = createBrowserRouter([
     // Route racine protégée → redirige selon le rôle
@@ -77,17 +78,23 @@ export const Router = createBrowserRouter([
 
     // Routes publiques
     {
-        path: "/",
-        element: <LayoutWithoutBar />,
+        element: <LayoutWithoutBar/>,
         children: [
-            { index: true, element: <Navigate to="home" replace /> },
-            { path: "home", element: <Home /> },
-            { path: "login", element: <Login /> },
-            { path: "forgetPass", element: <ForgetPass /> },
-            { path: "register", element: <Register /> },
-            { path: "contactUs", element: <ContactUs /> },
+            {index: true, element: <Navigate to="/" replace/>},
+            {path: "/", element: <Home/>},
+            {
+                element: <PublicRoute/>,
+                children: [
+                    {path: "login", element: <Login/>},
+                    {path: "register", element: <Register/>},
+                ],
+            },
+
+            {path: "forgetPass", element: <ForgetPass/>},
+            {path: "contactUs", element: <ContactUs/>},
         ],
     },
-]);
+    {path: "*" ,element: <Navigate to="/"/>},
+    ]);
 
 export default Router;

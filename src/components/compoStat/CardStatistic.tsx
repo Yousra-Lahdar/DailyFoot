@@ -3,16 +3,9 @@ import {Radar} from "react-chartjs-2";
 import {Chart as ChartJS, Filler, Legend, LineElement, PointElement, RadialLinearScale, Tooltip} from "chart.js";
 
 ChartJS.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend);
+import type {StatisticsWithoutHeightAndWeight} from "../../../types/Statistics.ts";
 
-interface Statistics {
-    goals: number;
-    assists: number;
-    yellowCards: number;
-    redCards: number;
-    matchesPlayed: number;
-}
-
-const CardStatistic = ({ stats }: { stats: Statistics }) => {
+const CardStatistic = ({ stats }: { stats: StatisticsWithoutHeightAndWeight }) => {
     const data = {
         labels: ["Buts", "Passes décisives", "Cartons jaunes", "Cartons rouges", "Matchs joués"],
         datasets: [
@@ -57,15 +50,15 @@ const CardStatistic = ({ stats }: { stats: Statistics }) => {
                     </Box>
 
                     <Box sx={{ display: "flex", justifyContent: "center", flexWrap:"wrap"  }}>
-                        <Box sx={{display: "flex", flexDirection: "row", justifyContent: "center",gap:3,mt:5}}>
-                            <Typography variant="h6">Buts : {stats.goals}</Typography>
-                            <Typography variant="h6">Passes décisives :{stats.assists}</Typography>
-                            <Typography variant="h6">Cartons jaunes :{stats.yellowCards}</Typography>
-                            <Typography variant="h6">Cartons rouges :{stats.redCards}</Typography>
-                            <Typography variant="h6">Matchs joués :{stats.matchesPlayed}</Typography>
+                        <Box sx={{display: "flex", flexDirection: "row", justifyContent: "center",alignItems:"center",flexWrap:{ xs: "wrap", md: "nowrap" },gap:{ xs: 1, md: 2},mt:5,textAlign:"center"}}>
+                            <Typography sx={{fontSize: { xs: "0.9rem", md: "1.5rem" }}}>Buts: {stats.goals}</Typography>
+                            <Typography sx={{fontSize: { xs: "0.9rem", md: "1.5rem" }}}>Passes décisives: {stats.assists}</Typography>
+                            <Typography sx={{fontSize: { xs: "0.9rem", md: "1.5rem" }}}>Cartons jaunes: {stats.yellowCards}</Typography>
+                            <Typography sx={{fontSize: { xs: "0.9rem", md: "1.5rem" }}}>Cartons rouges: {stats.redCards}</Typography>
+                            <Typography sx={{fontSize: { xs: "0.9rem", md: "1.5rem" }}}>Matchs joués: {stats.matchesPlayed}</Typography>
                         </Box>
 
-                        <Box sx={{ width: 550, height: 550 }}>
+                        <Box sx={{ width:{md:550,xs:430}, height:{md:550,xs:430} }}>
                             <Radar data={data} options={options} />
                         </Box>
                     </Box>

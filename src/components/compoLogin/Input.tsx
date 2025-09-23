@@ -1,20 +1,9 @@
 import React, { useState } from 'react';
-import './imput.css';
+import './input.css';
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
-
-type ImputProps = {
-    label: string;
-    name: string;
-    type?: string;
-    value: string;
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    error?: boolean;
-    helperText?: string;
-    onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
-};
-
-const Input: React.FC<ImputProps> = ({
+import type {InputProps} from "../../../types/Input.ts"
+const Input: React.FC<InputProps> = ({
                                          label,
                                          name,
                                          type = "text",

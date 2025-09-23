@@ -1,17 +1,7 @@
 // components/ConfirmDialog.tsx
 import React from 'react';
-import {Dialog, DialogTitle, DialogContent, DialogActions, Button, Typography, type DialogProps} from '@mui/material';
-
-interface ConfirmDialogProps {
-    open: boolean;
-    title?: string;
-    message: string;
-    onConfirm: () => void;
-    onCancel: () => void;
-    confirmText?: string;
-    cancelText?: string;
-    PaperProps?: DialogProps['PaperProps'];
-}
+import {Button, Dialog, DialogActions, DialogContent, DialogTitle, Typography} from '@mui/material';
+import type {ConfirmDialogProps} from "../../../types/ConfirmDialogProps.ts";
 
 const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
                                                          open,
@@ -24,7 +14,7 @@ const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
                                                          PaperProps,
                                                      }) => {
     return (
-        <Dialog open={open} onClose={onCancel} PaperProps={PaperProps} >
+        <Dialog open={open} onClose={onCancel} PaperProps={PaperProps}>
             <DialogTitle>{title}</DialogTitle>
             <DialogContent>
                 <Typography>{message}</Typography>
