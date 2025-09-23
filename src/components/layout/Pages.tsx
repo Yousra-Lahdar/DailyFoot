@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { Box } from "@mui/material";
-import FooterWithLogo from "../../pages/C-footer/FooterWithLogo.tsx"; // ou FooterWithoutLogo
+
 
 type PagesProps = {
     children: ReactNode;
@@ -18,7 +18,7 @@ const Pages = ({ children, title }: PagesProps) => {
         >
             <title>{title}</title>
             <Box sx={{ flex: 1 }}>{children}</Box>
-            <FooterWithLogo />
+
         </Box>
     );
 };
