@@ -1,14 +1,5 @@
-import React, { useState, useEffect } from "react";
-import {
-    Dialog,
-    DialogTitle,
-    DialogContent,
-    DialogActions,
-    TextField,
-    Button,
-    Typography,
-    Box,
-} from "@mui/material";
+import React, {useEffect, useState} from "react";
+import {Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Typography,} from "@mui/material";
 import type {Player} from "../../../types/Player.ts";
 
 type AddPlayerDialogProps = {
@@ -54,8 +45,8 @@ const AddPlayerDialog: React.FC<AddPlayerDialogProps> = ({
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
-        const { name, value } = e.target;
-        setForm((prev) => ({ ...prev, [name]: value }));
+        const {name, value} = e.target;
+        setForm((prev) => ({...prev, [name]: value}));
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -77,10 +68,12 @@ const AddPlayerDialog: React.FC<AddPlayerDialogProps> = ({
     };
 
     return (
-        <Dialog open={open} onClose={() => !loading && onClose()} maxWidth="xs" fullWidth >
+
+        <Dialog open={open} onClose={() => !loading && onClose()} maxWidth="xs" fullWidth PaperProps={{sx: {backgroundColor: "#f9f9f9"}}}>
+
             <Box component="form" onSubmit={handleSubmit}>
                 <DialogTitle>Ajouter un joueur</DialogTitle>
-                <DialogContent sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                <DialogContent sx={{display: "flex", flexDirection: "column", gap: 2}}>
                     <TextField
                         label="Nom"
                         name="name"
