@@ -20,9 +20,9 @@ const FootSiteCard = () => {
     ];
 
     return (
-        <Card sx={{ p: 3, height: "100%",mt:-4,backgroundColor:"#F28C00" }}>
-            <CardContent sx={{backgroundColor:"#ffffff",display:"flex",flexDirection:"column"}}>
-                <Typography variant="h5" sx={{ mb: 5, textAlign: "center" }}>
+        <Card sx={{ p:2, height: "100%",mt:-4 ,mx:5}}>
+            <CardContent sx={{mb:4,backgroundColor:"#ffffff",display:"flex",flexDirection:"column",mx:2}}>
+                <Typography variant="h5" sx={{ mb: 5, textAlign: "center",color:"orange" }}>
                     Sites de Foot
                 </Typography>
                 <Box sx={{ display: "flex", flexWrap: "wrap",flexDirection: "column",justifyItems:"center",alignItems:'center',gap:10}}>
@@ -30,6 +30,7 @@ const FootSiteCard = () => {
                         <Card
                             key={site.name}
                             sx={{
+                                backgroundColor:"white",
                                 cursor: "pointer ",
                                 width: 200,
                                 height:150,
