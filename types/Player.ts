@@ -4,6 +4,8 @@ export type Player = {
     nationality?: string;
     poste?: string;
     club?: string;
+    height?: number;
+    weight?: number;
     email?: string;
     image?: string;
 }

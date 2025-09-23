@@ -41,6 +41,8 @@ const AddPlayerDialog: React.FC<AddPlayerDialogProps> = ({
         age: 0,
         nationality: "",
         poste: "",
+        height: 0,
+        weight: 0,
         club: "",
         email: "",
         image: "",
@@ -56,6 +58,8 @@ const AddPlayerDialog: React.FC<AddPlayerDialogProps> = ({
                 name: "",
                 age: 0,
                 nationality: "",
+                height: 0,
+                weight: 0,
                 poste: "",
                 club: "",
                 email: "",
@@ -147,6 +151,20 @@ const AddPlayerDialog: React.FC<AddPlayerDialogProps> = ({
                         label="Club"
                         name="club"
                         value={form.club ?? ""}
+                        onChange={handleChange}
+                        fullWidth
+                    />
+                    <TextField
+                        label="Taille"
+                        name="height"
+                        value={form.height}
+                        onChange={handleChange}
+                        fullWidth
+                    />
+                    <TextField
+                        label="Poids"
+                        name="weight"
+                        value={form.weight}
                         onChange={handleChange}
                         fullWidth
                     />
