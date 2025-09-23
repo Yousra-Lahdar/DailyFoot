@@ -1,11 +1,9 @@
 import {Card, CardContent, Typography} from "@mui/material";
 import {useNavigate} from "react-router";
 import type {Props} from "../../../types/Player.ts";
-import ButtonUpdate from "./ButtonUpdate.tsx";
 
-const CardPlayer = ({player, onEdit , onDelete}: Props) => {
+const CardPlayer = ({player}: Props) => {
     const navigate = useNavigate();
-
     const handleClick = () => {
         if (!player.id) {
             console.error("Player ID is undefined", player);
@@ -25,11 +23,18 @@ const CardPlayer = ({player, onEdit , onDelete}: Props) => {
                 textAlign: "center",
             }}
         >
-            <CardContent onClick={handleClick} sx={{ cursor: "pointer" }}>
+            <CardContent onClick={handleClick} sx={{cursor: "pointer"}}>
                 <img
                     src={player.image || "/default-avatar.png"}
                     alt={player.name}
-                    style={{width: "30vw", height: "30vw", maxWidth:"150px", maxHeight:"150px", objectFit: "cover", borderRadius: "50%"}}
+                    style={{
+                        width: "30vw",
+                        height: "30vw",
+                        maxWidth: "150px",
+                        maxHeight: "150px",
+                        objectFit: "cover",
+                        borderRadius: "50%"
+                    }}
                 />
                 <Typography variant="subtitle1" sx={{mt: 1, fontWeight: "bold"}}>
                     {player.name}
@@ -38,7 +43,6 @@ const CardPlayer = ({player, onEdit , onDelete}: Props) => {
                 <Typography variant="body2">Age : {player.age}</Typography>
                 <Typography variant="body2">Poste : {player.poste}</Typography>
             </CardContent>
-            <ButtonUpdate player={player} onDelete={onDelete} onEdit={onEdit} />
         </Card>
     );
 };

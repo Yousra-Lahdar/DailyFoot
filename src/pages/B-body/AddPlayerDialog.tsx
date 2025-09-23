@@ -9,24 +9,14 @@ import {
     Typography,
     Box,
 } from "@mui/material";
-import type {Player} from "../../../types/Player.ts";
-
-export interface Player {
-    name: string;
-    age?: number;
-    nationality?: string;
-    poste?: string;
-    club?: string;
-    email?: string;
-    image?: string;
-}
+import type {Player, PlayerWithId} from "../../../types/Player.ts";
 
 type AddPlayerDialogProps = {
     open: boolean;
     onClose: () => void;
     onCreate: (player: Player) => Promise<void> | void;
-    playerToEdit?: Player;
-    onUpdate?: (player: Player) => Promise<void> | void;
+    playerToEdit?: PlayerWithId | null;
+    onUpdate?: (player: PlayerWithId) => Promise<void> | void;
 };
 
 const AddPlayerDialog: React.FC<AddPlayerDialogProps> = ({
@@ -94,7 +84,7 @@ const AddPlayerDialog: React.FC<AddPlayerDialogProps> = ({
         try {
             setLoading(true);
            if (playerToEdit && onUpdate) {
-            await onUpdate (form);
+            await onUpdate ({...form, id: playerToEdit.id});
         } else { 
             await onCreate(form);
         } 

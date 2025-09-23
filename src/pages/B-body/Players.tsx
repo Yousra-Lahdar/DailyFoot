@@ -7,19 +7,18 @@ import {usePlayers} from "../../../hooks/use-players.hook.ts";
 import axios from "axios";
 import {BASE_API_URL} from "../../../constants.ts";
 import {toast} from "react-toastify";
+import {createPlayer} from "../../../api/player.api.ts";
+import type {Player, PlayerWithId} from "../../../types/Player.ts";
 
 const Players = () => {
     const {players, loading, error, refetch} = usePlayers();
     const [openDialog, setOpenDialog] = useState(false);
 
-    const handleCreatePlayer = async (player: any) => {
+    const handleCreatePlayer = async (player: Player) => {
         try {
-            const token = localStorage.getItem("token");
-            await axios.post(`${BASE_API_URL}/agent`, player, {
-                headers: {Authorization: `Bearer ${token}`},
-            });
+            await createPlayer(player);
             await refetch();
-            toast.success(`Le joueur ${player.name} à bien été ajouté.`);
+            toast.success(`Le joueur ${player.name} a bien été ajouté.`);
         } catch (err) {
             console.error(err);
             toast.error("Erreur lors de l’ajout du joueur.");
@@ -42,14 +41,14 @@ const Players = () => {
     }
 };
 
-const [editingPlayer, setEditingPlayer] = useState<any | null>(null);
+const [editingPlayer, setEditingPlayer] = useState<PlayerWithId | null>(null);
 
-const handleEditPlayer = (player: any) => {
+const handleEditPlayer = (player: PlayerWithId) => {
     setEditingPlayer(player);
     setOpenDialog(true);
 };
 
-const handleUpdatePlayer = async (updatedPlayer: any) => {
+const handleUpdatePlayer = async (updatedPlayer: PlayerWithId) => {
     console.log("PUT payload:", updatedPlayer);
     try {
         const token = localStorage.getItem("token");
