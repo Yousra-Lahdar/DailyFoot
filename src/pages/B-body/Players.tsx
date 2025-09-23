@@ -1,114 +1,113 @@
+import {Box, Typography} from "@mui/material";
+import Input from "../../components/compoLogin/Input.tsx";
+import BtnLogin from "../../components/compoLogin/BtnLogin.tsx";
+import {useNavigate} from "react-router";
 import {useState} from "react";
-import {Box, Stack, Typography} from "@mui/material";
-import CardPlayer from "../../components/players/CardPlayer.tsx";
-import AddPlayerCard from "./AddPlayerCard.tsx";
-import AddPlayerDialog from "./AddPlayerDialog.tsx";
-import {usePlayers} from "../../../hooks/use-players.hook.ts";
-import axios from "axios";
+import axios, {type AxiosError} from "axios";
 import {BASE_API_URL} from "../../../constants.ts";
-import {toast} from "react-toastify";
-import {createPlayer} from "../../../api/player.api.ts";
-import type {Player, PlayerWithId} from "../../../types/Player.ts";
+import Pages from "../../components/layout/Pages.tsx";
 
-const Players = () => {
-    const {players, loading, error, refetch} = usePlayers();
-    const [openDialog, setOpenDialog] = useState(false);
+const Register = () => {
 
-    const handleCreatePlayer = async (player: Player) => {
+    const navigate = useNavigate();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [name, setName] = useState("");
+    const [errors, setErrors] = useState<{ [key: string]: string }>({});
+
+    const handleRegister = async () => {
+        const newErrors: { [key: string]: string } = {};
+        if (!name) newErrors.name = "Le nom est requis";
+        if (!email) newErrors.email = "L’email est requis";
+        if (!password) newErrors.password = "Le mot de passe est requis";
+        if (password !== confirmPassword) newErrors.confirmPassword = "Les mots de passe ne correspondent pas";
+
+        if (Object.keys(newErrors).length > 0) {
+            setErrors(newErrors);
+            return;
+        }
+
         try {
-            await createPlayer(player);
-            await refetch();
-            toast.success(`Le joueur ${player.name} a bien été ajouté.`);
-        } catch (err) {
-            console.error(err);
-            toast.error("Erreur lors de l’ajout du joueur.");
+            await axios.post(BASE_API_URL + "/auth/register/agent", {
+                name,
+                email,
+                password
+            });
+            navigate("/login");
+        } catch (error) {
+            const err = error as AxiosError<{message:string}>;
+            console.log(error)
+            setErrors({
+                email: err.response?.data?.message || "Une erreur est survenue"
+            });
         }
     };
 
-    const handleDeletePlayer = async (id: number) => {
-    if (!window.confirm("Voulez-vous vraiment supprimer ce joueur ?")) return;
-
-    try {
-        const token = localStorage.getItem("token");
-        await axios.delete(`${BASE_API_URL}/players/${id}`, {
-            headers: { Authorization: `Bearer ${token}` },
-        });
-        toast.success("Joueur supprimé !");
-        await refetch();
-    } catch (err) {
-        console.error(err);
-        toast.error("Erreur lors de la suppression du joueur.");
-    }
-};
-
-const [editingPlayer, setEditingPlayer] = useState<PlayerWithId | null>(null);
-
-const handleEditPlayer = (player: PlayerWithId) => {
-    setEditingPlayer(player);
-    setOpenDialog(true);
-};
-
-const handleUpdatePlayer = async (updatedPlayer: PlayerWithId) => {
-    console.log("PUT payload:", updatedPlayer);
-    try {
-        const token = localStorage.getItem("token");
-        await axios.put(`${BASE_API_URL}/players/${updatedPlayer.id}`, updatedPlayer, {
-            headers: { Authorization: `Bearer ${token}` },
-        });
-        toast.success(`Le joueur ${updatedPlayer.name} a été mis à jour.`);
-        setEditingPlayer(null);
-        setOpenDialog(false);
-        await refetch();
-    } catch (err) {
-        console.error(err);
-        toast.error("Erreur lors de la mise à jour du joueur.");
-    }
-};
-
-
-    if (loading) return <Typography>Chargement...</Typography>;
-    if (error) return <Typography color="error">{error}</Typography>;
-
     return (
-        <Stack sx={{p: 4}}>
-            <Box
-                sx={{
-                    display: "grid",
-                    gridTemplateColumns:{
-                        xs: "1fr",
-                        sm: "repeat(2, 1fr)",
-                        md: "repeat(3, 1fr)",
-                        lg: "repeat(4, 1fr)",
-                    },
-                    gap: 3,
-                    justifyItems: "center",
-                    maxWidth: "1200px",
-                    margin: "0 auto",
-                }}
-            >
-                {players.map((player) => (
-                    <CardPlayer key={player.id} player={player} onEdit={handleEditPlayer} onDelete={handleDeletePlayer}/>
-                ))}
+        <Pages title="inscription">
+            <div style={{
+                background: "linear-gradient(16deg, rgba(192, 110, 4, 1) 23%, rgba(246, 154, 3, 1) 48%, rgba(255, 244, 158, 1) 72%, rgba(255, 224, 178, 1) 100%)",
+                backgroundColor: "#C06E04",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                minHeight: "100vh",
+                width: "100%",
+                display: "flex", alignItems:"center",justifyContent:"center",flexDirection:"column"
+            }}>
+                <Box sx={{
+                    display: "flex", flexDirection: "column",
+                    justifyContent: "center", alignItems: "center", minHeight: "90vh"
+                }}>
 
-                <AddPlayerCard onClick={() => {
-                    setEditingPlayer(null);
-                    setOpenDialog(true);
-                }}
-                />
-            </Box>
+                    <Typography
+                        variant="h5"
+                        sx={{fontWeight: "bold", color: "#c06e04",}}
+                    >
+                        S'inscrire
+                    </Typography>
 
-            <AddPlayerDialog
-                open={openDialog}
-                onClose={() => {
-                    setOpenDialog(false);
-                    setEditingPlayer(null);
-                }}
-                onCreate={handleCreatePlayer}
-                playerToEdit={editingPlayer}
-                onUpdate={handleUpdatePlayer}
-            />
-        </Stack>
+                    <Box
+                        sx={{
+                            width: { xs: "90%", sm: 400, md: 480, lg: 562 },
+                            minHeight: { xs: "auto", md: 620 },
+                            backgroundColor: "rgba(255,255,255,0.91)",
+                            borderRadius: 2,
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            pt: {xs:2, md:3},
+                            px: { xs: 2, md: 4 },
+                            pb:{xs:3, md:6},
+                        }}
+                    >
+                        <img
+                            src="/logo-dailyfoot.png"
+                            alt="Logo DailyFoot"
+                            style={{width: 100, borderRadius: 70 , cursor: "pointer"}}
+                            onClick={() => navigate("/login")}
+                        />
+
+                        <Box sx={{mt:{xs:2 , md:3},width:"100%", display: "flex", flexDirection: "column", justifyContent: "center", gap: 3}}>
+                            <Input label="Nom" name="Nom" type="text" value={name} onChange={(e) => setName(e.target.value)}
+                                   errorText={errors.name}/>
+                            <Input label="Email" name="Email" type="text" value={email}
+                                   onChange={(e) => setEmail(e.target.value)} errorText={errors.email}/>
+                            <Input label="Mot de passe" name="password" type="password" value={password}
+                                   onChange={(e) => setPassword(e.target.value)} errorText={errors.password}/>
+                            <Input label="Confirmer Mot de passe" name="password" type="password" value={confirmPassword}
+                                   onChange={(e) => setConfirmPassword(e.target.value)} errorText={errors.confirmPassword}/>
+                        </Box>
+
+                        <Box sx={{mt:{xs:3, md:5},width:"100%", display: "flex", alignItems: "center", gap: 0}}>
+                            <BtnLogin label="Valider" type="button" onClick={handleRegister}/>
+                        </Box>
+
+                    </Box>
+                </Box>
+            </div>
+        </Pages>
     );
 };
 
-export default Players;
+export default Register;

@@ -23,6 +23,7 @@ import ConfirmDialog from "../../components/compoDashboard/ConfirmDialog.tsx";
 import {toast} from "react-toastify";
 import type {AgendaEvent, AgendaEventFormatted} from "../../../types/AgendaEvent.ts";
 import {addEventForPlayer, deletePlayerEvent} from "../../../api/agenda.api.ts";
+import Pages from "../../components/layout/Pages.tsx";
 
 
 const Agenda: React.FC = () => {
@@ -198,110 +199,111 @@ const Agenda: React.FC = () => {
     if (loading) return <p>Chargement...</p>;
     if (error) return <p style={{color: "red"}}>{error}</p>;
     return (
-
-        <Box
-            sx={{
-                "& .fc-toolbar-title": {
-                    fontFamily: "Arial, sans-serif",
-                    fontWeight: "bold",
-                    fontSize: {xs: "16px", md: "20px"},
-                },
-                "& .fc-button": {
-                    fontSize: {xs: "12px", md: "14px"},
-                    padding: {xs: "0.3em 0.6em", md: "0.5em 1em"},
-                },
-                "& .fc-header-toolbar": {
-                    flexWrap: {xs: "wrap", md: "nowrap"},
-                    justifyContent: {xs: "center", md: "space-between"},
-                    gap: {xs: 1, md: 2},
-                },
-            }}
-        >
-            <FullCalendar
-                locale={frLocale}
-                timeZone="local"
-                plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-                initialView="timeGridWeek"
-                headerToolbar={headerToolbar}
-                allDaySlot={false}
-                slotMinTime={"08:00:00"}
-                slotMaxTime={"18:00:00"}
-                events={events}
-                expandRows={true}
-                eventContent={(arg) => {
-                    return (
-                        <div style={{
-                            backgroundColor: arg.event.backgroundColor,
-                            border: `1px solid ${arg.event.borderColor}`,
-                            color: arg.event.textColor,
-                            padding: "2px 4px",
-                            borderRadius: "4px",
-                            fontSize: "0.85em",
-                        }}>
-                            {arg.event.title}
-                        </div>
-                    );
+        <Pages title="agenda">
+            <Box
+                sx={{
+                    "& .fc-toolbar-title": {
+                        fontFamily: "Arial, sans-serif",
+                        fontWeight: "bold",
+                        fontSize: {xs: "16px", md: "20px"},
+                    },
+                    "& .fc-button": {
+                        fontSize: {xs: "12px", md: "14px"},
+                        padding: {xs: "0.3em 0.6em", md: "0.5em 1em"},
+                    },
+                    "& .fc-header-toolbar": {
+                        flexWrap: {xs: "wrap", md: "nowrap"},
+                        justifyContent: {xs: "center", md: "space-between"},
+                        gap: {xs: 1, md: 2},
+                    },
                 }}
-                dateClick={handleDateClick}
-                eventClick={handleEventClick}
-                height="80vh"
-                displayEventTime={false}
-            />
-            <Box sx={{display: "flex", gap: 2, mt: 2}}>
-                  <span style={{background: "red", padding: "4px 8px", borderRadius: "4px", color: "white"}}>
-                    Match
-                  </span>
-                <span style={{background: "green", padding: "4px 8px", borderRadius: "4px", color: "white"}}>
-                    Entraînement
-                  </span>
-                <span style={{background: "blue", padding: "4px 8px", borderRadius: "4px", color: "white"}}>
-                    RDV Médical
-                  </span>
-                <span style={{background: "orange", padding: "4px 8px", borderRadius: "4px", color: "white"}}>
-                    Autre RDV
-                  </span>
+            >
+                <FullCalendar
+                    locale={frLocale}
+                    timeZone="local"
+                    plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+                    initialView="timeGridWeek"
+                    headerToolbar={headerToolbar}
+                    allDaySlot={false}
+                    slotMinTime={"08:00:00"}
+                    slotMaxTime={"18:00:00"}
+                    events={events}
+                    expandRows={true}
+                    eventContent={(arg) => {
+                        return (
+                            <div style={{
+                                backgroundColor: arg.event.backgroundColor,
+                                border: `1px solid ${arg.event.borderColor}`,
+                                color: arg.event.textColor,
+                                padding: "2px 4px",
+                                borderRadius: "4px",
+                                fontSize: "0.85em",
+                            }}>
+                                {arg.event.title}
+                            </div>
+                        );
+                    }}
+                    dateClick={handleDateClick}
+                    eventClick={handleEventClick}
+                    height="80vh"
+                    displayEventTime={false}
+                />
+                <Box sx={{display: "flex", gap: 2, mt: 2}}>
+                      <span style={{background: "red", padding: "4px 8px", borderRadius: "4px", color: "white"}}>
+                        Match
+                      </span>
+                    <span style={{background: "green", padding: "4px 8px", borderRadius: "4px", color: "white"}}>
+                        Entraînement
+                      </span>
+                    <span style={{background: "blue", padding: "4px 8px", borderRadius: "4px", color: "white"}}>
+                        RDV Médical
+                      </span>
+                    <span style={{background: "orange", padding: "4px 8px", borderRadius: "4px", color: "white"}}>
+                        Autre RDV
+                      </span>
+                </Box>
+
+
+                <Dialog open={open} onClose={() => setOpen(false)} PaperProps={{sx: {backgroundColor: "#f9f9f9"}}}>
+                    <DialogTitle>Ajouter un événement</DialogTitle>
+                    <DialogContent>
+                        <TextField
+                            label="Titre"
+                            fullWidth
+                            margin="normal"
+                            value={newTitle}
+                            onChange={(e) => setNewTitle(e.target.value)}
+                        />
+                        <Select
+                            value={newType}
+                            fullWidth
+                            onChange={(e) => setNewType(e.target.value)}
+                            MenuProps={{PaperProps: {sx: {backgroundColor: "white"}}}}
+                        >
+                            <MenuItem value="match">Match</MenuItem>
+                            <MenuItem value="entrainement">Entraînement</MenuItem>
+                            <MenuItem value="medical">RDV Médical</MenuItem>
+                            <MenuItem value="autre">Autre</MenuItem>
+                        </Select>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={() => setOpen(false)}>Annuler</Button>
+                        <Button onClick={handleAddEvent} variant="contained">Ajouter</Button>
+                    </DialogActions>
+                </Dialog>
+                <ConfirmDialog
+                    open={deleteDialogOpen}
+                    message={`Êtes-vous sûr de vouloir supprimer l'événement "${selectedEvent?.event.title}" ?`}
+                    onConfirm={handleConfirmDelete}
+                    onCancel={() => setDeleteDialogOpen(false)}
+                    confirmText="Supprimer"
+                    cancelText="Annuler"
+                    PaperProps={{sx: {backgroundColor: "#f9f9f9"}}}
+
+                />
+
             </Box>
-
-
-            <Dialog open={open} onClose={() => setOpen(false)} PaperProps={{sx: {backgroundColor: "#f9f9f9"}}}>
-                <DialogTitle>Ajouter un événement</DialogTitle>
-                <DialogContent>
-                    <TextField
-                        label="Titre"
-                        fullWidth
-                        margin="normal"
-                        value={newTitle}
-                        onChange={(e) => setNewTitle(e.target.value)}
-                    />
-                    <Select
-                        value={newType}
-                        fullWidth
-                        onChange={(e) => setNewType(e.target.value)}
-                        MenuProps={{PaperProps: {sx: {backgroundColor: "white"}}}}
-                    >
-                        <MenuItem value="match">Match</MenuItem>
-                        <MenuItem value="entrainement">Entraînement</MenuItem>
-                        <MenuItem value="medical">RDV Médical</MenuItem>
-                        <MenuItem value="autre">Autre</MenuItem>
-                    </Select>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={() => setOpen(false)}>Annuler</Button>
-                    <Button onClick={handleAddEvent} variant="contained">Ajouter</Button>
-                </DialogActions>
-            </Dialog>
-            <ConfirmDialog
-                open={deleteDialogOpen}
-                message={`Êtes-vous sûr de vouloir supprimer l'événement "${selectedEvent?.event.title}" ?`}
-                onConfirm={handleConfirmDelete}
-                onCancel={() => setDeleteDialogOpen(false)}
-                confirmText="Supprimer"
-                cancelText="Annuler"
-                PaperProps={{sx: {backgroundColor: "#f9f9f9"}}}
-
-            />
-
-        </Box>
+        </Pages>
     );
 };
 

@@ -1,138 +1,189 @@
-import {useLoaderData} from "react-router";
-import {Box, Typography} from "@mui/material";
-import Input from "../../components/compoLogin/Input.tsx";
-import BtnLogin from "../../components/compoLogin/BtnLogin.tsx";
-import {useState} from "react";
-import {useUserUpdate} from "../../../hooks/user-update.hook.ts";
-import type {FormErrors} from "../../../types/FormErrors.ts";
+import {Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Typography} from "@mui/material";
+import {useParams} from "react-router";
+import {useEffect, useState} from "react";
+import axios from "axios";
+import Profil from "../../components/compoStat/Profil";
+import CardStatistic from "../../components/compoStat/CardStatistic";
+import {BASE_API_URL} from "../../../constants.ts";
+import type {Statistics} from "../../../types/Statistics.ts";
+import type {PlayerStatistics} from "../../../types/Statistics.ts";
+import Pages from "../../components/layout/Pages.tsx";
 
-const Setting = () => {
-    const data = useLoaderData();
-    const [formData, setFormData] = useState(data || {});
-    const [errors, setErrors] = useState<FormErrors>({});
-    const userUpdate = useUserUpdate(formData, setErrors);
+const Statistic = () => {
+    const { id } = useParams<{ id: string }>();
+    const [stats, setStats] = useState<PlayerStatistics | null>(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
+    const [openDialog, setOpenDialog] = useState(false);
+    const [editStats, setEditStats] = useState<Statistics | null>(null);
+
+    // Récupérer le rôle depuis le token
+    let role: "PLAYER" | "AGENT" | "ADMIN" | undefined;
+    const token = localStorage.getItem("token");
+    if (token) {
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const decodedPayload = JSON.parse(atob(base64));
+        role = decodedPayload.role;
+    }
+
+    useEffect(() => {
+        const fetchData = async () => {
+            if (!token) {
+                setError("You must be logged in.");
+                setLoading(false);
+                return;
+            }
+
+            try {
+                let playerId: number;
+
+                if (id) {
+                    playerId = Number(id);
+                } else {
+                    const meResponse = await axios.get(`${BASE_API_URL}/players/me`, {
+                        headers: { Authorization: `Bearer ${token}` },
+                    });
+                    playerId = meResponse.data.id;
+                }
+
+                const statsResponse = await axios.get(`${BASE_API_URL}/statistic/player/${playerId}`, {
+                    headers: { Authorization: `Bearer ${token}` },
+                });
+
+                setStats(statsResponse.data);
+            } catch (err: any) {
+                console.error(err);
+                setError("Player statistics not found or access denied.");
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, [id, token]);
+
+    if (loading)
+        return <Typography sx={{ mt: 4, textAlign: "center" }}>Loading...</Typography>;
+    if (error)
+        return <Typography sx={{ mt: 4, textAlign: "center", color: "red" }}>{error}</Typography>;
+    if (!stats)
+        return <Typography sx={{ mt: 4, textAlign: "center" }}>Player profile not available</Typography>;
+
+    const currentPlayer = Array.isArray(stats.player)
+        ? stats.player.find((p) => p.id === Number(id))
+        : stats.player;
+
+    if (!currentPlayer) {
+        return (
+            <Typography sx={{ mt: 4, textAlign: "center", color: "red" }}>
+                Player not found
+            </Typography>
+        );
+    }
+
+    const handleOpenDialog = () => {
+        setEditStats(stats.statistics);
+        setOpenDialog(true);
+    };
+    const handleCloseDialog = () => setOpenDialog(false);
+    const handleSave = async () => {
+        if (!editStats) return;
+
+        try {
+            await axios.patch(
+                `${BASE_API_URL}/statistic/update/${currentPlayer.id}`,
+                editStats,
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
+
+            // Re-fetch data pour actualiser l'affichage
+            const statsResponse = await axios.get(`${BASE_API_URL}/statistic/player/${currentPlayer.id}`, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            setStats(statsResponse.data);
+
+            setOpenDialog(false);
+        } catch (err) {
+            console.error("Erreur lors de la mise à jour des stats", err);
+            alert("Erreur lors de la mise à jour des statistiques.");
+        }
+    };
 
     return (
-        <Box sx={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            minHeight: "90vh"
-        }}>
-            <Typography
-                variant="h5"
-                sx={{fontWeight: "bold", color: "#f69a03",mt:6}}
-            >
-                Modifier mon compte
-            </Typography>
+        <Pages title="statistique">
+            <Box sx={{ display: "flex",flexDirection:{xs:"column",md:"row"}, width: "100%" }}>
 
-            <Box sx={{
-                width: { xs: "90%", sm: 400, md: 480, lg: 562 },
-                minHeight: { xs: "auto", md: 620 },
-                //height: 'auto',
-                backgroundColor: "rgb(255,255,255)",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                pt: {xs:2, md:3},
-                px: { xs: 2, md: 4 },
-                pb:{xs:3, md:5},
-            }}>
+                <Box sx={{ display:"flex" , flex: 1 , borderRight:{md:"solid 1px orange"}}}>
 
-
-                <Box
-                    component="form"
-                    sx={{
-                        mt: {xs:2 , md:3},
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        gap: 3,
-                        width: '100%',
-                    }}
-                    onSubmit={userUpdate}
-                >
-                    <Box sx={{width: '100%', display: 'flex', justifyContent: 'center'}}>
-                        <Input
-                            label="Nom"
-                            name="name"
-                            type="text"
-                            value={formData.name || ""}
-                            error={!!errors.name}
-                            helperText={errors.name}
-                            onChange={(e) => setFormData({...formData, name: e.target.value})}
-                        />
-                    </Box>
-
-                    <Box sx={{width: '100%', display: 'flex', justifyContent: 'center'}}>
-                        <Input
-                            label="Email"
-                            name="email"
-                            type="email"
-                            value={formData.email || ""}
-                            error={!!errors.email}
-                            helperText={errors.email}
-                            onChange={(e) => setFormData({...formData, email: e.target.value})}
-
-                        />
-                    </Box>
-
-                    <Box sx={{width: '100%',  display: 'flex', justifyContent: 'center'}}>
-                        <Input
-                            label="Mot de passe actuelle "
-                            name="currentPassword"
-                            type="password"
-                            value={formData.currentPassword || ""}
-                            error={!!errors.currentPassword}
-                            helperText={errors.currentPassword}
-                            onChange={(e) => setFormData({...formData, currentPassword: e.target.value})}
-
-                        />
-                    </Box>
-
-                    <Box sx={{width: '100%',  display: 'flex', justifyContent: 'center'}}>
-                        <Input
-                            label="Nouveau mot de passe"
-                            name="password"
-                            type="password"
-                            value={formData.password || ""}
-                            error={!!errors.password}
-                            helperText={errors.password}
-                            onChange={(e) => setFormData({...formData, password: e.target.value})}
-
-                        />
-                    </Box>
-
-                    <Box sx={{width: '100%',display: 'flex', justifyContent: 'center'}}>
-                        <Input
-                            label="Confirmer le mot de passe"
-                            name="confirmPassword"
-                            type="password"
-                            value={formData.confirmPassword || ""}
-                            error={!!errors.confirmPassword}
-                            helperText={errors.confirmPassword}
-                            onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})}
-
-                        />
-                    </Box>
-
-                    {errors.general && (
-                        <Typography
-                            color={errors.general.includes('succès') ? 'success.main' : 'error.main'}
-                            sx={{mt: 2, textAlign: 'center'}}
-                        >
-                            {errors.general}
-                        </Typography>
-                    )}
-
-                    <Box sx={{mt:{xs:3, md:3},width:"100%", display: "flex", alignItems: "center", gap: 0}}>
-                        <BtnLogin label="Valider" type="submit"/>
-                    </Box>
+                    <Profil player={currentPlayer} role={role} />
                 </Box>
+
+
+                <Box sx={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center" }}>
+                    <CardStatistic stats={openDialog && editStats ? editStats : stats.statistics} />
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={handleOpenDialog}
+                    >
+                        Modifier les statistiques
+                    </Button>
+                </Box>
+
+                <Dialog open={openDialog} onClose={handleCloseDialog} PaperProps={{
+                    sx: {
+                        backgroundColor: "#f9f9f9"
+                    }
+                }}>
+                    <DialogTitle>Modifier les statistiques</DialogTitle>
+                    <DialogContent >
+                        {editStats && (
+                            <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 1 }}>
+                                <TextField
+                                    label="Buts"
+                                    type="number"
+                                    value={editStats.goals}
+                                    onChange={(e) => setEditStats({ ...editStats, goals: Number(e.target.value) })}
+                                />
+                                <TextField
+                                    label="Passes décisives"
+                                    type="number"
+                                    value={editStats.assists}
+                                    onChange={(e) => setEditStats({ ...editStats, assists: Number(e.target.value) })}
+                                />
+                                <TextField
+                                    label="Cartons jaunes"
+                                    type="number"
+                                    value={editStats.yellowCards}
+                                    onChange={(e) => setEditStats({ ...editStats, yellowCards: Number(e.target.value) })}
+                                />
+                                <TextField
+                                    label="Cartons rouges"
+                                    type="number"
+                                    value={editStats.redCards}
+                                    onChange={(e) => setEditStats({ ...editStats, redCards: Number(e.target.value) })}
+                                />
+                                <TextField
+                                    label="Matchs joués"
+                                    type="number"
+                                    value={editStats.matchesPlayed}
+                                    onChange={(e) => setEditStats({ ...editStats, matchesPlayed: Number(e.target.value) })}
+                                />
+                            </Box>
+                        )}
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleCloseDialog}>Annuler</Button>
+                        <Button onClick={handleSave} variant="contained" color="success">
+                            Sauvegarder
+                        </Button>
+                    </DialogActions>
+                </Dialog>
             </Box>
-        </Box>
+        </Pages>
     );
 };
 
-export default Setting;
+export default Statistic;

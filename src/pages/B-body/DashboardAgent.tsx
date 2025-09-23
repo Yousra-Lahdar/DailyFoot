@@ -5,6 +5,7 @@ import axios from "axios";
 import {useEffect, useState} from "react";
 import {toast} from "react-toastify";
 import FootSiteCard from "../../components/compoDashboard/FootSiteCard.tsx";
+import Pages from "../../components/layout/Pages.tsx";
 const DashboardAgent = () => {
 
     const [agentName, setAgentName] = useState<string>("");
@@ -31,34 +32,35 @@ const DashboardAgent = () => {
     }, []);
 
     return (
-        <Container maxWidth="xl" sx={{mt: 8}}>
-            <Box
-                sx={{
-                    display: "flex",
-                    gap: 8,
-                    flexWrap: "wrap",
+        <Pages title="accueil agent">
+            <Container maxWidth="xl" sx={{mt: 8}}>
+                <Box
+                    sx={{
+                        display: "flex",
+                        gap: 8,
+                        flexWrap: "wrap",
 
-                }}
-            >
-                <Box sx={{flex: 2, minWidth: 300}}>
-                    <Typography
-                        sx={{color: "orange", fontSize: { xs: "1.25rem", md: "2rem" } ,fontWeight: "bold", display:"flex", justifyContent: "center",mb:3}}
-                    >
-                        Bienvenue {agentName || "Chargement..."}
-                    </Typography>
+                    }}
+                >
+                    <Box sx={{flex: 2, minWidth: 300}}>
+                        <Typography
+                            sx={{color: "orange", fontSize: { xs: "1.25rem", md: "2rem" } ,fontWeight: "bold", display:"flex", justifyContent: "center",mb:3}}
+                        >
+                            Bienvenue {agentName || "Chargement..."}
+                        </Typography>
 
-                    <AgendaCard/>
-                    <PlayersCarouselAgenda/>
+                        <AgendaCard/>
+                        <PlayersCarouselAgenda/>
+                    </Box>
+
+
+                    <Box sx={{flex: 1, minWidth: 250}}>
+                        <FootSiteCard/>
+                    </Box>
                 </Box>
-
-
-                <Box sx={{flex: 1, minWidth: 250}}>
-                    <FootSiteCard/>
-                </Box>
-            </Box>
-        </Container>
+            </Container>
+        </Pages>
     );
 };
 
 export default DashboardAgent;
-
