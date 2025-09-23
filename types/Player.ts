@@ -26,4 +26,6 @@ export type PlayerWithHeightAndWeight = Player & {
 
 export type Props = {
     player: PlayerWithId;
+    onEdit?: (player: Player) => void;
+    onDelete?: (id: number) => void
 }

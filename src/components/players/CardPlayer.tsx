@@ -2,23 +2,6 @@ import {Button, Card, CardContent, Stack, Typography} from "@mui/material";
 import {useNavigate} from "react-router";
 import type {Props} from "../../../types/Player.ts";
 
-interface Player {
-    id: number;
-    name: string;
-    age: number;
-    poste?: string;
-    nationality: string;
-    club: string;
-    image?: string;
-}
-
-interface Props {
-    player: Player;
-    onEdit?: (player: Player) => void;
-    onDelete?: (id: number) => void
-}
-
-
 const CardPlayer = ({player, onEdit, onDelete}: Props) => {
     const navigate = useNavigate();
 
