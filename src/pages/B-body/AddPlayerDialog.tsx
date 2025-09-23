@@ -68,7 +68,9 @@ const AddPlayerDialog: React.FC<AddPlayerDialogProps> = ({
     };
 
     return (
+
         <Dialog open={open} onClose={() => !loading && onClose()} maxWidth="xs" fullWidth PaperProps={{sx: {backgroundColor: "#f9f9f9"}}}>
+
             <Box component="form" onSubmit={handleSubmit}>
                 <DialogTitle>Ajouter un joueur</DialogTitle>
                 <DialogContent sx={{display: "flex", flexDirection: "column", gap: 2}}>

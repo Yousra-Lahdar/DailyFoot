@@ -50,12 +50,12 @@ const CardStatistic = ({ stats }: { stats: StatisticsWithoutHeightAndWeight }) =
                     </Box>
 
                     <Box sx={{ display: "flex", justifyContent: "center", flexWrap:"wrap"  }}>
-                        <Box sx={{display: "flex", flexDirection: "row", justifyContent: "center",gap:3,mt:5}}>
-                            <Typography sx={{fontSize: { xs: "1rem", md: "2rem" }}}>Buts: {stats.goals}</Typography>
-                            <Typography sx={{fontSize: { xs: "1rem", md: "2rem" }}}>Passes décisives: {stats.assists}</Typography>
-                            <Typography sx={{fontSize: { xs: "1rem", md: "2rem" }}}>Cartons jaunes: {stats.yellowCards}</Typography>
-                            <Typography sx={{fontSize: { xs: "1rem", md: "2rem" }}}>Cartons rouges: {stats.redCards}</Typography>
-                            <Typography sx={{fontSize: { xs: "1rem", md: "2rem" }}}>Matchs joués: {stats.matchesPlayed}</Typography>
+                        <Box sx={{display: "flex", flexDirection: "row", justifyContent: "center",alignItems:"center",flexWrap:{ xs: "wrap", md: "nowrap" },gap:{ xs: 1, md: 2},mt:5,textAlign:"center"}}>
+                            <Typography sx={{fontSize: { xs: "0.9rem", md: "1.5rem" }}}>Buts: {stats.goals}</Typography>
+                            <Typography sx={{fontSize: { xs: "0.9rem", md: "1.5rem" }}}>Passes décisives: {stats.assists}</Typography>
+                            <Typography sx={{fontSize: { xs: "0.9rem", md: "1.5rem" }}}>Cartons jaunes: {stats.yellowCards}</Typography>
+                            <Typography sx={{fontSize: { xs: "0.9rem", md: "1.5rem" }}}>Cartons rouges: {stats.redCards}</Typography>
+                            <Typography sx={{fontSize: { xs: "0.9rem", md: "1.5rem" }}}>Matchs joués: {stats.matchesPlayed}</Typography>
                         </Box>
 
                         <Box sx={{ width:{md:550,xs:430}, height:{md:550,xs:430} }}>
