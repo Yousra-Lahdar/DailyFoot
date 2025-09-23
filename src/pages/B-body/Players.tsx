@@ -9,6 +9,7 @@ import {BASE_API_URL} from "../../../constants.ts";
 import {toast} from "react-toastify";
 import {createPlayer} from "../../../api/player.api.ts";
 import type {Player, PlayerWithId} from "../../../types/Player.ts";
+import Pages from "../../components/layout/Pages.tsx";
 
 const Players = () => {
     const {players, loading, error, refetch} = usePlayers();
@@ -70,44 +71,46 @@ const handleUpdatePlayer = async (updatedPlayer: PlayerWithId) => {
     if (error) return <Typography color="error">{error}</Typography>;
 
     return (
-        <Stack sx={{p: 4}}>
-            <Box
-                sx={{
-                    display: "grid",
-                    gridTemplateColumns:{
-                        xs: "1fr",
-                        sm: "repeat(2, 1fr)",
-                        md: "repeat(3, 1fr)",
-                        lg: "repeat(4, 1fr)",
-                    },
-                    gap: 3,
-                    justifyItems: "center",
-                    maxWidth: "1200px",
-                    margin: "0 auto",
-                }}
-            >
-                {players.map((player) => (
-                    <CardPlayer key={player.id} player={player} onEdit={handleEditPlayer} onDelete={handleDeletePlayer}/>
-                ))}
+        <Pages title="les joueurs">
+            <Stack sx={{p: 4}}>
+                <Box
+                    sx={{
+                        display: "grid",
+                        gridTemplateColumns:{
+                            xs: "1fr",
+                            sm: "repeat(2, 1fr)",
+                            md: "repeat(3, 1fr)",
+                            lg: "repeat(4, 1fr)",
+                        },
+                        gap: 3,
+                        justifyItems: "center",
+                        maxWidth: "1200px",
+                        margin: "0 auto",
+                    }}
+                >
+                    {players.map((player) => (
+                        <CardPlayer key={player.id} player={player} onEdit={handleEditPlayer} onDelete={handleDeletePlayer}/>
+                    ))}
 
-                <AddPlayerCard onClick={() => {
-                    setEditingPlayer(null);
-                    setOpenDialog(true);
-                }}
+                    <AddPlayerCard onClick={() => {
+                        setEditingPlayer(null);
+                        setOpenDialog(true);
+                    }}
+                    />
+                </Box>
+
+                <AddPlayerDialog
+                    open={openDialog}
+                    onClose={() => {
+                        setOpenDialog(false);
+                        setEditingPlayer(null);
+                    }}
+                    onCreate={handleCreatePlayer}
+                    playerToEdit={editingPlayer}
+                    onUpdate={handleUpdatePlayer}
                 />
-            </Box>
-
-            <AddPlayerDialog
-                open={openDialog}
-                onClose={() => {
-                    setOpenDialog(false);
-                    setEditingPlayer(null);
-                }}
-                onCreate={handleCreatePlayer}
-                playerToEdit={editingPlayer}
-                onUpdate={handleUpdatePlayer}
-            />
-        </Stack>
+            </Stack>
+        </Pages>
     );
 };
 
