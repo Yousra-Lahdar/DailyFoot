@@ -1,8 +1,25 @@
-import {Card, CardContent, Typography} from "@mui/material";
+import {Button, Card, CardContent, Stack, Typography} from "@mui/material";
 import {useNavigate} from "react-router";
 import type {Props} from "../../../types/Player.ts";
 
-const CardPlayer = ({player}: Props) => {
+interface Player {
+    id: number;
+    name: string;
+    age: number;
+    poste?: string;
+    nationality: string;
+    club: string;
+    image?: string;
+}
+
+interface Props {
+    player: Player;
+    onEdit?: (player: Player) => void;
+    onDelete?: (id: number) => void
+}
+
+
+const CardPlayer = ({player, onEdit, onDelete}: Props) => {
     const navigate = useNavigate();
 
     const handleClick = () => {
@@ -24,7 +41,7 @@ const CardPlayer = ({player}: Props) => {
                 textAlign: "center",
             }}
         >
-            <CardContent>
+            <CardContent onClick={handleClick} sx={{ cursor: "pointer" }}>
                 <img
                     src={player.image || "/default-avatar.png"}
                     alt={player.name}
@@ -37,6 +54,31 @@ const CardPlayer = ({player}: Props) => {
                 <Typography variant="body2">Age : {player.age}</Typography>
                 <Typography variant="body2">Poste : {player.poste}</Typography>
             </CardContent>
+             <Stack direction="row" spacing={1} justifyContent="center" sx={{ mt: 1, mb: 1 }}>
+                <Button
+                    variant="contained"
+                    size="small"
+                    color="primary"
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        if (onEdit) onEdit(player);
+                    }}
+                >
+                    Modifier
+                </Button>
+                <Button
+                    variant="contained"
+                    size="small"
+                    color="error"
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        if (onDelete) onDelete(player.id);
+                        
+                        }}
+                >
+                    Supprimer
+                </Button>
+            </Stack>
         </Card>
     );
 };
