@@ -22,10 +22,10 @@ const FooterWithLogo = () => {
         >
             <Box sx={{ display: "flex",flexDirection: { xs: "column", sm: "row" }, alignItems: "center",gap: { xs: 1, sm: 3 } }}>
             <Box sx={{ display: "flex", gap: 3 }} >
-                <Link href="/conditions" underline="none" color="#666666" fontWeight="bold" >
+                <Link href="../../../public/Conditions.pdf" underline="none" color="#666666" fontWeight="bold" download="Conditions_Generales_DailyFoot.pdf">
                     Conditions générales
                 </Link>
-                <Link href="/mentions" underline="none" color="#666666" fontWeight="bold">
+                <Link href="../../../public/mentions.pdf" underline="none" color="#666666" fontWeight="bold" download="Mentions_Légales_DailyFoot.pdf">
                     Mentions légales
                 </Link>
             </Box>
