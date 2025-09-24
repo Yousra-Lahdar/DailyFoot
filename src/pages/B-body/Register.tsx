@@ -6,6 +6,7 @@ import {useState} from "react";
 import axios, {type AxiosError} from "axios";
 import {BASE_API_URL} from "../../../constants.ts";
 import Pages from "../../components/layout/Pages.tsx";
+import {toast} from "react-toastify";
 
 const Register = () => {
 
@@ -37,7 +38,7 @@ const Register = () => {
             navigate("/login");
         } catch (error) {
             const err = error as AxiosError<{message:string}>;
-            console.log(error)
+            toast.error("Un utilisateur existe déjà cette adresse mail")
             setErrors({
                 email: err.response?.data?.message || "Une erreur est survenue"
             });
@@ -90,13 +91,13 @@ const Register = () => {
 
                     <Box sx={{mt:{xs:2 , md:3},width:"100%", display: "flex", flexDirection: "column", justifyContent: "center", gap: 3}}>
                         <Input label="Nom" name="Nom" type="text" value={name} onChange={(e) => setName(e.target.value)}
-                               errorText={errors.name}/>
+                               error={!!errors.name} helperText={errors.name} />
                         <Input label="Email" name="Email" type="text" value={email}
-                               onChange={(e) => setEmail(e.target.value)} errorText={errors.email}/>
+                               onChange={(e) => setEmail(e.target.value)} error={!!errors.email} helperText={errors.email} />
                         <Input label="Mot de passe" name="password" type="password" value={password}
-                               onChange={(e) => setPassword(e.target.value)} errorText={errors.password}/>
+                               onChange={(e) => setPassword(e.target.value)} error={!!errors.password} helperText={errors.password} />
                         <Input label="Confirmer Mot de passe" name="password" type="password" value={confirmPassword}
-                               onChange={(e) => setConfirmPassword(e.target.value)} errorText={errors.confirmPassword}/>
+                               onChange={(e) => setConfirmPassword(e.target.value)} error={!!errors.confirmPassword} helperText={errors.confirmPassword} />
                     </Box>
 
                     <Box sx={{mt:{xs:3, md:5},width:"100%", display: "flex", alignItems: "center", gap: 0}}>
