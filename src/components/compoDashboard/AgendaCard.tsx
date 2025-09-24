@@ -34,6 +34,7 @@ export default function AgendaCard() {
                 const todayEvents = data
                     .filter((event: any) => {
                         const start = new Date(event.dateHeureDebut);
+                        const date = start.toLocaleDateString([], { day: "2-digit", month: "2-digit", year: "numeric" });
                         const oneHourLater = new Date(start.getTime() + 60 * 60 * 1000);
                         return oneHourLater > now; // garde seulement ceux encore valides
                     })
@@ -52,13 +53,14 @@ export default function AgendaCard() {
     return (
         <Box sx={{p: 2}}>
             <Typography variant="h6" gutterBottom>
-                Événements aujourd’hui
+                Prochain événements
             </Typography>
 
             {eventsToday.length > 0 ? (
                 <Stack spacing={2}>
                     {eventsToday.map((e: any) => {
                         const start = new Date(e.dateHeureDebut);
+                        const date = start.toLocaleDateString([], {day: "2-digit", month: "2-digit", year: "numeric"});
                         const time = start.toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"});
 
                         return (
@@ -66,20 +68,25 @@ export default function AgendaCard() {
                                 <CardContent
                                     sx={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
                                     <Box>
-                                        <Typography variant="subtitle1" fontWeight="bold">
-                                            {e.title}
-                                        </Typography>
                                         <Typography variant="body1" color="text.secondary">
                                             {e.userName}
                                         </Typography>
-                                    </Box>
-                                    <Stack direction="column" alignItems="flex-end" spacing={1}>
-                                        <Typography variant="body1">{time}</Typography>
+                                        <Typography variant="subtitle1" fontWeight="bold">
+                                            {e.title}
+                                        </Typography>
                                         {e.description && <Chip label={e.description.charAt(0).toUpperCase() + e.description.slice(1)} size="small" sx={{
                                             backgroundColor: getEventColor(e.description),
                                             color: "white",
                                             fontWeight: "bold",
                                         }}/>}
+
+                                    </Box>
+                                    <Stack direction="column" alignItems="flex-end" spacing={1}>
+                                        <Typography variant="body1" >
+                                            {date}
+                                        </Typography>
+                                        <Typography variant="body1">{time}</Typography>
+
                                     </Stack>
                                 </CardContent>
                             </Card>
